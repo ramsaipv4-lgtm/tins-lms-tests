@@ -1,0 +1,66 @@
+{
+ "_format": "Synthetic journey seed for POST /__test/seed {fixture:'journeys/<file>'} (SPEC §5.9). databases: dbName -> documents to put (SPEC §3 shapes; ids '<type>:<key>'; the personal db of person:<key> is 'person-<key>'). packages: fixture package folders (relative to acceptance/fixtures) to import into classId (running the gate) and publish when publish is true; publishing creates the class's day documents from its schedule. joinCodes: one-time class join codes to create. Seeds are additive: later files only add documents. Seeded attempts with publishedAt and score also get their grade ledger entry (SPEC §4.9).",
+ "_about": "Published day-0 quiz attempts: l1 scored 5/8 (seed \"seed-c1-l1-day0-quiz\"), l2 scored 7/8; l2 also has a private error note. Clock: day 1.",
+ "databases": {
+  "class-c1": [
+   {
+    "type": "attempt",
+    "id": "attempt:c1-l1-day0-quiz",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "personId": "person:l1",
+    "itemId": "day0:quiz",
+    "seed": "seed-c1-l1-day0-quiz",
+    "mode": "live",
+    "answers": {},
+    "score": 5,
+    "max": 8,
+    "timing": {
+     "durationMs": 1200000,
+     "flags": []
+    },
+    "aiPolicy": "off",
+    "aiUsage": [],
+    "publishedAt": 1793604600000,
+    "unreadConfirmations": 0
+   },
+   {
+    "type": "attempt",
+    "id": "attempt:c1-l2-day0-quiz",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "personId": "person:l2",
+    "itemId": "day0:quiz",
+    "seed": "seed-c1-l2-day0-quiz",
+    "mode": "live",
+    "answers": {},
+    "score": 7,
+    "max": 8,
+    "timing": {
+     "durationMs": 1200000,
+     "flags": []
+    },
+    "aiPolicy": "off",
+    "aiUsage": [],
+    "publishedAt": 1793604600000,
+    "unreadConfirmations": 0
+   }
+  ],
+  "person-l2": [
+   {
+    "type": "errorNote",
+    "id": "errorNote:l2-d0-1",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "dayIndex": 0,
+    "subtopic": "Folders",
+    "question": "Private question of Liam",
+    "given": "x",
+    "correct": "y"
+   }
+  ]
+ }
+}

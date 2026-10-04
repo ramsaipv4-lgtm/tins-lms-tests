@@ -1,0 +1,45 @@
+{
+  "_note": "Synthetic OCR output (one string per recognised line) for SPEC §4.18 / AC-35. Invented apps and values.",
+  "diet": {
+    "lines": [
+      "9:41",
+      "FoodLog Today",
+      "Daily summary",
+      "Calories",
+      "1,850",
+      "Goal 2,200",
+      "Protein 72.5 g",
+      "Carbs 210 g",
+      "Fat 61 g"
+    ],
+    "rules": {
+      "app": "foodlog",
+      "fields": [
+        { "name": "calories", "anchor": "^calories$", "pick": "next-line-number", "unit": "kcal" },
+        { "name": "protein", "anchor": "^protein\\b", "pick": "same-line-number", "unit": "g" },
+        { "name": "fibre", "anchor": "^fib(re|er)\\b", "pick": "same-line-number", "unit": "g" }
+      ]
+    },
+    "expected": { "calories": 1850, "protein": 72.5, "fibre": null }
+  },
+  "expense": {
+    "lines": [
+      "PayWallet",
+      "Payment successful",
+      "Paid to Corner Stationers",
+      "Amount ₹1,234.50",
+      "Fee Rs 12",
+      "Ref no",
+      "TXN0042"
+    ],
+    "rules": {
+      "app": "paywallet",
+      "fields": [
+        { "name": "amount", "anchor": "^amount\\b", "pick": "same-line-number", "unit": "INR" },
+        { "name": "fee", "anchor": "^fee\\b", "pick": "same-line-number", "unit": "INR" },
+        { "name": "tip", "anchor": "^tip\\b", "pick": "same-line-number", "unit": "INR" }
+      ]
+    },
+    "expected": { "amount": 1234.5, "fee": 12, "tip": null }
+  }
+}

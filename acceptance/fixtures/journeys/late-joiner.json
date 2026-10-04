@@ -1,0 +1,127 @@
+{
+ "_format": "Synthetic journey seed for POST /__test/seed {fixture:'journeys/<file>'} (SPEC §5.9). databases: dbName -> documents to put (SPEC §3 shapes; ids '<type>:<key>'; the personal db of person:<key> is 'person-<key>'). packages: fixture package folders (relative to acceptance/fixtures) to import into classId (running the gate) and publish when publish is true; publishing creates the class's day documents from its schedule. joinCodes: one-time class join codes to create. Seeds are additive: later files only add documents. Seeded attempts with publishedAt and score also get their grade ledger entry (SPEC §4.9).",
+ "_about": "Learner l4 joins class c1 on day 3 (missed days 0-2); l1-l3 attended days 0-2.",
+ "databases": {
+  "class-c1": [
+   {
+    "type": "enrolment",
+    "id": "enrolment:c1-l4",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "personId": "person:l4",
+    "joinedAt": 1793847600000,
+    "status": "active",
+    "profile": "hub"
+   },
+   {
+    "type": "attendance",
+    "id": "attendance:c1-l1-d0",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "personId": "person:l1",
+    "dayIndex": 0,
+    "method": "rotating",
+    "verified": true,
+    "at": 1793590500000
+   },
+   {
+    "type": "attendance",
+    "id": "attendance:c1-l1-d1",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "personId": "person:l1",
+    "dayIndex": 1,
+    "method": "rotating",
+    "verified": true,
+    "at": 1793676900000
+   },
+   {
+    "type": "attendance",
+    "id": "attendance:c1-l1-d2",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "personId": "person:l1",
+    "dayIndex": 2,
+    "method": "rotating",
+    "verified": true,
+    "at": 1793763300000
+   },
+   {
+    "type": "attendance",
+    "id": "attendance:c1-l2-d0",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "personId": "person:l2",
+    "dayIndex": 0,
+    "method": "rotating",
+    "verified": true,
+    "at": 1793590500000
+   },
+   {
+    "type": "attendance",
+    "id": "attendance:c1-l2-d1",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "personId": "person:l2",
+    "dayIndex": 1,
+    "method": "rotating",
+    "verified": true,
+    "at": 1793676900000
+   },
+   {
+    "type": "attendance",
+    "id": "attendance:c1-l2-d2",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "personId": "person:l2",
+    "dayIndex": 2,
+    "method": "rotating",
+    "verified": true,
+    "at": 1793763300000
+   },
+   {
+    "type": "attendance",
+    "id": "attendance:c1-l3-d0",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "personId": "person:l3",
+    "dayIndex": 0,
+    "method": "rotating",
+    "verified": true,
+    "at": 1793590500000
+   },
+   {
+    "type": "attendance",
+    "id": "attendance:c1-l3-d1",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "personId": "person:l3",
+    "dayIndex": 1,
+    "method": "rotating",
+    "verified": true,
+    "at": 1793676900000
+   },
+   {
+    "type": "attendance",
+    "id": "attendance:c1-l3-d2",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "personId": "person:l3",
+    "dayIndex": 2,
+    "method": "rotating",
+    "verified": true,
+    "at": 1793763300000
+   }
+  ]
+ }
+}

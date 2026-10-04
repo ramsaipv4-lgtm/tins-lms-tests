@@ -1,0 +1,1030 @@
+{
+ "_format": "Synthetic journey seed for POST /__test/seed {fixture:'journeys/<file>'} (SPEC §5.9). databases: dbName -> documents to put (SPEC §3 shapes; ids '<type>:<key>'; the personal db of person:<key> is 'person-<key>'). packages: fixture package folders (relative to acceptance/fixtures) to import into classId (running the gate) and publish when publish is true; publishing creates the class's day documents from its schedule. joinCodes: one-time class join codes to create. Seeds are additive: later files only add documents. Seeded attempts with publishedAt and score also get their grade ledger entry (SPEC §4.9).",
+ "_about": "12 synthetic learners answered the day-0 diagnostic; item day0:diag:8 is answered correctly by everyone (planted weak question); on item 4 the wrong answer \"kettle make\" repeats.",
+ "databases": {
+  "org": [
+   {
+    "type": "person",
+    "id": "person:x01",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "name": "Synthetic Learner 01",
+    "roles": [
+     "learner"
+    ],
+    "minor": false
+   },
+   {
+    "type": "person",
+    "id": "person:x02",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "name": "Synthetic Learner 02",
+    "roles": [
+     "learner"
+    ],
+    "minor": false
+   },
+   {
+    "type": "person",
+    "id": "person:x03",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "name": "Synthetic Learner 03",
+    "roles": [
+     "learner"
+    ],
+    "minor": false
+   },
+   {
+    "type": "person",
+    "id": "person:x04",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "name": "Synthetic Learner 04",
+    "roles": [
+     "learner"
+    ],
+    "minor": false
+   },
+   {
+    "type": "person",
+    "id": "person:x05",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "name": "Synthetic Learner 05",
+    "roles": [
+     "learner"
+    ],
+    "minor": false
+   },
+   {
+    "type": "person",
+    "id": "person:x06",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "name": "Synthetic Learner 06",
+    "roles": [
+     "learner"
+    ],
+    "minor": false
+   },
+   {
+    "type": "person",
+    "id": "person:x07",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "name": "Synthetic Learner 07",
+    "roles": [
+     "learner"
+    ],
+    "minor": false
+   },
+   {
+    "type": "person",
+    "id": "person:x08",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "name": "Synthetic Learner 08",
+    "roles": [
+     "learner"
+    ],
+    "minor": false
+   },
+   {
+    "type": "person",
+    "id": "person:x09",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "name": "Synthetic Learner 09",
+    "roles": [
+     "learner"
+    ],
+    "minor": false
+   },
+   {
+    "type": "person",
+    "id": "person:x10",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "name": "Synthetic Learner 10",
+    "roles": [
+     "learner"
+    ],
+    "minor": false
+   },
+   {
+    "type": "person",
+    "id": "person:x11",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "name": "Synthetic Learner 11",
+    "roles": [
+     "learner"
+    ],
+    "minor": false
+   },
+   {
+    "type": "person",
+    "id": "person:x12",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "name": "Synthetic Learner 12",
+    "roles": [
+     "learner"
+    ],
+    "minor": false
+   }
+  ],
+  "class-c1": [
+   {
+    "type": "enrolment",
+    "id": "enrolment:c1-x01",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "personId": "person:x01",
+    "joinedAt": 1792989000000,
+    "status": "active",
+    "profile": "hub"
+   },
+   {
+    "type": "enrolment",
+    "id": "enrolment:c1-x02",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "personId": "person:x02",
+    "joinedAt": 1792989000000,
+    "status": "active",
+    "profile": "hub"
+   },
+   {
+    "type": "enrolment",
+    "id": "enrolment:c1-x03",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "personId": "person:x03",
+    "joinedAt": 1792989000000,
+    "status": "active",
+    "profile": "hub"
+   },
+   {
+    "type": "enrolment",
+    "id": "enrolment:c1-x04",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "personId": "person:x04",
+    "joinedAt": 1792989000000,
+    "status": "active",
+    "profile": "hub"
+   },
+   {
+    "type": "enrolment",
+    "id": "enrolment:c1-x05",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "personId": "person:x05",
+    "joinedAt": 1792989000000,
+    "status": "active",
+    "profile": "hub"
+   },
+   {
+    "type": "enrolment",
+    "id": "enrolment:c1-x06",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "personId": "person:x06",
+    "joinedAt": 1792989000000,
+    "status": "active",
+    "profile": "hub"
+   },
+   {
+    "type": "enrolment",
+    "id": "enrolment:c1-x07",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "personId": "person:x07",
+    "joinedAt": 1792989000000,
+    "status": "active",
+    "profile": "hub"
+   },
+   {
+    "type": "enrolment",
+    "id": "enrolment:c1-x08",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "personId": "person:x08",
+    "joinedAt": 1792989000000,
+    "status": "active",
+    "profile": "hub"
+   },
+   {
+    "type": "enrolment",
+    "id": "enrolment:c1-x09",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "personId": "person:x09",
+    "joinedAt": 1792989000000,
+    "status": "active",
+    "profile": "hub"
+   },
+   {
+    "type": "enrolment",
+    "id": "enrolment:c1-x10",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "personId": "person:x10",
+    "joinedAt": 1792989000000,
+    "status": "active",
+    "profile": "hub"
+   },
+   {
+    "type": "enrolment",
+    "id": "enrolment:c1-x11",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "personId": "person:x11",
+    "joinedAt": 1792989000000,
+    "status": "active",
+    "profile": "hub"
+   },
+   {
+    "type": "enrolment",
+    "id": "enrolment:c1-x12",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "personId": "person:x12",
+    "joinedAt": 1792989000000,
+    "status": "active",
+    "profile": "hub"
+   },
+   {
+    "type": "attempt",
+    "id": "attempt:c1-x01-day0-diag",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "personId": "person:x01",
+    "itemId": "day0:diagnostic",
+    "seed": "seed-c1-x01-day0-diag",
+    "mode": "live",
+    "answers": [
+     {
+      "itemId": "day0:diag:1",
+      "correct": true,
+      "given": null
+     },
+     {
+      "itemId": "day0:diag:2",
+      "correct": false,
+      "given": "not sure"
+     },
+     {
+      "itemId": "day0:diag:3",
+      "correct": true,
+      "given": null
+     },
+     {
+      "itemId": "day0:diag:4",
+      "correct": true,
+      "given": null
+     },
+     {
+      "itemId": "day0:diag:5",
+      "correct": false,
+      "given": "not sure"
+     },
+     {
+      "itemId": "day0:diag:6",
+      "correct": true,
+      "given": null
+     },
+     {
+      "itemId": "day0:diag:7",
+      "correct": true,
+      "given": null
+     },
+     {
+      "itemId": "day0:diag:8",
+      "correct": true,
+      "given": null
+     }
+    ],
+    "score": 6,
+    "max": 8,
+    "timing": {
+     "durationMs": 1200000,
+     "flags": []
+    },
+    "aiPolicy": "off",
+    "aiUsage": [],
+    "publishedAt": 1793593800000
+   },
+   {
+    "type": "attempt",
+    "id": "attempt:c1-x02-day0-diag",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "personId": "person:x02",
+    "itemId": "day0:diagnostic",
+    "seed": "seed-c1-x02-day0-diag",
+    "mode": "live",
+    "answers": [
+     {
+      "itemId": "day0:diag:1",
+      "correct": false,
+      "given": "not sure"
+     },
+     {
+      "itemId": "day0:diag:2",
+      "correct": true,
+      "given": null
+     },
+     {
+      "itemId": "day0:diag:3",
+      "correct": true,
+      "given": null
+     },
+     {
+      "itemId": "day0:diag:4",
+      "correct": false,
+      "given": "kettle make"
+     },
+     {
+      "itemId": "day0:diag:5",
+      "correct": true,
+      "given": null
+     },
+     {
+      "itemId": "day0:diag:6",
+      "correct": true,
+      "given": null
+     },
+     {
+      "itemId": "day0:diag:7",
+      "correct": false,
+      "given": "not sure"
+     },
+     {
+      "itemId": "day0:diag:8",
+      "correct": true,
+      "given": null
+     }
+    ],
+    "score": 5,
+    "max": 8,
+    "timing": {
+     "durationMs": 1200000,
+     "flags": []
+    },
+    "aiPolicy": "off",
+    "aiUsage": [],
+    "publishedAt": 1793593800000
+   },
+   {
+    "type": "attempt",
+    "id": "attempt:c1-x03-day0-diag",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "personId": "person:x03",
+    "itemId": "day0:diagnostic",
+    "seed": "seed-c1-x03-day0-diag",
+    "mode": "live",
+    "answers": [
+     {
+      "itemId": "day0:diag:1",
+      "correct": true,
+      "given": null
+     },
+     {
+      "itemId": "day0:diag:2",
+      "correct": true,
+      "given": null
+     },
+     {
+      "itemId": "day0:diag:3",
+      "correct": false,
+      "given": "not sure"
+     },
+     {
+      "itemId": "day0:diag:4",
+      "correct": true,
+      "given": null
+     },
+     {
+      "itemId": "day0:diag:5",
+      "correct": true,
+      "given": null
+     },
+     {
+      "itemId": "day0:diag:6",
+      "correct": false,
+      "given": "not sure"
+     },
+     {
+      "itemId": "day0:diag:7",
+      "correct": true,
+      "given": null
+     },
+     {
+      "itemId": "day0:diag:8",
+      "correct": true,
+      "given": null
+     }
+    ],
+    "score": 6,
+    "max": 8,
+    "timing": {
+     "durationMs": 1200000,
+     "flags": []
+    },
+    "aiPolicy": "off",
+    "aiUsage": [],
+    "publishedAt": 1793593800000
+   },
+   {
+    "type": "attempt",
+    "id": "attempt:c1-x04-day0-diag",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "personId": "person:x04",
+    "itemId": "day0:diagnostic",
+    "seed": "seed-c1-x04-day0-diag",
+    "mode": "live",
+    "answers": [
+     {
+      "itemId": "day0:diag:1",
+      "correct": true,
+      "given": null
+     },
+     {
+      "itemId": "day0:diag:2",
+      "correct": false,
+      "given": "not sure"
+     },
+     {
+      "itemId": "day0:diag:3",
+      "correct": true,
+      "given": null
+     },
+     {
+      "itemId": "day0:diag:4",
+      "correct": true,
+      "given": null
+     },
+     {
+      "itemId": "day0:diag:5",
+      "correct": false,
+      "given": "not sure"
+     },
+     {
+      "itemId": "day0:diag:6",
+      "correct": true,
+      "given": null
+     },
+     {
+      "itemId": "day0:diag:7",
+      "correct": true,
+      "given": null
+     },
+     {
+      "itemId": "day0:diag:8",
+      "correct": true,
+      "given": null
+     }
+    ],
+    "score": 6,
+    "max": 8,
+    "timing": {
+     "durationMs": 1200000,
+     "flags": []
+    },
+    "aiPolicy": "off",
+    "aiUsage": [],
+    "publishedAt": 1793593800000
+   },
+   {
+    "type": "attempt",
+    "id": "attempt:c1-x05-day0-diag",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "personId": "person:x05",
+    "itemId": "day0:diagnostic",
+    "seed": "seed-c1-x05-day0-diag",
+    "mode": "live",
+    "answers": [
+     {
+      "itemId": "day0:diag:1",
+      "correct": false,
+      "given": "not sure"
+     },
+     {
+      "itemId": "day0:diag:2",
+      "correct": true,
+      "given": null
+     },
+     {
+      "itemId": "day0:diag:3",
+      "correct": true,
+      "given": null
+     },
+     {
+      "itemId": "day0:diag:4",
+      "correct": false,
+      "given": "kettle make"
+     },
+     {
+      "itemId": "day0:diag:5",
+      "correct": true,
+      "given": null
+     },
+     {
+      "itemId": "day0:diag:6",
+      "correct": true,
+      "given": null
+     },
+     {
+      "itemId": "day0:diag:7",
+      "correct": false,
+      "given": "not sure"
+     },
+     {
+      "itemId": "day0:diag:8",
+      "correct": true,
+      "given": null
+     }
+    ],
+    "score": 5,
+    "max": 8,
+    "timing": {
+     "durationMs": 1200000,
+     "flags": []
+    },
+    "aiPolicy": "off",
+    "aiUsage": [],
+    "publishedAt": 1793593800000
+   },
+   {
+    "type": "attempt",
+    "id": "attempt:c1-x06-day0-diag",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "personId": "person:x06",
+    "itemId": "day0:diagnostic",
+    "seed": "seed-c1-x06-day0-diag",
+    "mode": "live",
+    "answers": [
+     {
+      "itemId": "day0:diag:1",
+      "correct": true,
+      "given": null
+     },
+     {
+      "itemId": "day0:diag:2",
+      "correct": true,
+      "given": null
+     },
+     {
+      "itemId": "day0:diag:3",
+      "correct": false,
+      "given": "not sure"
+     },
+     {
+      "itemId": "day0:diag:4",
+      "correct": true,
+      "given": null
+     },
+     {
+      "itemId": "day0:diag:5",
+      "correct": true,
+      "given": null
+     },
+     {
+      "itemId": "day0:diag:6",
+      "correct": false,
+      "given": "not sure"
+     },
+     {
+      "itemId": "day0:diag:7",
+      "correct": true,
+      "given": null
+     },
+     {
+      "itemId": "day0:diag:8",
+      "correct": true,
+      "given": null
+     }
+    ],
+    "score": 6,
+    "max": 8,
+    "timing": {
+     "durationMs": 1200000,
+     "flags": []
+    },
+    "aiPolicy": "off",
+    "aiUsage": [],
+    "publishedAt": 1793593800000
+   },
+   {
+    "type": "attempt",
+    "id": "attempt:c1-x07-day0-diag",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "personId": "person:x07",
+    "itemId": "day0:diagnostic",
+    "seed": "seed-c1-x07-day0-diag",
+    "mode": "live",
+    "answers": [
+     {
+      "itemId": "day0:diag:1",
+      "correct": true,
+      "given": null
+     },
+     {
+      "itemId": "day0:diag:2",
+      "correct": false,
+      "given": "not sure"
+     },
+     {
+      "itemId": "day0:diag:3",
+      "correct": false,
+      "given": "not sure"
+     },
+     {
+      "itemId": "day0:diag:4",
+      "correct": false,
+      "given": "kettle make"
+     },
+     {
+      "itemId": "day0:diag:5",
+      "correct": true,
+      "given": null
+     },
+     {
+      "itemId": "day0:diag:6",
+      "correct": false,
+      "given": "not sure"
+     },
+     {
+      "itemId": "day0:diag:7",
+      "correct": false,
+      "given": "not sure"
+     },
+     {
+      "itemId": "day0:diag:8",
+      "correct": true,
+      "given": null
+     }
+    ],
+    "score": 3,
+    "max": 8,
+    "timing": {
+     "durationMs": 1200000,
+     "flags": []
+    },
+    "aiPolicy": "off",
+    "aiUsage": [],
+    "publishedAt": 1793593800000
+   },
+   {
+    "type": "attempt",
+    "id": "attempt:c1-x08-day0-diag",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "personId": "person:x08",
+    "itemId": "day0:diagnostic",
+    "seed": "seed-c1-x08-day0-diag",
+    "mode": "live",
+    "answers": [
+     {
+      "itemId": "day0:diag:1",
+      "correct": false,
+      "given": "not sure"
+     },
+     {
+      "itemId": "day0:diag:2",
+      "correct": false,
+      "given": "not sure"
+     },
+     {
+      "itemId": "day0:diag:3",
+      "correct": false,
+      "given": "not sure"
+     },
+     {
+      "itemId": "day0:diag:4",
+      "correct": true,
+      "given": null
+     },
+     {
+      "itemId": "day0:diag:5",
+      "correct": false,
+      "given": "not sure"
+     },
+     {
+      "itemId": "day0:diag:6",
+      "correct": false,
+      "given": "not sure"
+     },
+     {
+      "itemId": "day0:diag:7",
+      "correct": false,
+      "given": "not sure"
+     },
+     {
+      "itemId": "day0:diag:8",
+      "correct": true,
+      "given": null
+     }
+    ],
+    "score": 2,
+    "max": 8,
+    "timing": {
+     "durationMs": 1200000,
+     "flags": []
+    },
+    "aiPolicy": "off",
+    "aiUsage": [],
+    "publishedAt": 1793593800000
+   },
+   {
+    "type": "attempt",
+    "id": "attempt:c1-x09-day0-diag",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "personId": "person:x09",
+    "itemId": "day0:diagnostic",
+    "seed": "seed-c1-x09-day0-diag",
+    "mode": "live",
+    "answers": [
+     {
+      "itemId": "day0:diag:1",
+      "correct": false,
+      "given": "not sure"
+     },
+     {
+      "itemId": "day0:diag:2",
+      "correct": false,
+      "given": "not sure"
+     },
+     {
+      "itemId": "day0:diag:3",
+      "correct": true,
+      "given": null
+     },
+     {
+      "itemId": "day0:diag:4",
+      "correct": false,
+      "given": "kettle make"
+     },
+     {
+      "itemId": "day0:diag:5",
+      "correct": false,
+      "given": "not sure"
+     },
+     {
+      "itemId": "day0:diag:6",
+      "correct": false,
+      "given": "not sure"
+     },
+     {
+      "itemId": "day0:diag:7",
+      "correct": true,
+      "given": null
+     },
+     {
+      "itemId": "day0:diag:8",
+      "correct": true,
+      "given": null
+     }
+    ],
+    "score": 3,
+    "max": 8,
+    "timing": {
+     "durationMs": 1200000,
+     "flags": []
+    },
+    "aiPolicy": "off",
+    "aiUsage": [],
+    "publishedAt": 1793593800000
+   },
+   {
+    "type": "attempt",
+    "id": "attempt:c1-x10-day0-diag",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "personId": "person:x10",
+    "itemId": "day0:diagnostic",
+    "seed": "seed-c1-x10-day0-diag",
+    "mode": "live",
+    "answers": [
+     {
+      "itemId": "day0:diag:1",
+      "correct": false,
+      "given": "not sure"
+     },
+     {
+      "itemId": "day0:diag:2",
+      "correct": true,
+      "given": null
+     },
+     {
+      "itemId": "day0:diag:3",
+      "correct": false,
+      "given": "not sure"
+     },
+     {
+      "itemId": "day0:diag:4",
+      "correct": false,
+      "given": "kettle make"
+     },
+     {
+      "itemId": "day0:diag:5",
+      "correct": false,
+      "given": "not sure"
+     },
+     {
+      "itemId": "day0:diag:6",
+      "correct": true,
+      "given": null
+     },
+     {
+      "itemId": "day0:diag:7",
+      "correct": false,
+      "given": "not sure"
+     },
+     {
+      "itemId": "day0:diag:8",
+      "correct": true,
+      "given": null
+     }
+    ],
+    "score": 3,
+    "max": 8,
+    "timing": {
+     "durationMs": 1200000,
+     "flags": []
+    },
+    "aiPolicy": "off",
+    "aiUsage": [],
+    "publishedAt": 1793593800000
+   },
+   {
+    "type": "attempt",
+    "id": "attempt:c1-x11-day0-diag",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "personId": "person:x11",
+    "itemId": "day0:diagnostic",
+    "seed": "seed-c1-x11-day0-diag",
+    "mode": "live",
+    "answers": [
+     {
+      "itemId": "day0:diag:1",
+      "correct": true,
+      "given": null
+     },
+     {
+      "itemId": "day0:diag:2",
+      "correct": false,
+      "given": "not sure"
+     },
+     {
+      "itemId": "day0:diag:3",
+      "correct": false,
+      "given": "not sure"
+     },
+     {
+      "itemId": "day0:diag:4",
+      "correct": false,
+      "given": "kettle make"
+     },
+     {
+      "itemId": "day0:diag:5",
+      "correct": true,
+      "given": null
+     },
+     {
+      "itemId": "day0:diag:6",
+      "correct": false,
+      "given": "not sure"
+     },
+     {
+      "itemId": "day0:diag:7",
+      "correct": false,
+      "given": "not sure"
+     },
+     {
+      "itemId": "day0:diag:8",
+      "correct": true,
+      "given": null
+     }
+    ],
+    "score": 3,
+    "max": 8,
+    "timing": {
+     "durationMs": 1200000,
+     "flags": []
+    },
+    "aiPolicy": "off",
+    "aiUsage": [],
+    "publishedAt": 1793593800000
+   },
+   {
+    "type": "attempt",
+    "id": "attempt:c1-x12-day0-diag",
+    "schema": 1,
+    "updatedAt": 1792989000000,
+    "updatedBy": "hub:seed",
+    "personId": "person:x12",
+    "itemId": "day0:diagnostic",
+    "seed": "seed-c1-x12-day0-diag",
+    "mode": "live",
+    "answers": [
+     {
+      "itemId": "day0:diag:1",
+      "correct": false,
+      "given": "not sure"
+     },
+     {
+      "itemId": "day0:diag:2",
+      "correct": false,
+      "given": "not sure"
+     },
+     {
+      "itemId": "day0:diag:3",
+      "correct": false,
+      "given": "not sure"
+     },
+     {
+      "itemId": "day0:diag:4",
+      "correct": true,
+      "given": null
+     },
+     {
+      "itemId": "day0:diag:5",
+      "correct": false,
+      "given": "not sure"
+     },
+     {
+      "itemId": "day0:diag:6",
+      "correct": false,
+      "given": "not sure"
+     },
+     {
+      "itemId": "day0:diag:7",
+      "correct": false,
+      "given": "not sure"
+     },
+     {
+      "itemId": "day0:diag:8",
+      "correct": true,
+      "given": null
+     }
+    ],
+    "score": 2,
+    "max": 8,
+    "timing": {
+     "durationMs": 1200000,
+     "flags": []
+    },
+    "aiPolicy": "off",
+    "aiUsage": [],
+    "publishedAt": 1793593800000
+   }
+  ]
+ }
+}

@@ -1,0 +1,6 @@
+flowchart LR
+  A[Write page] --> B[kettle build]
+  B --> C{Build ok?}
+  C -->|yes| D[Publish site]
+  C -->|no| E[Fix the page]
+  E --> B

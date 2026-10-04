@@ -1,0 +1,314 @@
+{
+ "_comment": "Synthetic seed for the API tests (SPEC \u00a75.9 /__test/seed). Ids are <type>:<key>; class and person keys are used in routes, sessions and database names (class-c1, person-l1). Section 'body' is the plaintext the server must serve sealed until release (AC-68).",
+ "databases": {
+  "org": [
+   {
+    "type": "org",
+    "id": "org:main",
+    "schema": 1,
+    "updatedAt": 1790812800000,
+    "updatedBy": "hub:fixture",
+    "name": "Synthetic Test Org",
+    "brand": {},
+    "switches": {}
+   },
+   {
+    "type": "person",
+    "id": "person:admin1",
+    "schema": 1,
+    "updatedAt": 1790812800000,
+    "updatedBy": "hub:fixture",
+    "name": "Ada Testadmin",
+    "roles": [
+     "admin"
+    ],
+    "minor": false
+   },
+   {
+    "type": "person",
+    "id": "person:tr1",
+    "schema": 1,
+    "updatedAt": 1790812800000,
+    "updatedBy": "hub:fixture",
+    "name": "Tara Testtrainer",
+    "roles": [
+     "trainer"
+    ],
+    "minor": false
+   },
+   {
+    "type": "person",
+    "id": "person:tr2",
+    "schema": 1,
+    "updatedAt": 1790812800000,
+    "updatedBy": "hub:fixture",
+    "name": "Tomas Testtrainer",
+    "roles": [
+     "trainer"
+    ],
+    "minor": false
+   },
+   {
+    "type": "person",
+    "id": "person:sub1",
+    "schema": 1,
+    "updatedAt": 1790812800000,
+    "updatedBy": "hub:fixture",
+    "name": "Sam Testsub",
+    "roles": [
+     "substitute"
+    ],
+    "minor": false
+   },
+   {
+    "type": "person",
+    "id": "person:co1",
+    "schema": 1,
+    "updatedAt": 1790812800000,
+    "updatedBy": "hub:fixture",
+    "name": "Cora Testcoord",
+    "roles": [
+     "coordinator"
+    ],
+    "minor": false
+   },
+   {
+    "type": "person",
+    "id": "person:l1",
+    "schema": 1,
+    "updatedAt": 1790812800000,
+    "updatedBy": "hub:fixture",
+    "name": "Asha Testlearner",
+    "roles": [
+     "learner"
+    ],
+    "minor": false,
+    "dob": "2001-04-12"
+   },
+   {
+    "type": "person",
+    "id": "person:l2",
+    "schema": 1,
+    "updatedAt": 1790812800000,
+    "updatedBy": "hub:fixture",
+    "name": "Bilal Testlearner",
+    "roles": [
+     "learner"
+    ],
+    "minor": false,
+    "dob": "2000-09-30"
+   },
+   {
+    "type": "person",
+    "id": "person:l3",
+    "schema": 1,
+    "updatedAt": 1790812800000,
+    "updatedBy": "hub:fixture",
+    "name": "Chen Testlearner",
+    "roles": [
+     "learner"
+    ],
+    "minor": false,
+    "dob": "2002-01-05"
+   },
+   {
+    "type": "person",
+    "id": "person:m1",
+    "schema": 1,
+    "updatedAt": 1790812800000,
+    "updatedBy": "hub:fixture",
+    "name": "Mira Testminor",
+    "roles": [
+     "learner"
+    ],
+    "minor": true,
+    "dob": "2010-05-01",
+    "consent": {
+     "by": "Guardian Testparent",
+     "at": 1790812800000
+    }
+   },
+   {
+    "type": "program",
+    "id": "program:p1",
+    "schema": 1,
+    "updatedAt": 1790812800000,
+    "updatedBy": "hub:fixture",
+    "name": "Synthetic Cloud Track",
+    "timezone": "Asia/Kolkata",
+    "packageRef": null,
+    "switches": {}
+   },
+   {
+    "type": "cohort",
+    "id": "cohort:k1",
+    "schema": 1,
+    "updatedAt": 1790812800000,
+    "updatedBy": "hub:fixture",
+    "programId": "p1",
+    "name": "Cohort Test 2026",
+    "classIds": [
+     "c1"
+    ]
+   }
+  ],
+  "class-c1": [
+   {
+    "type": "class",
+    "id": "class:c1",
+    "schema": 1,
+    "updatedAt": 1790812800000,
+    "updatedBy": "hub:fixture",
+    "cohortId": "k1",
+    "name": "Test Class A",
+    "trainerIds": [
+     "tr1"
+    ],
+    "schedule": [
+     {
+      "date": "2026-11-02",
+      "start": "09:30",
+      "end": "17:30"
+     },
+     {
+      "date": "2026-11-03",
+      "start": "09:30",
+      "end": "17:30"
+     },
+     {
+      "date": "2026-11-04",
+      "start": "09:30",
+      "end": "17:30"
+     }
+    ],
+    "seedSalt": "salt-test-c1",
+    "switches": {},
+    "passMark": 6
+   },
+   {
+    "type": "enrolment",
+    "id": "enrolment:l1",
+    "schema": 1,
+    "updatedAt": 1790812800000,
+    "updatedBy": "hub:fixture",
+    "personId": "l1",
+    "joinedAt": 1790812800000,
+    "status": "active",
+    "profile": "hub"
+   },
+   {
+    "type": "enrolment",
+    "id": "enrolment:l2",
+    "schema": 1,
+    "updatedAt": 1790812800000,
+    "updatedBy": "hub:fixture",
+    "personId": "l2",
+    "joinedAt": 1790812800000,
+    "status": "active",
+    "profile": "hub"
+   },
+   {
+    "type": "enrolment",
+    "id": "enrolment:m1",
+    "schema": 1,
+    "updatedAt": 1790812800000,
+    "updatedBy": "hub:fixture",
+    "personId": "m1",
+    "joinedAt": 1790812800000,
+    "status": "active",
+    "profile": "hub"
+   },
+   {
+    "type": "day",
+    "id": "day:0",
+    "schema": 1,
+    "updatedAt": 1790812800000,
+    "updatedBy": "hub:fixture",
+    "index": 0,
+    "date": "2026-11-02",
+    "sections": [
+     {
+      "id": "s-intro",
+      "title": "Welcome",
+      "plannedSec": 600,
+      "graded": false,
+      "kind": "lecture",
+      "body": "PLAINTEXT-MARKER-s-intro-7f3a"
+     },
+     {
+      "id": "s-quiz",
+      "title": "Quick quiz [graded]",
+      "plannedSec": 600,
+      "graded": true,
+      "kind": "quiz",
+      "body": "PLAINTEXT-MARKER-s-quiz-9c1d"
+     },
+     {
+      "id": "s-lab",
+      "title": "Lab one",
+      "plannedSec": 600,
+      "graded": false,
+      "kind": "lab",
+      "body": "PLAINTEXT-MARKER-s-lab-2b8e"
+     },
+     {
+      "id": "s-exam",
+      "title": "Exit exam [graded]",
+      "plannedSec": 600,
+      "graded": true,
+      "kind": "quiz",
+      "body": "PLAINTEXT-MARKER-s-exam-5e6f"
+     }
+    ],
+    "released": []
+   },
+   {
+    "type": "day",
+    "id": "day:1",
+    "schema": 1,
+    "updatedAt": 1790812800000,
+    "updatedBy": "hub:fixture",
+    "index": 1,
+    "date": "2026-11-03",
+    "sections": [],
+    "released": []
+   },
+   {
+    "type": "day",
+    "id": "day:2",
+    "schema": 1,
+    "updatedAt": 1790812800000,
+    "updatedBy": "hub:fixture",
+    "index": 2,
+    "date": "2026-11-04",
+    "sections": [],
+    "released": []
+   },
+   {
+    "type": "attendance",
+    "id": "attendance:l1-0",
+    "schema": 1,
+    "updatedAt": 1790812800000,
+    "updatedBy": "hub:fixture",
+    "personId": "l1",
+    "dayIndex": 0,
+    "method": "manual",
+    "verified": true,
+    "at": 1793592000000
+   },
+   {
+    "type": "ticket",
+    "id": "ticket:t1",
+    "schema": 1,
+    "updatedAt": 1790812800000,
+    "updatedBy": "hub:fixture",
+    "title": "Fix the broken pipeline",
+    "status": "todo",
+    "points": 3
+   }
+  ],
+  "person-l1": [],
+  "person-l2": [],
+  "person-m1": []
+ }
+}

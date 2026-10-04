@@ -1,0 +1,28 @@
+{
+  "_note": "Answer matrix for SPEC §4.21 / AC-39. 12 learners x 7 items (1 = correct). Top/bottom group size floor(12*0.27)=3; totals are L01 6, L02 5, L03 5 | L04-L06 4, L07-L09 3 | L10-L12 2, so both group boundaries are unambiguous. Expected values were computed by hand and cross-checked with a separate script. I5 (everyone correct) and I7 (one correct) are flagged by p; I6 is the planted bad item (bottom group does better than top).",
+  "items": ["I1", "I2", "I3", "I4", "I5", "I6", "I7"],
+  "matrix": {
+    "L01": [1, 1, 1, 1, 1, 0, 1],
+    "L02": [1, 1, 1, 1, 1, 0, 0],
+    "L03": [1, 1, 1, 1, 1, 0, 0],
+    "L04": [1, 1, 1, 0, 1, 0, 0],
+    "L05": [1, 1, 0, 1, 1, 0, 0],
+    "L06": [1, 0, 1, 0, 1, 1, 0],
+    "L07": [0, 1, 1, 0, 1, 0, 0],
+    "L08": [1, 0, 0, 1, 1, 0, 0],
+    "L09": [0, 1, 0, 0, 1, 1, 0],
+    "L10": [0, 0, 0, 0, 1, 1, 0],
+    "L11": [1, 0, 0, 0, 1, 0, 0],
+    "L12": [0, 0, 0, 0, 1, 1, 0]
+  },
+  "expected": {
+    "I1": { "p": 0.667, "discrimination": 0.667, "flag": false },
+    "I2": { "p": 0.583, "discrimination": 1.0, "flag": false },
+    "I3": { "p": 0.5, "discrimination": 1.0, "flag": false },
+    "I4": { "p": 0.417, "discrimination": 1.0, "flag": false },
+    "I5": { "p": 1.0, "discrimination": 0.0, "flag": true },
+    "I6": { "p": 0.333, "discrimination": -0.667, "flag": true },
+    "I7": { "p": 0.083, "discrimination": 0.333, "flag": true }
+  },
+  "plantedBadItem": "I6"
+}

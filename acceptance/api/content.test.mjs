@@ -10,7 +10,7 @@ import { pack, readTree } from '../lib/ustar.mjs';
 const S = useServer();
 const C = 'c1';
 const GATE_IDS = ['G1-files', 'G2-readme', 'G3-diagnostic', 'G4-script-times', 'G5-links', 'G6-code-lang', 'G7-graded', 'G8-cards'];
-const packageFiles = () => readTree(join(FIXTURES, 'package')).filter((f) => f.path !== 'FIXTURE.md');
+const packageFiles = () => readTree(join(FIXTURES, 'package')); // FIXTURE.md stays: the root README lists it (G2)
 const TAR = { 'content-type': 'application/x-tar' };
 
 async function openSealed(keyB64, sealedB64) {

@@ -10,6 +10,7 @@
 // Their format is described in each file's "_format" field: { databases: { <dbName>: [docs] },
 // packages: [{ path, classId, publish }], joinCodes: [{ code, classId }] }. Seeds are additive.
 import { test, before } from 'node:test';
+import { Worker } from 'node:worker_threads';
 import assert from 'node:assert/strict';
 import { spawn, spawnSync } from 'node:child_process';
 import { existsSync, readFileSync, readdirSync, statSync, mkdtempSync, writeFileSync, cpSync } from 'node:fs';
@@ -54,7 +55,15 @@ export function prerequisites() {
 
 let hooked = false;
 /** Registers the one-time prerequisite check (web build may take up to 170 s, outside the per-test 90 s). */
-export function hookPrerequisites() { if (hooked) return; hooked = true; before(() => prerequisites(), { timeout: 180_000 }); }
+/** A watchdog thread kills this journey process when its memory runs away (a synchronous runaway, such as a
+ * failing assertion deep-inspecting a Playwright object, blocks the main thread, so it must be a worker). */
+let guard;
+function memGuard(limitMb = Number(process.env.LMS_JOURNEY_MAX_MB) || 3000) {
+  if (guard) return;
+  guard = new Worker(`setInterval(() => { const r = process.memoryUsage().rss; if (r > ${limitMb}e6) { console.error('journey watchdog: RSS ' + Math.round(r / 1e6) + ' MB > ${limitMb} MB, killing the journey process'); process.kill(${process.pid}, 'SIGKILL'); } }, 250);`, { eval: true });
+  guard.unref();
+}
+export function hookPrerequisites() { if (hooked) return; hooked = true; memGuard(); before(() => prerequisites(), { timeout: 180_000 }); }
 
 export function journey({ name, acs, title, profiles = ['desktop', 'phone'], seeds = ['base'], clock, serverEnv = {}, run }) {
   hookPrerequisites();
@@ -153,7 +162,8 @@ async function restartSame(old) {
   delete env.NODE_TEST_CONTEXT;
   const child = spawn(process.execPath, [SERVER_ENTRY], { cwd: APP_ROOT, env, stdio: ['ignore', 'pipe', 'pipe'] });
   let out = '';
-  child.stdout.on('data', (d) => { out += d; }); child.stderr.on('data', (d) => { out += d; });
+  const add = (d) => { out += d; if (out.length > 1 << 20) out = out.slice(-(1 << 19)); }; // bounded log buffer
+  child.stdout.on('data', add); child.stderr.on('data', add);
   await new Promise((res, rej) => {
     const t = setTimeout(() => rej(new Error(`restarted server did not print LISTENING ${old.port} within 30 s\n${out}`)), 30_000);
     child.stdout.on('data', () => { if (out.includes(`LISTENING ${old.port}`)) { clearTimeout(t); res(); } });

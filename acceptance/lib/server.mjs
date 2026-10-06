@@ -20,8 +20,9 @@ export async function start({ testMode = true, env = {}, timeoutMs = 30000 } = {
   if (testMode) childEnv.LMS_TEST_MODE = '1'; else delete childEnv.LMS_TEST_MODE;
   const child = spawn(process.execPath, [SERVER_ENTRY], { cwd: APP_ROOT, env: childEnv, stdio: ['ignore', 'pipe', 'pipe'] });
   let out = '';
-  child.stdout.on('data', (d) => { out += d; });
-  child.stderr.on('data', (d) => { out += d; });
+  const add = (d) => { out += d; if (out.length > 1 << 20) out = out.slice(-(1 << 19)); }; // bounded log buffer
+  child.stdout.on('data', add);
+  child.stderr.on('data', add);
   await new Promise((res, rej) => {
     const t = setTimeout(() => rej(new Error(`server did not print LISTENING within ${timeoutMs} ms\n${out}`)), timeoutMs);
     const check = () => { if (out.includes(`LISTENING ${port}`)) { clearTimeout(t); res(); } };

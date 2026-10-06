@@ -32,7 +32,9 @@ journey({
     await nav(l1, /^(settings|device settings)$/i, 'settings');
     await l1.getByRole('checkbox', { name: /kiosk( mode)?/i }).or(l1.getByRole('switch', { name: /kiosk/i })).first().check();
     await clickIfPresent(l1, /^(save|confirm|turn on)$/i, 2000);
-    assert.equal(await control(l1, /^(coach|my coach)$/i, { timeout: 1500 }), null, 'Coach is hidden in kiosk mode');
+    // Never hand a Locator to assert.equal: a failing diff deep-inspects the whole Playwright object graph
+    // (hundreds of MB per second; it took the test machine down twice). Compare a boolean.
+    assert.equal(!!(await control(l1, /^(coach|my coach)$/i, { timeout: 1500 })), false, 'Coach is hidden in kiosk mode');
     await step(l1, 'kiosk on');
     await l1.clock.fastForward(30 * 60_000 + 5_000);
     await waitText(l1.locator('body'), /sign in|signed out|logged out/i, 'kiosk logout after 30 minutes idle', 20_000);

@@ -1,8 +1,8 @@
 // Shared journey harness (SPEC §6). Not a test file (run.mjs only picks *.journey.mjs / *.test.mjs).
 //
-// journey({ name, acs, title, profiles, seeds, clock, serverEnv, run }) registers one node:test test per
-// profile, named "<AC ids> <title> [<profile>]", with a 90 s hard timeout and a 75 s internal deadline that
-// fails with the last completed step. Each test starts its own server (lib/server.mjs), seeds
+// journey({ name, acs, title, profiles, seeds, clock, serverEnv, timeoutMs, run }) registers one node:test test per
+// profile, named "<AC ids> <title> [<profile>]", with a 90 s hard timeout (timeoutMs, at most 180 s) and an
+// internal deadline 15 s earlier that fails with the last completed step. Each test starts its own server (lib/server.mjs), seeds
 // fixtures through /__test/seed, sets the clock through /__test/clock, and opens one browser context per
 // actor, signed in through /__test/login.
 //
@@ -65,10 +65,12 @@ function memGuard(limitMb = Number(process.env.LMS_JOURNEY_MAX_MB) || 3000) {
 }
 export function hookPrerequisites() { if (hooked) return; hooked = true; memGuard(); before(() => prerequisites(), { timeout: 180_000 }); }
 
-export function journey({ name, acs, title, profiles = ['desktop', 'phone'], seeds = ['base'], clock, serverEnv = {}, run }) {
+export function journey({ name, acs, title, profiles = ['desktop', 'phone'], seeds = ['base'], clock, serverEnv = {}, timeoutMs = TEST_MS, run }) {
   hookPrerequisites();
+  const testMs = Math.min(Math.max(Number(timeoutMs) || TEST_MS, 30_000), 180_000);
+  const deadlineMs = testMs - (TEST_MS - DEADLINE_MS); // 75 s for the default 90 s
   for (const profile of profiles) {
-    test(`${acs.join(' ')} ${title} [${profile}]`, { timeout: TEST_MS }, async (t) => {
+    test(`${acs.join(' ')} ${title} [${profile}]`, { timeout: testMs }, async (t) => {
       const t0 = Date.now();
       prerequisites();
       const j = await setup({ name: `${name}-${acs[0]}`, profile, serverEnv });
@@ -81,7 +83,7 @@ export function journey({ name, acs, title, profiles = ['desktop', 'phone'], see
         const runP = run(j); runP.catch(() => {}); // a late rejection after the deadline must not leak
         await Promise.race([
           runP,
-          new Promise((_, rej) => { timer = setTimeout(() => rej(new Error(`${acs.join(' ')}: journey exceeded ${DEADLINE_MS / 1000} s; last step: ${j.lastStep() || '(none)'}`)), Math.max(1000, DEADLINE_MS - (Date.now() - t0))); }),
+          new Promise((_, rej) => { timer = setTimeout(() => rej(new Error(`${acs.join(' ')}: journey exceeded ${deadlineMs / 1000} s; last step: ${j.lastStep() || '(none)'}`)), Math.max(1000, deadlineMs - (Date.now() - t0))); }),
         ]);
       } catch (e) {
         e.message = `${acs.join(' ')} [${profile}] after step "${j.lastStep() || '(none)'}": ${e.message}\nartifacts: ${j.dir}`;

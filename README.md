@@ -14,7 +14,7 @@ Clone this repo **into the app repo** as `acceptance/`'s parent:
 cd tins-lms
 git clone https://github.com/ramsaipv4-lgtm/tins-lms-tests .acceptance-src
 ln -s .acceptance-src/acceptance acceptance      # or copy it
-node acceptance/run.mjs core        # or: api, journeys, perf, adapters, smoke, all
+node acceptance/run.mjs core        # or: api, journeys, perf, adapters, games, smoke, all
 ```
 
 The app repo's own dependencies (SPEC §1.1) provide Playwright and PouchDB; this suite adds none.
@@ -28,6 +28,7 @@ The app repo's own dependencies (SPEC §1.1) provide Playwright and PouchDB; thi
 | `journeys/` | SPEC §6 | the built web app served by the server, Chromium |
 | `perf/` | SPEC §6.1, §6.2 | as journeys, plus `packages/cli` |
 | `adapters/` | SPEC §7 | `packages/adapters`, fake servers in `fixtures/fakes/` |
+| `games/` | SPEC-games (§13 after the fold): games contract rows AC-200 to AC-246 (first wave) | `packages/games`, `packages/cli`, the built web app, Chromium; Tuning table read from SPEC.md |
 | `smoke/` | a visible subset for builders | as above |
 | `fixtures/` | synthetic data only; no real course material | — |
 | `lib/` | shared helpers | — |

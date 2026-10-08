@@ -1,4 +1,4 @@
-// Runs one or more parts of the suite: node acceptance/run.mjs core|api|journeys|perf|adapters|smoke|all
+// Runs one or more parts of the suite: node acceptance/run.mjs core|api|journeys|perf|adapters|games|smoke|all
 // Lists files explicitly (passing a directory to `node --test` misbehaves on Node 22, tins-kit RF-1).
 import { readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
@@ -6,7 +6,7 @@ import { spawnSync } from 'node:child_process';
 import { ACCEPTANCE } from './lib/paths.mjs';
 
 const parts = process.argv.slice(2);
-const all = ['core', 'api', 'adapters', 'journeys', 'perf'];
+const all = ['core', 'api', 'adapters', 'journeys', 'perf', 'games'];
 const chosen = !parts.length || parts.includes('all') ? all : parts;
 const files = [];
 for (const p of chosen) {

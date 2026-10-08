@@ -1,2 +1,3 @@
 acceptance/.artifacts/
 node_modules/
+__pycache__/

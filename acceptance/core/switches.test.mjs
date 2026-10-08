@@ -7,9 +7,12 @@ const DEFAULTS = {
   secretScan: true, diskEncryptionCheck: false, planVsActual: false, calendarSync: false, pairProgramming: false,
   explainBackAi: false, googleForms: false, meetLinks: false, storyMode: false, headingStrike: true, teamBadges: true,
   celebrationWall: true, githubPass: true, jira: false, printedQrFallback: true, voiceFollow: false, certificates: true, gradedShifts: true,
+  // games (SPEC-games D-G8, AC-49 as amended by the games contract): all on by default
+  games: true, 'game.syntaxDrop': true, 'game.mazeCoder': true, 'game.breakout': true, 'game.raid': true,
+  'game.sniper': true, 'game.whackABug': true, 'game.aftershock': true, 'game.garage': true,
 };
 
-test('AC-49 switchDefaults returns exactly the SPEC table', () => {
+test('AC-49 switchDefaults returns exactly the SPEC table plus the D-G8 games keys', () => {
   const switchDefaults = fn('switchDefaults');
   assert.deepEqual(switchDefaults(), DEFAULTS);
 });

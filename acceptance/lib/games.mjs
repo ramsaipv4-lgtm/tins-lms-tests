@@ -330,6 +330,17 @@ export function controller(page, gameId, mode = 'act') {
 
 // ---------- drivers (D-G17) ----------
 
+/** Advances until no piece is within the Late window, so a strike there judges no piece (an action miss). */
+export async function quietMoment(g) {
+  for (let i = 0; i < 200; i++) {
+    const s = await g.state();
+    const late = T('syntaxDrop.windowLateMs') + 20;
+    if (s.status === 'playing' && s.extra.pieces.length && s.extra.pieces.every((p) => Math.abs(p.hitAtMs + (s.extra.timingOffsetMs || 0) - s.clockMs) > late)) return s;
+    await g.advance(20);
+  }
+  throw new Error('syntax-drop: no moment without a piece in its window');
+}
+
 /** Handles the shared screens a driver can meet: story (skip), lesson card (continue). */
 async function shared(g, ctl, s) {
   if (s.status === 'story') { await ctl.do('skip'); return true; }
@@ -424,7 +435,9 @@ export async function shoot(page, ctl, targetId, { miss = false } = {}) {
   s = await g.state();
   if (s.extra.aimed !== targetId) throw new Error(`sniper: could not aim at ${targetId} (aimed ${s.extra.aimed})`);
   if (s.extra.binoculars) await ctl.do('binoculars');
-  await ctl.hold('breathe', null, true);
+  // with clock=manual the sway does not move while nudging; breath is held only where it cannot clash with clicks
+  const breathe = ctl.mode !== 'buttons';
+  if (breathe) await ctl.hold('breathe', null, true);
   const step = T('sniper.nudgeStep');
   for (let k = 0; k < 60; k++) {
     s = await g.state(); const e = s.extra.aimError; const t = s.extra.targets.find((x) => x.id === targetId);
@@ -438,7 +451,7 @@ export async function shoot(page, ctl, targetId, { miss = false } = {}) {
     else break;
   }
   await ctl.do('fire');
-  await ctl.hold('breathe', null, false);
+  if (breathe) await ctl.hold('breathe', null, false);
   return g.state();
 }
 /** Plays a bounty level: shoots the right target for each unclaimed bounty. opts.wrongTarget: shoot this target once first. */

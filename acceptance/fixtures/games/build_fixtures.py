@@ -66,7 +66,7 @@ METHODS = STR_METHODS | LIST_METHODS | DICT_METHODS | SET_METHODS | DEQUE_METHOD
 SPEC_RE = re.compile(r'^(\.\d+f|[<>]\d+|\d*d)$')
 CALL_KW = {'sorted': {'key', 'reverse'}, 'print': {'sep', 'end'}}
 BANNED = (ast.Yield, ast.YieldFrom, ast.Await, ast.AsyncFunctionDef, ast.AsyncFor, ast.AsyncWith, ast.With, ast.Global,
-          ast.Nonlocal, ast.GeneratorExp, ast.Starred, ast.NamedExpr, ast.Match, ast.IfExp)
+          ast.Nonlocal, ast.GeneratorExp, ast.Starred, ast.NamedExpr, ast.Match)
 
 
 def subset_problems(src):

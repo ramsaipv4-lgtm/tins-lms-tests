@@ -1,5 +1,5 @@
 // AC-239 Syntax Drop rhythm (games contract §13.T5 Syntax Drop; Tuning table §13.T7, read from the SPEC at run time):
-// presses 0, 100, 180 and 250 ms off hitAtMs grade Perfect, Good, Late and miss (graded from the actual offset and the
+// presses 0, 100, 180 and minBeatMs / 2 (250) ms off hitAtMs grade Perfect, Good, Late and miss (graded from the actual offset and the
 // Tuning windows); with timingOffsetMs = +80 a press 80 ms after hitAtMs grades Perfect; a calibration whose taps are
 // all 60 ms late stores +60 in player.timingOffsetMs, and taps 400 ms late store the clamp; an action miss chips the
 // shield and a Knowledge mistake cracks it; shield 0 ends in 'lost'; combo feverCombo starts Fever for feverMs;
@@ -31,7 +31,10 @@ gamesJourney({
     const page = await j.actor('learner', P.l1);
     let g = await openGame(j, page, { gameId: 'syntax-drop', packId: 'sd-rhythm', levelId: '1' });
     await g.act('start');
-    for (const off of [0, 100, 180, 250]) {
+    // the miss press sits halfway between two beats (minBeatMs / 2 = 250 ms by default), so no other piece is in its window
+    const missAt = T('syntaxDrop.minBeatMs') / 2;
+    assert.ok(missAt > T('syntaxDrop.windowLateMs') && T('syntaxDrop.minBeatMs') - missAt > T('syntaxDrop.windowLateMs'), 'Tuning: minBeatMs / 2 lies outside the Late window of both neighbouring beats');
+    for (const off of [0, 100, 180, missAt]) {
       const { before, after, actual } = await pressAt(g, off);
       const want = grade(actual);
       assert.equal(after.extra.lastGrade, want, `a press ${actual} ms off grades ${want}`);

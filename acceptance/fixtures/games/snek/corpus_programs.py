@@ -85,6 +85,12 @@ print((-2) ** 2)
 print(2 ** 10)
 print(2 ** -1)
 ''')
+add('num-13', 'conditional expression', '''
+for n in [-4, 0, 7]:
+    sign = "negative" if n < 0 else "zero" if n == 0 else "positive"
+    print(n, sign, abs(n) if n < 0 else n)
+print([x if x % 2 == 0 else -x for x in range(6)])
+''')
 add('num-12', 'ord chr', '''
 print(ord("A"), ord("a"))
 print(chr(72) + chr(105))

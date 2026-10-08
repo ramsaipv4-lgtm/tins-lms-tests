@@ -1,0 +1,1237 @@
+{
+  "_about": "AC-208 Snek corpus. Each program is inside the Snek subset (checked by build_fixtures.py); stdout is exactly what CPython printed (run with python3 -I, input lines on stdin). Compare stdout exactly.",
+  "oracle": "CPython 3.14.4",
+  "count": 120,
+  "programs": [
+    {
+      "id": "num-01",
+      "tags": [
+        "int",
+        "arithmetic"
+      ],
+      "source": "a = 17\nb = 5\nprint(a + b, a - b, a * b)\nprint(a // b, a % b, a ** 2)\nprint(-a // b, -a % b)\n",
+      "stdout": "22 12 85\n3 2 289\n-4 3\n"
+    },
+    {
+      "id": "num-02",
+      "tags": [
+        "float",
+        "division",
+        "repr"
+      ],
+      "source": "print(7 / 2)\nprint(6 / 3)\nprint(1 / 3)\nprint(0.1 + 0.2)\n",
+      "stdout": "3.5\n2.0\n0.3333333333333333\n0.30000000000000004\n"
+    },
+    {
+      "id": "num-03",
+      "tags": [
+        "float",
+        "repr",
+        "exponent"
+      ],
+      "source": "print(1e16)\nprint(1e15)\nprint(0.0001)\nprint(0.00001)\nprint(123456789.0 * 1000)\n",
+      "stdout": "1e+16\n1000000000000000.0\n0.0001\n1e-05\n123456789000.0\n"
+    },
+    {
+      "id": "num-04",
+      "tags": [
+        "round",
+        "abs"
+      ],
+      "source": "print(round(2.5), round(3.5), round(-2.5))\nprint(round(3.14159, 2))\nprint(abs(-7), abs(2.5))\n",
+      "stdout": "2 4 -2\n3.14\n7 2.5\n"
+    },
+    {
+      "id": "num-05",
+      "tags": [
+        "conversions"
+      ],
+      "source": "print(int(\"42\") + 1)\nprint(int(3.99), int(-3.99))\nprint(float(\"2.5\") * 2)\nprint(str(10) + \"!\")\nprint(bool(0), bool(3), bool(\"\"), bool(\"x\"))\n",
+      "stdout": "43\n3 -3\n5.0\n10!\nFalse True False True\n"
+    },
+    {
+      "id": "num-06",
+      "tags": [
+        "chained",
+        "comparison",
+        "bool",
+        "ops"
+      ],
+      "source": "x = 5\nprint(1 < x < 10, 1 < x > 7)\nprint(x > 3 and x < 4, x > 3 or x < 4, not x)\nprint(3 == 3.0, 2 != 2)\n",
+      "stdout": "True False\nFalse True False\nTrue False\n"
+    },
+    {
+      "id": "num-07",
+      "tags": [
+        "augmented",
+        "assignment"
+      ],
+      "source": "n = 10\nn += 5\nn -= 3\nn *= 2\nn //= 5\nn %= 3\nprint(n)\nf = 1.5\nf /= 2\nprint(f)\n",
+      "stdout": "1\n0.75\n"
+    },
+    {
+      "id": "num-08",
+      "tags": [
+        "chained",
+        "assignment",
+        "is"
+      ],
+      "source": "a = b = 0\na += 1\nprint(a, b)\nx = None\nprint(x is None, x is not None)\n",
+      "stdout": "1 0\nTrue False\n"
+    },
+    {
+      "id": "num-09",
+      "tags": [
+        "min",
+        "max",
+        "sum"
+      ],
+      "source": "xs = [4, 8, 15, 16, 23, 42]\nprint(min(xs), max(xs), sum(xs))\nprint(max(3, 9, 1), min(2.5, 1.5))\nprint(sum([]))\n",
+      "stdout": "4 42 108\n9 1.5\n0\n"
+    },
+    {
+      "id": "num-10",
+      "tags": [
+        "math",
+        "module"
+      ],
+      "source": "import math\nprint(math.floor(3.7), math.ceil(3.2))\nprint(math.sqrt(16), math.sqrt(2))\nprint(math.inf > 10 ** 15)\nprint(-math.inf < 0)\n",
+      "stdout": "3 4\n4.0 1.4142135623730951\nTrue\nTrue\n"
+    },
+    {
+      "id": "num-11",
+      "tags": [
+        "power",
+        "precedence",
+        "unary"
+      ],
+      "source": "print(-2 ** 2)\nprint((-2) ** 2)\nprint(2 ** 10)\nprint(2 ** -1)\n",
+      "stdout": "-4\n4\n1024\n0.5\n"
+    },
+    {
+      "id": "num-12",
+      "tags": [
+        "ord",
+        "chr"
+      ],
+      "source": "print(ord(\"A\"), ord(\"a\"))\nprint(chr(72) + chr(105))\nword = \"\"\nfor code in range(97, 102):\n    word += chr(code)\nprint(word)\n",
+      "stdout": "65 97\nHi\nabcde\n"
+    },
+    {
+      "id": "str-01",
+      "tags": [
+        "indexing",
+        "slicing"
+      ],
+      "source": "s = \"abcdefgh\"\nprint(s[0], s[-1], s[2:5], s[:3], s[5:])\nprint(s[::2], s[::-1], s[1:7:3])\n",
+      "stdout": "a h cde abc fgh\naceg hgfedcba be\n"
+    },
+    {
+      "id": "str-02",
+      "tags": [
+        "methods",
+        "case"
+      ],
+      "source": "s = \"Hello World\"\nprint(s.upper())\nprint(s.lower())\nprint(s.replace(\"World\", \"Snek\"))\nprint(s.find(\"o\"), s.find(\"z\"))\n",
+      "stdout": "HELLO WORLD\nhello world\nHello Snek\n4 -1\n"
+    },
+    {
+      "id": "str-03",
+      "tags": [
+        "split",
+        "join",
+        "strip"
+      ],
+      "source": "line = \"  red, green ,blue  \"\nparts = [p.strip() for p in line.strip().split(\",\")]\nprint(parts)\nprint(\"-\".join(parts))\nprint(\"a b  c\".split())\n",
+      "stdout": "['red', 'green', 'blue']\nred-green-blue\n['a', 'b', 'c']\n"
+    },
+    {
+      "id": "str-04",
+      "tags": [
+        "startswith",
+        "endswith",
+        "isdigit",
+        "isalpha"
+      ],
+      "source": "for w in [\"abc\", \"123\", \"a1\", \"Snek\"]:\n    print(w, w.isdigit(), w.isalpha(), w.startswith(\"a\"), w.endswith(\"k\"))\n",
+      "stdout": "abc False True True False\n123 True False False False\na1 False False True False\nSnek False True False True\n"
+    },
+    {
+      "id": "str-05",
+      "tags": [
+        "concat",
+        "repeat",
+        "len",
+        "in"
+      ],
+      "source": "s = \"ab\" * 3\nprint(s, len(s))\nprint(\"ba\" in s, \"c\" in s)\nprint(\"=\" * 10)\n",
+      "stdout": "ababab 6\nTrue False\n==========\n"
+    },
+    {
+      "id": "str-06",
+      "tags": [
+        "fstring",
+        "basic"
+      ],
+      "source": "name = \"Ada\"\nage = 36\nprint(f\"{name} is {age} years old\")\nprint(f\"{age + 1} next year, {name.upper()}\")\n",
+      "stdout": "Ada is 36 years old\n37 next year, ADA\n"
+    },
+    {
+      "id": "str-07",
+      "tags": [
+        "fstring",
+        "specs"
+      ],
+      "source": "price = 3.14159\nn = 42\nprint(f\"{price:.2f}\")\nprint(f\"[{n:>5}]\")\nprint(f\"[{'ab':<5}]\")\nprint(f\"{n:d}\")\nprint(f\"[{7:>3}][{'x':<3}]\")\n",
+      "stdout": "3.14\n[   42]\n[ab   ]\n42\n[  7][x  ]\n"
+    },
+    {
+      "id": "str-08",
+      "tags": [
+        "fstring",
+        "table"
+      ],
+      "source": "rows = [(\"apple\", 1.5), (\"kiwi\", 0.25), (\"melon\", 3.0)]\nfor name, cost in rows:\n    print(f\"{name:<8}{cost:.2f}\")\n",
+      "stdout": "apple   1.50\nkiwi    0.25\nmelon   3.00\n"
+    },
+    {
+      "id": "str-09",
+      "tags": [
+        "count",
+        "vowels"
+      ],
+      "source": "text = \"programming is fun\"\ncount = 0\nfor ch in text:\n    if ch in \"aeiou\":\n        count += 1\nprint(count)\n",
+      "stdout": "5\n"
+    },
+    {
+      "id": "str-10",
+      "tags": [
+        "palindromes"
+      ],
+      "source": "def is_pal(w):\n    w = w.lower()\n    return w == w[::-1]\nfor w in [\"Level\", \"snek\", \"noon\", \"abca\"]:\n    print(w, is_pal(w))\n",
+      "stdout": "Level True\nsnek False\nnoon True\nabca False\n"
+    },
+    {
+      "id": "str-11",
+      "tags": [
+        "reverse",
+        "words"
+      ],
+      "source": "sentence = \"the quick brown fox\"\nwords = sentence.split(\" \")\nprint(\" \".join(reversed(words)))\nprint(\" \".join([w[::-1] for w in words]))\n",
+      "stdout": "fox brown quick the\neht kciuq nworb xof\n"
+    },
+    {
+      "id": "str-12",
+      "tags": [
+        "caesar"
+      ],
+      "source": "def shift(text, k):\n    out = \"\"\n    for ch in text:\n        if ch.isalpha():\n            out += chr((ord(ch) - 97 + k) % 26 + 97)\n        else:\n            out += ch\n    return out\nprint(shift(\"hello world\", 3))\nprint(shift(shift(\"snek\", 5), -5))\n",
+      "stdout": "khoor zruog\nsnek\n"
+    },
+    {
+      "id": "str-13",
+      "tags": [
+        "str",
+        "repr",
+        "in",
+        "containers"
+      ],
+      "source": "print([\"a\", \"b'c\", 'd\"e'])\nprint((\"x\", 1))\nprint({\"k\": \"v\"})\nprint(str([1, \"2\"]))\n",
+      "stdout": "['a', \"b'c\", 'd\"e']\n('x', 1)\n{'k': 'v'}\n[1, '2']\n"
+    },
+    {
+      "id": "str-14",
+      "tags": [
+        "char",
+        "frequency",
+        "dict"
+      ],
+      "source": "freq = {}\nfor ch in \"mississippi\":\n    freq[ch] = freq.get(ch, 0) + 1\nprint(freq)\nprint(sorted(freq.items()))\n",
+      "stdout": "{'m': 1, 'i': 4, 's': 4, 'p': 2}\n[('i', 4), ('m', 1), ('p', 2), ('s', 4)]\n"
+    },
+    {
+      "id": "str-15",
+      "tags": [
+        "input",
+        "and",
+        "strings"
+      ],
+      "source": "name = input(\"Name? \")\ntimes = int(input())\nprint()\nprint(f\"Hi {name}! \" * times)\n",
+      "stdout": "Name? \nHi Kit! Hi Kit! \n",
+      "input": [
+        "Kit",
+        "2"
+      ]
+    },
+    {
+      "id": "list-01",
+      "tags": [
+        "methods"
+      ],
+      "source": "xs = [3, 1, 2]\nxs.append(5)\nxs.insert(0, 9)\nxs.extend([7, 7])\nprint(xs)\nprint(xs.pop(), xs.pop(0), xs)\nxs.remove(7)\nprint(xs, xs.index(2), xs.count(1))\n",
+      "stdout": "[9, 3, 1, 2, 5, 7, 7]\n7 9 [3, 1, 2, 5, 7]\n[3, 1, 2, 5] 2 1\n"
+    },
+    {
+      "id": "list-02",
+      "tags": [
+        "sort",
+        "reverse"
+      ],
+      "source": "xs = [5, 2, 8, 1]\nxs.sort()\nprint(xs)\nxs.reverse()\nprint(xs)\nprint(sorted([\"pear\", \"fig\", \"apple\"]))\nprint(sorted([\"pear\", \"fig\", \"apple\"], key=len))\nprint(sorted([3, 1, 2], reverse=True))\n",
+      "stdout": "[1, 2, 5, 8]\n[8, 5, 2, 1]\n['apple', 'fig', 'pear']\n['fig', 'pear', 'apple']\n[3, 2, 1]\n"
+    },
+    {
+      "id": "list-03",
+      "tags": [
+        "slicing",
+        "negative",
+        "del"
+      ],
+      "source": "xs = list(range(10))\nprint(xs[-3:], xs[:-7], xs[2:8:2])\ndel xs[0]\ndel xs[-1]\nprint(xs)\nys = xs[:]\nys[0] = 100\nprint(xs[0], ys[0])\n",
+      "stdout": "[7, 8, 9] [0, 1, 2] [2, 4, 6]\n[1, 2, 3, 4, 5, 6, 7, 8]\n1 100\n"
+    },
+    {
+      "id": "list-04",
+      "tags": [
+        "comprehensions"
+      ],
+      "source": "sq = [x * x for x in range(6)]\nev = [x for x in sq if x % 2 == 0]\nprint(sq)\nprint(ev)\nprint([c.upper() for c in \"abc\"])\n",
+      "stdout": "[0, 1, 4, 9, 16, 25]\n[0, 4, 16]\n['A', 'B', 'C']\n"
+    },
+    {
+      "id": "list-05",
+      "tags": [
+        "enumerate",
+        "zip"
+      ],
+      "source": "names = [\"a\", \"b\", \"c\"]\nfor i, n in enumerate(names):\n    print(i, n)\nfor n, k in zip(names, [10, 20, 30]):\n    print(n, k)\nprint(list(zip([1, 2], [3, 4])))\n",
+      "stdout": "0 a\n1 b\n2 c\na 10\nb 20\nc 30\n[(1, 3), (2, 4)]\n"
+    },
+    {
+      "id": "list-06",
+      "tags": [
+        "map",
+        "filter",
+        "lambda"
+      ],
+      "source": "nums = [1, 2, 3, 4, 5, 6]\nprint(list(map(lambda x: x * 10, nums)))\nprint(list(filter(lambda x: x % 3 == 0, nums)))\ndouble = lambda x: x * 2\nprint(double(21))\n",
+      "stdout": "[10, 20, 30, 40, 50, 60]\n[3, 6]\n42\n"
+    },
+    {
+      "id": "list-07",
+      "tags": [
+        "any",
+        "all"
+      ],
+      "source": "xs = [2, 4, 6, 7]\nprint(any([x > 6 for x in xs]), all([x % 2 == 0 for x in xs]))\nprint(any([]), all([]))\n",
+      "stdout": "True False\nFalse True\n"
+    },
+    {
+      "id": "list-08",
+      "tags": [
+        "nested",
+        "lists",
+        "matrix"
+      ],
+      "source": "m = [[1, 2, 3], [4, 5, 6]]\nt = [[m[r][c] for r in range(2)] for c in range(3)]\nprint(t)\ntotal = 0\nfor row in m:\n    for v in row:\n        total += v\nprint(total)\n",
+      "stdout": "[[1, 4], [2, 5], [3, 6]]\n21\n"
+    },
+    {
+      "id": "list-09",
+      "tags": [
+        "swap",
+        "unpacking"
+      ],
+      "source": "a, b = 1, 2\na, b = b, a\nprint(a, b)\nxs = [1, 2, 3]\nxs[0], xs[2] = xs[2], xs[0]\nprint(xs)\nfirst, second, third = xs\nprint(second)\n",
+      "stdout": "2 1\n[3, 2, 1]\n2\n"
+    },
+    {
+      "id": "list-10",
+      "tags": [
+        "list",
+        "equality",
+        "membership"
+      ],
+      "source": "print([1, 2] == [1, 2], [1, 2] == [2, 1])\nprint(3 in [1, 2, 3], 4 not in [1, 2, 3])\nprint([1, 2] + [3], [0] * 4)\nprint(len([[], [1]]))\n",
+      "stdout": "True False\nTrue True\n[1, 2, 3] [0, 0, 0, 0]\n2\n"
+    },
+    {
+      "id": "list-11",
+      "tags": [
+        "reversed",
+        "list()"
+      ],
+      "source": "print(list(reversed([1, 2, 3])))\nprint(list(\"abc\"))\nprint(list(range(5, 0, -2)))\n",
+      "stdout": "[3, 2, 1]\n['a', 'b', 'c']\n[5, 3, 1]\n"
+    },
+    {
+      "id": "list-12",
+      "tags": [
+        "running",
+        "max"
+      ],
+      "source": "data = [3, 7, 2, 9, 4, 9, 1]\nbest = data[0]\nout = []\nfor v in data:\n    if v > best:\n        best = v\n    out.append(best)\nprint(out)\n",
+      "stdout": "[3, 7, 7, 9, 9, 9, 9]\n"
+    },
+    {
+      "id": "list-13",
+      "tags": [
+        "sorted",
+        "tuples",
+        "key"
+      ],
+      "source": "people = [(\"ann\", 31), (\"bob\", 25), (\"cy\", 31), (\"dee\", 19)]\nprint(sorted(people, key=lambda p: p[1]))\nprint(sorted(people, key=lambda p: p[1], reverse=True)[0])\n",
+      "stdout": "[('dee', 19), ('bob', 25), ('ann', 31), ('cy', 31)]\n('ann', 31)\n"
+    },
+    {
+      "id": "list-14",
+      "tags": [
+        "flatten"
+      ],
+      "source": "nested = [[1, 2], [3], [], [4, 5, 6]]\nflat = []\nfor part in nested:\n    flat.extend(part)\nprint(flat, len(flat))\n",
+      "stdout": "[1, 2, 3, 4, 5, 6] 6\n"
+    },
+    {
+      "id": "list-15",
+      "tags": [
+        "stack",
+        "with",
+        "list"
+      ],
+      "source": "stack = []\nfor ch in \"abc\":\n    stack.append(ch)\nout = \"\"\nwhile stack:\n    out += stack.pop()\nprint(out)\n",
+      "stdout": "cba\n"
+    },
+    {
+      "id": "dict-01",
+      "tags": [
+        "basic"
+      ],
+      "source": "d = {\"a\": 1, \"b\": 2}\nd[\"c\"] = 3\nprint(d, len(d))\nprint(d[\"b\"], d.get(\"z\"), d.get(\"z\", 0))\nprint(\"a\" in d, \"z\" in d)\n",
+      "stdout": "{'a': 1, 'b': 2, 'c': 3} 3\n2 None 0\nTrue False\n"
+    },
+    {
+      "id": "dict-02",
+      "tags": [
+        "iterate",
+        "items",
+        "keys",
+        "values"
+      ],
+      "source": "d = {\"x\": 10, \"y\": 20, \"z\": 30}\nfor k, v in d.items():\n    print(k, v)\nprint(list(d.keys()), list(d.values()))\nprint(sum(d.values()))\n",
+      "stdout": "x 10\ny 20\nz 30\n['x', 'y', 'z'] [10, 20, 30]\n60\n"
+    },
+    {
+      "id": "dict-03",
+      "tags": [
+        "setdefault",
+        "pop",
+        "del"
+      ],
+      "source": "groups = {}\nfor w in [\"apple\", \"avocado\", \"banana\", \"blueberry\", \"cherry\"]:\n    groups.setdefault(w[0], []).append(w)\nprint(groups)\nprint(groups.pop(\"c\"), groups)\ndel groups[\"a\"]\nprint(groups)\n",
+      "stdout": "{'a': ['apple', 'avocado'], 'b': ['banana', 'blueberry'], 'c': ['cherry']}\n['cherry'] {'a': ['apple', 'avocado'], 'b': ['banana', 'blueberry']}\n{'b': ['banana', 'blueberry']}\n"
+    },
+    {
+      "id": "dict-04",
+      "tags": [
+        "comprehension"
+      ],
+      "source": "sq = {n: n * n for n in range(5)}\nprint(sq)\ninv = {v: k for k, v in sq.items() if v > 3}\nprint(inv)\n",
+      "stdout": "{0: 0, 1: 1, 2: 4, 3: 9, 4: 16}\n{4: 2, 9: 3, 16: 4}\n"
+    },
+    {
+      "id": "dict-05",
+      "tags": [
+        "word",
+        "count"
+      ],
+      "source": "text = \"the cat and the hat and the bat\"\ncounts = {}\nfor w in text.split():\n    counts[w] = counts.get(w, 0) + 1\nbest = sorted(counts.items(), key=lambda kv: kv[1], reverse=True)[0]\nprint(counts)\nprint(best)\n",
+      "stdout": "{'the': 3, 'cat': 1, 'and': 2, 'hat': 1, 'bat': 1}\n('the', 3)\n"
+    },
+    {
+      "id": "dict-07",
+      "tags": [
+        "two",
+        "sum"
+      ],
+      "source": "def two_sum(nums, target):\n    seen = {}\n    for i, n in enumerate(nums):\n        if target - n in seen:\n            return [seen[target - n], i]\n        seen[n] = i\n    return None\nprint(two_sum([2, 7, 11, 15], 9))\nprint(two_sum([3, 2, 4], 6))\nprint(two_sum([1, 2], 7))\n",
+      "stdout": "[0, 1]\n[1, 2]\nNone\n"
+    },
+    {
+      "id": "dict-08",
+      "tags": [
+        "dict",
+        "tuple",
+        "keys"
+      ],
+      "source": "grid = {}\nfor r in range(2):\n    for c in range(3):\n        grid[(r, c)] = r * 3 + c\nprint(grid[(1, 2)], len(grid))\nprint((0, 1) in grid, (5, 5) in grid)\n",
+      "stdout": "5 6\nTrue False\n"
+    },
+    {
+      "id": "set-01",
+      "tags": [
+        "membership",
+        "size"
+      ],
+      "source": "s = set([3, 1, 3, 2, 1])\nprint(len(s), 2 in s, 5 in s)\ns.add(5)\ns.discard(1)\ns.discard(100)\ns.remove(3)\nprint(sorted(s))\n",
+      "stdout": "3 True False\n[2, 5]\n"
+    },
+    {
+      "id": "set-02",
+      "tags": [
+        "dedupe",
+        "sorted"
+      ],
+      "source": "words = [\"b\", \"a\", \"c\", \"a\", \"b\"]\nprint(sorted(set(words)))\nprint(len({w for w in words}))\n",
+      "stdout": "['a', 'b', 'c']\n3\n"
+    },
+    {
+      "id": "set-03",
+      "tags": [
+        "set",
+        "comprehension"
+      ],
+      "source": "mods = {n % 4 for n in range(20)}\nprint(sorted(mods), len(mods))\n",
+      "stdout": "[0, 1, 2, 3] 4\n"
+    },
+    {
+      "id": "set-04",
+      "tags": [
+        "seen",
+        "loop"
+      ],
+      "source": "seen = set()\ndups = []\nfor x in [4, 1, 4, 2, 1, 4]:\n    if x in seen:\n        dups.append(x)\n    seen.add(x)\nprint(dups)\n",
+      "stdout": "[4, 1, 4]\n"
+    },
+    {
+      "id": "tuple-01",
+      "tags": [
+        "tuples"
+      ],
+      "source": "t = (1, 2, 3)\nprint(t, t[1], t[-1], len(t))\nprint(t + (4,), (5,) * 2)\na, b, c = t\nprint(a + b + c)\nprint(tuple([7, 8]))\n",
+      "stdout": "(1, 2, 3) 2 3 3\n(1, 2, 3, 4) (5, 5)\n6\n(7, 8)\n"
+    },
+    {
+      "id": "tuple-02",
+      "tags": [
+        "tuple",
+        "return"
+      ],
+      "source": "def min_max(xs):\n    return min(xs), max(xs)\nlo, hi = min_max([5, 3, 9, 1])\nprint(lo, hi)\nprint(min_max([2]))\n",
+      "stdout": "1 9\n(2, 2)\n"
+    },
+    {
+      "id": "tuple-03",
+      "tags": [
+        "isinstance"
+      ],
+      "source": "for v in [1, 2.0, \"s\", [1], (1,), {\"a\": 1}, True, None]:\n    print(isinstance(v, int), isinstance(v, str), isinstance(v, list))\n",
+      "stdout": "True False False\nFalse False False\nFalse True False\nFalse False True\nFalse False False\nFalse False False\nTrue False False\nFalse False False\n"
+    },
+    {
+      "id": "flow-01",
+      "tags": [
+        "if",
+        "elif",
+        "else"
+      ],
+      "source": "for n in [0, 5, 15, -3]:\n    if n < 0:\n        print(\"negative\")\n    elif n == 0:\n        print(\"zero\")\n    elif n < 10:\n        print(\"small\")\n    else:\n        print(\"big\")\n",
+      "stdout": "zero\nsmall\nbig\nnegative\n"
+    },
+    {
+      "id": "flow-02",
+      "tags": [
+        "while",
+        "break",
+        "continue"
+      ],
+      "source": "i = 0\ntotal = 0\nwhile True:\n    i += 1\n    if i % 2 == 0:\n        continue\n    if i > 9:\n        break\n    total += i\nprint(i, total)\n",
+      "stdout": "11 25\n"
+    },
+    {
+      "id": "flow-03",
+      "tags": [
+        "fizzbuzz"
+      ],
+      "source": "for i in range(1, 16):\n    if i % 15 == 0:\n        print(\"FizzBuzz\")\n    elif i % 3 == 0:\n        print(\"Fizz\")\n    elif i % 5 == 0:\n        print(\"Buzz\")\n    else:\n        print(i)\n",
+      "stdout": "1\n2\nFizz\n4\nBuzz\nFizz\n7\n8\nFizz\nBuzz\n11\nFizz\n13\n14\nFizzBuzz\n"
+    },
+    {
+      "id": "flow-04",
+      "tags": [
+        "nested",
+        "loops",
+        "break"
+      ],
+      "source": "found = None\nfor a in range(1, 20):\n    for b in range(a, 20):\n        if a * a + b * b == 13 * 13:\n            found = (a, b)\n            break\n    if found:\n        break\nprint(found)\n",
+      "stdout": "(5, 12)\n"
+    },
+    {
+      "id": "flow-05",
+      "tags": [
+        "pass",
+        "and",
+        "print",
+        "sep",
+        "end"
+      ],
+      "source": "for i in range(3):\n    pass\nprint(\"a\", \"b\", \"c\", sep=\"-\")\nprint(\"no newline\", end=\"\")\nprint(\" then newline\")\nprint(1, 2, sep=\"\", end=\"!\\n\")\n",
+      "stdout": "a-b-c\nno newline then newline\n12!\n"
+    },
+    {
+      "id": "flow-06",
+      "tags": [
+        "collatz"
+      ],
+      "source": "n = 27\nsteps = 0\npeak = n\nwhile n != 1:\n    if n % 2 == 0:\n        n = n // 2\n    else:\n        n = 3 * n + 1\n    peak = max(peak, n)\n    steps += 1\nprint(steps, peak)\n",
+      "stdout": "111 9232\n"
+    },
+    {
+      "id": "flow-07",
+      "tags": [
+        "range",
+        "variants"
+      ],
+      "source": "print(list(range(5)))\nprint(list(range(2, 9, 3)))\nprint(list(range(10, 0, -3)))\nprint(len(range(0, 100, 7)))\n",
+      "stdout": "[0, 1, 2, 3, 4]\n[2, 5, 8]\n[10, 7, 4, 1]\n15\n"
+    },
+    {
+      "id": "flow-08",
+      "tags": [
+        "digit",
+        "sum",
+        "input"
+      ],
+      "source": "n = int(input(\"number: \"))\ns = 0\nwhile n > 0:\n    s += n % 10\n    n //= 10\nprint(s)\n",
+      "stdout": "number: 35\n",
+      "input": [
+        "98765"
+      ]
+    },
+    {
+      "id": "pat-01",
+      "tags": [
+        "right",
+        "triangle"
+      ],
+      "source": "for i in range(1, 6):\n    print(\"*\" * i)\n",
+      "stdout": "*\n**\n***\n****\n*****\n"
+    },
+    {
+      "id": "pat-02",
+      "tags": [
+        "pyramid"
+      ],
+      "source": "n = 4\nfor i in range(n):\n    print(\" \" * (n - i - 1) + \"*\" * (2 * i + 1))\n",
+      "stdout": "   *\n  ***\n *****\n*******\n"
+    },
+    {
+      "id": "pat-03",
+      "tags": [
+        "number",
+        "triangle"
+      ],
+      "source": "for i in range(1, 5):\n    row = \"\"\n    for j in range(1, i + 1):\n        row += str(j)\n    print(row)\n",
+      "stdout": "1\n12\n123\n1234\n"
+    },
+    {
+      "id": "pat-04",
+      "tags": [
+        "hollow",
+        "square"
+      ],
+      "source": "n = 5\nfor r in range(n):\n    if r == 0 or r == n - 1:\n        print(\"#\" * n)\n    else:\n        print(\"#\" + \" \" * (n - 2) + \"#\")\n",
+      "stdout": "#####\n#   #\n#   #\n#   #\n#####\n"
+    },
+    {
+      "id": "pat-05",
+      "tags": [
+        "diamond"
+      ],
+      "source": "n = 3\nrows = []\nfor i in range(n):\n    rows.append(\" \" * (n - i - 1) + \"*\" * (2 * i + 1))\nfor r in rows + rows[-2::-1]:\n    print(r)\n",
+      "stdout": "  *\n ***\n*****\n ***\n  *\n"
+    },
+    {
+      "id": "pat-07",
+      "tags": [
+        "multiplication",
+        "table"
+      ],
+      "source": "for a in range(1, 4):\n    print(\" \".join([f\"{a * b:>3}\" for b in range(1, 6)]))\n",
+      "stdout": "  1   2   3   4   5\n  2   4   6   8  10\n  3   6   9  12  15\n"
+    },
+    {
+      "id": "fn-01",
+      "tags": [
+        "defaults",
+        "keyword",
+        "args"
+      ],
+      "source": "def greet(name, greeting=\"Hello\", mark=\"!\"):\n    return greeting + \", \" + name + mark\nprint(greet(\"Ada\"))\nprint(greet(\"Kit\", \"Hi\"))\nprint(greet(\"Mo\", mark=\"?\"))\nprint(greet(greeting=\"Yo\", name=\"Rook\"))\n",
+      "stdout": "Hello, Ada!\nHi, Kit!\nHello, Mo?\nYo, Rook!\n"
+    },
+    {
+      "id": "fn-02",
+      "tags": [
+        "factorial",
+        "recursion"
+      ],
+      "source": "def fact(n):\n    if n <= 1:\n        return 1\n    return n * fact(n - 1)\nprint([fact(i) for i in range(8)])\nprint(fact(15))\n",
+      "stdout": "[1, 1, 2, 6, 24, 120, 720, 5040]\n1307674368000\n"
+    },
+    {
+      "id": "fn-03",
+      "tags": [
+        "fibonacci",
+        "memo"
+      ],
+      "source": "memo = {}\ndef fib(n):\n    if n < 2:\n        return n\n    if n in memo:\n        return memo[n]\n    memo[n] = fib(n - 1) + fib(n - 2)\n    return memo[n]\nprint(fib(30), fib(60))\n",
+      "stdout": "832040 1548008755920\n"
+    },
+    {
+      "id": "fn-04",
+      "tags": [
+        "gcd",
+        "lcm"
+      ],
+      "source": "def gcd(a, b):\n    while b:\n        a, b = b, a % b\n    return a\ndef lcm(a, b):\n    return a * b // gcd(a, b)\nprint(gcd(84, 36), lcm(4, 6), gcd(17, 5))\n",
+      "stdout": "12 12 1\n"
+    },
+    {
+      "id": "fn-05",
+      "tags": [
+        "hanoi",
+        "count"
+      ],
+      "source": "moves = []\ndef hanoi(n, a, b, c):\n    if n == 0:\n        return\n    hanoi(n - 1, a, c, b)\n    moves.append(a + c)\n    hanoi(n - 1, b, a, c)\nhanoi(3, \"A\", \"B\", \"C\")\nprint(len(moves), moves[:4])\n",
+      "stdout": "7 ['AC', 'AB', 'CB', 'AC']\n"
+    },
+    {
+      "id": "fn-06",
+      "tags": [
+        "power",
+        "set",
+        "recursion"
+      ],
+      "source": "def subsets(xs):\n    if not xs:\n        return [[]]\n    rest = subsets(xs[1:])\n    return rest + [[xs[0]] + r for r in rest]\nprint(sorted(subsets([1, 2, 3])))\n",
+      "stdout": "[[], [1], [1, 2], [1, 2, 3], [1, 3], [2], [2, 3], [3]]\n"
+    },
+    {
+      "id": "fn-07",
+      "tags": [
+        "permutations"
+      ],
+      "source": "def perms(s):\n    if len(s) <= 1:\n        return [s]\n    out = []\n    for i in range(len(s)):\n        for p in perms(s[:i] + s[i + 1:]):\n            out.append(s[i] + p)\n    return out\nprint(perms(\"abc\"))\n",
+      "stdout": "['abc', 'acb', 'bac', 'bca', 'cab', 'cba']\n"
+    },
+    {
+      "id": "fn-08",
+      "tags": [
+        "higher",
+        "order"
+      ],
+      "source": "def apply_twice(f, x):\n    return f(f(x))\ndef add3(x):\n    return x + 3\nprint(apply_twice(add3, 10))\nprint(apply_twice(lambda s: s + s, \"ab\"))\n",
+      "stdout": "16\nabababab\n"
+    },
+    {
+      "id": "fn-10",
+      "tags": [
+        "none",
+        "return"
+      ],
+      "source": "def nothing():\n    pass\ndef maybe(x):\n    if x > 0:\n        return x\nprint(nothing(), maybe(3), maybe(-1))\nprint(maybe(-1) is None)\n",
+      "stdout": "None 3 None\nTrue\n"
+    },
+    {
+      "id": "fn-11",
+      "tags": [
+        "binary",
+        "search"
+      ],
+      "source": "def bsearch(xs, target):\n    lo, hi = 0, len(xs) - 1\n    while lo <= hi:\n        mid = (lo + hi) // 2\n        if xs[mid] == target:\n            return mid\n        if xs[mid] < target:\n            lo = mid + 1\n        else:\n            hi = mid - 1\n    return -1\ndata = [1, 3, 5, 7, 9, 11]\nprint([bsearch(data, t) for t in [1, 7, 11, 4]])\n",
+      "stdout": "[0, 3, 5, -1]\n"
+    },
+    {
+      "id": "fn-12",
+      "tags": [
+        "is",
+        "prime",
+        "sieve"
+      ],
+      "source": "def primes(n):\n    flags = [True] * (n + 1)\n    flags[0] = flags[1] = False\n    for i in range(2, n + 1):\n        if flags[i]:\n            for j in range(i * i, n + 1, i):\n                flags[j] = False\n    return [i for i in range(n + 1) if flags[i]]\nprint(primes(40))\n",
+      "stdout": "[2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37]\n"
+    },
+    {
+      "id": "cls-01",
+      "tags": [
+        "class",
+        "attributes",
+        "methods"
+      ],
+      "source": "class Point:\n    def __init__(self, x, y):\n        self.x = x\n        self.y = y\n    def dist2(self, other):\n        return (self.x - other.x) ** 2 + (self.y - other.y) ** 2\na = Point(0, 0)\nb = Point(3, 4)\nprint(a.dist2(b), b.x, b.y)\nb.x = 10\nprint(b.x)\n",
+      "stdout": "25 3 4\n10\n"
+    },
+    {
+      "id": "cls-02",
+      "tags": [
+        "stack",
+        "class"
+      ],
+      "source": "class Stack:\n    def __init__(self):\n        self.items = []\n    def push(self, x):\n        self.items.append(x)\n    def pop(self):\n        return self.items.pop()\n    def is_empty(self):\n        return len(self.items) == 0\ns = Stack()\nfor c in \"([{\":\n    s.push(c)\nprint(s.pop(), s.pop(), s.is_empty(), s.pop(), s.is_empty())\n",
+      "stdout": "{ [ False ( True\n"
+    },
+    {
+      "id": "cls-03",
+      "tags": [
+        "balanced",
+        "brackets"
+      ],
+      "source": "def balanced(text):\n    pairs = {\")\": \"(\", \"]\": \"[\", \"}\": \"{\"}\n    stack = []\n    for ch in text:\n        if ch in \"([{\":\n            stack.append(ch)\n        elif ch in pairs:\n            if not stack or stack.pop() != pairs[ch]:\n                return False\n    return not stack\nfor t in [\"([]{})\", \"([)]\", \"((\", \"a(b)c\"]:\n    print(t, balanced(t))\n",
+      "stdout": "([]{}) True\n([)] False\n(( False\na(b)c True\n"
+    },
+    {
+      "id": "cls-04",
+      "tags": [
+        "linked",
+        "list"
+      ],
+      "source": "class Node:\n    def __init__(self, value, next=None):\n        self.value = value\n        self.next = next\nhead = None\nfor v in [3, 2, 1]:\n    head = Node(v, head)\nout = []\nnode = head\nwhile node:\n    out.append(node.value)\n    node = node.next\nprint(out)\n",
+      "stdout": "[1, 2, 3]\n"
+    },
+    {
+      "id": "cls-05",
+      "tags": [
+        "reverse",
+        "linked",
+        "list"
+      ],
+      "source": "class Node:\n    def __init__(self, value):\n        self.value = value\n        self.next = None\nnodes = [Node(i) for i in range(5)]\nfor a, b in zip(nodes, nodes[1:]):\n    a.next = b\nprev = None\ncur = nodes[0]\nwhile cur:\n    nxt = cur.next\n    cur.next = prev\n    prev = cur\n    cur = nxt\nvals = []\nwhile prev:\n    vals.append(prev.value)\n    prev = prev.next\nprint(vals)\n",
+      "stdout": "[4, 3, 2, 1, 0]\n"
+    },
+    {
+      "id": "cls-06",
+      "tags": [
+        "bst",
+        "insert",
+        "inorder"
+      ],
+      "source": "class Tree:\n    def __init__(self, key):\n        self.key = key\n        self.left = None\n        self.right = None\ndef insert(t, k):\n    if t is None:\n        return Tree(k)\n    if k < t.key:\n        t.left = insert(t.left, k)\n    else:\n        t.right = insert(t.right, k)\n    return t\ndef inorder(t, out):\n    if t:\n        inorder(t.left, out)\n        out.append(t.key)\n        inorder(t.right, out)\n    return out\nroot = None\nfor k in [50, 30, 70, 20, 40, 60, 80, 35]:\n    root = insert(root, k)\nprint(inorder(root, []))\n",
+      "stdout": "[20, 30, 35, 40, 50, 60, 70, 80]\n"
+    },
+    {
+      "id": "cls-07",
+      "tags": [
+        "tree",
+        "height"
+      ],
+      "source": "class T:\n    def __init__(self, left=None, right=None):\n        self.left = left\n        self.right = right\ndef height(t):\n    if t is None:\n        return 0\n    return 1 + max(height(t.left), height(t.right))\ntree = T(T(T(), None), T(None, T(T(), T())))\nprint(height(tree))\n",
+      "stdout": "4\n"
+    },
+    {
+      "id": "cls-08",
+      "tags": [
+        "bank",
+        "account"
+      ],
+      "source": "class Account:\n    def __init__(self, owner, balance=0):\n        self.owner = owner\n        self.balance = balance\n        self.log = []\n    def deposit(self, amount):\n        self.balance += amount\n        self.log.append((\"in\", amount))\n    def withdraw(self, amount):\n        if amount > self.balance:\n            return False\n        self.balance -= amount\n        self.log.append((\"out\", amount))\n        return True\na = Account(\"Mo\", 10)\na.deposit(15)\nprint(a.withdraw(30), a.withdraw(5), a.balance, a.log)\n",
+      "stdout": "False True 20 [('in', 15), ('out', 5)]\n"
+    },
+    {
+      "id": "cls-09",
+      "tags": [
+        "queue",
+        "class",
+        "two",
+        "stacks"
+      ],
+      "source": "class Queue:\n    def __init__(self):\n        self.inbox = []\n        self.outbox = []\n    def put(self, x):\n        self.inbox.append(x)\n    def get(self):\n        if not self.outbox:\n            while self.inbox:\n                self.outbox.append(self.inbox.pop())\n        return self.outbox.pop()\nq = Queue()\nfor i in range(3):\n    q.put(i)\nprint(q.get(), q.get())\nq.put(9)\nprint(q.get(), q.get())\n",
+      "stdout": "0 1\n2 9\n"
+    },
+    {
+      "id": "cls-10",
+      "tags": [
+        "objects",
+        "in",
+        "list",
+        "sorted",
+        "key"
+      ],
+      "source": "class Item:\n    def __init__(self, name, price):\n        self.name = name\n        self.price = price\nitems = [Item(\"pen\", 2.5), Item(\"book\", 12.0), Item(\"cup\", 4.25)]\nfor it in sorted(items, key=lambda i: i.price):\n    print(f\"{it.name:<6}{it.price:.2f}\")\n",
+      "stdout": "pen   2.50\ncup   4.25\nbook  12.00\n"
+    },
+    {
+      "id": "exc-01",
+      "tags": [
+        "value",
+        "error"
+      ],
+      "source": "for s in [\"12\", \"x\", \"7\"]:\n    try:\n        print(int(s) * 2)\n    except ValueError:\n        print(\"not a number:\", s)\n",
+      "stdout": "24\nnot a number: x\n14\n"
+    },
+    {
+      "id": "exc-02",
+      "tags": [
+        "zero",
+        "division"
+      ],
+      "source": "def safe_div(a, b):\n    try:\n        return a / b\n    except ZeroDivisionError:\n        return None\nprint(safe_div(6, 3), safe_div(1, 0))\n",
+      "stdout": "2.0 None\n"
+    },
+    {
+      "id": "exc-03",
+      "tags": [
+        "key",
+        "index",
+        "errors"
+      ],
+      "source": "d = {\"a\": 1}\ntry:\n    print(d[\"b\"])\nexcept KeyError:\n    print(\"missing key\")\nxs = [1, 2]\ntry:\n    print(xs[5])\nexcept IndexError:\n    print(\"bad index\")\n",
+      "stdout": "missing key\nbad index\n"
+    },
+    {
+      "id": "exc-04",
+      "tags": [
+        "raise",
+        "caught"
+      ],
+      "source": "def check_age(n):\n    if n < 0:\n        raise ValueError(\"negative age\")\n    return n\nfor v in [5, -1]:\n    try:\n        print(check_age(v))\n    except ValueError as e:\n        print(\"rejected\", v)\n",
+      "stdout": "5\nrejected -1\n"
+    },
+    {
+      "id": "exc-05",
+      "tags": [
+        "assert",
+        "caught"
+      ],
+      "source": "def half(n):\n    assert n % 2 == 0, \"odd\"\n    return n // 2\nfor v in [8, 3]:\n    try:\n        print(half(v))\n    except AssertionError:\n        print(\"assert failed for\", v)\n",
+      "stdout": "4\nassert failed for 3\n"
+    },
+    {
+      "id": "exc-06",
+      "tags": [
+        "except",
+        "exception"
+      ],
+      "source": "results = []\nfor thing in [1, \"a\", None]:\n    try:\n        results.append(thing + 1)\n    except Exception:\n        results.append(\"err\")\nprint(results)\n",
+      "stdout": "[2, 'err', 'err']\n"
+    },
+    {
+      "id": "exc-07",
+      "tags": [
+        "bare",
+        "except"
+      ],
+      "source": "def risky(i):\n    if i == 2:\n        raise KeyError(\"two\")\n    return i * 10\nout = []\nfor i in range(4):\n    try:\n        out.append(risky(i))\n    except:\n        out.append(-1)\nprint(out)\n",
+      "stdout": "[0, 10, -1, 30]\n"
+    },
+    {
+      "id": "exc-08",
+      "tags": [
+        "raise",
+        "class",
+        "no",
+        "message"
+      ],
+      "source": "def pick(xs, i):\n    if i >= len(xs):\n        raise IndexError\n    return xs[i]\ntry:\n    pick([1], 3)\nexcept IndexError:\n    print(\"caught IndexError\")\n",
+      "stdout": "caught IndexError\n"
+    },
+    {
+      "id": "mod-01",
+      "tags": [
+        "deque",
+        "basics"
+      ],
+      "source": "from collections import deque\nq = deque([1, 2, 3])\nq.append(4)\nq.appendleft(0)\nprint(q.popleft(), q.pop(), len(q))\nprint(list(q))\n",
+      "stdout": "0 4 3\n[1, 2, 3]\n"
+    },
+    {
+      "id": "mod-02",
+      "tags": [
+        "deque",
+        "bfs",
+        "grid"
+      ],
+      "source": "from collections import deque\ngrid = [\"..#.\", \".##.\", \"....\", \"#...\"]\nstart = (0, 0)\ngoal = (3, 3)\ndist = {start: 0}\nq = deque([start])\nwhile q:\n    r, c = q.popleft()\n    for dr, dc in [(1, 0), (-1, 0), (0, 1), (0, -1)]:\n        nr, nc = r + dr, c + dc\n        if 0 <= nr < 4 and 0 <= nc < 4 and grid[nr][nc] == \".\" and (nr, nc) not in dist:\n            dist[(nr, nc)] = dist[(r, c)] + 1\n            q.append((nr, nc))\nprint(dist.get(goal))\n",
+      "stdout": "6\n"
+    },
+    {
+      "id": "mod-03",
+      "tags": [
+        "heapq",
+        "basics"
+      ],
+      "source": "import heapq\nh = []\nfor v in [5, 1, 8, 3, 2]:\n    heapq.heappush(h, v)\nout = []\nwhile h:\n    out.append(heapq.heappop(h))\nprint(out)\n",
+      "stdout": "[1, 2, 3, 5, 8]\n"
+    },
+    {
+      "id": "mod-04",
+      "tags": [
+        "heapify"
+      ],
+      "source": "import heapq\nxs = [9, 4, 7, 1, 8]\nheapq.heapify(xs)\nprint(xs[0], heapq.heappop(xs), heapq.heappop(xs), len(xs))\n",
+      "stdout": "1 1 4 3\n"
+    },
+    {
+      "id": "mod-05",
+      "tags": [
+        "dijkstra"
+      ],
+      "source": "import heapq\ngraph = {\"a\": [(\"b\", 4), (\"c\", 1)], \"b\": [(\"d\", 1)], \"c\": [(\"b\", 2), (\"d\", 5)], \"d\": []}\ndist = {\"a\": 0}\npq = [(0, \"a\")]\nwhile pq:\n    d, node = heapq.heappop(pq)\n    if d > dist.get(node, 10 ** 9):\n        continue\n    for nxt, w in graph[node]:\n        nd = d + w\n        if nd < dist.get(nxt, 10 ** 9):\n            dist[nxt] = nd\n            heapq.heappush(pq, (nd, nxt))\nprint(sorted(dist.items()))\n",
+      "stdout": "[('a', 0), ('b', 3), ('c', 1), ('d', 4)]\n"
+    },
+    {
+      "id": "mod-06",
+      "tags": [
+        "graph",
+        "bfs",
+        "order"
+      ],
+      "source": "from collections import deque\ngraph = {1: [2, 3], 2: [4], 3: [4, 5], 4: [6], 5: [6], 6: []}\nseen = [1]\nq = deque([1])\nwhile q:\n    n = q.popleft()\n    for m in graph[n]:\n        if m not in seen:\n            seen.append(m)\n            q.append(m)\nprint(seen)\n",
+      "stdout": "[1, 2, 3, 4, 5, 6]\n"
+    },
+    {
+      "id": "mod-07",
+      "tags": [
+        "dfs",
+        "recursion"
+      ],
+      "source": "graph = {\"a\": [\"b\", \"c\"], \"b\": [\"d\"], \"c\": [\"d\", \"e\"], \"d\": [], \"e\": []}\norder = []\ndef dfs(n):\n    if n in order:\n        return\n    order.append(n)\n    for m in graph[n]:\n        dfs(m)\ndfs(\"a\")\nprint(order)\n",
+      "stdout": "['a', 'b', 'd', 'c', 'e']\n"
+    },
+    {
+      "id": "mod-08",
+      "tags": [
+        "k",
+        "smallest",
+        "heap"
+      ],
+      "source": "import heapq\ndata = [15, 3, 9, 27, 1, 8]\nh = []\nfor x in data:\n    heapq.heappush(h, -x)\n    if len(h) > 3:\n        heapq.heappop(h)\nprint(sorted([-v for v in h]))\n",
+      "stdout": "[1, 3, 8]\n"
+    },
+    {
+      "id": "mod-09",
+      "tags": [
+        "math",
+        "in",
+        "loop"
+      ],
+      "source": "import math\nfor n in [1, 2, 10, 99]:\n    r = math.sqrt(n)\n    print(n, math.floor(r), math.ceil(r), f\"{r:.2f}\")\n",
+      "stdout": "1 1 1 1.00\n2 1 2 1.41\n10 3 4 3.16\n99 9 10 9.95\n"
+    },
+    {
+      "id": "mod-10",
+      "tags": [
+        "deque",
+        "sliding",
+        "window",
+        "max"
+      ],
+      "source": "from collections import deque\nnums = [1, 3, -1, -3, 5, 3, 6, 7]\nk = 3\ndq = deque()\nout = []\nfor i, v in enumerate(nums):\n    while dq and nums[dq[-1]] <= v:\n        dq.pop()\n    dq.append(i)\n    if dq[0] <= i - k:\n        dq.popleft()\n    if i >= k - 1:\n        out.append(nums[dq[0]])\nprint(out)\n",
+      "stdout": "[3, 3, 5, 5, 6, 7]\n"
+    },
+    {
+      "id": "alg-01",
+      "tags": [
+        "bubble",
+        "sort"
+      ],
+      "source": "def bubble(xs):\n    xs = xs[:]\n    n = len(xs)\n    for i in range(n):\n        for j in range(n - 1 - i):\n            if xs[j] > xs[j + 1]:\n                xs[j], xs[j + 1] = xs[j + 1], xs[j]\n    return xs\nprint(bubble([5, 2, 9, 1, 5, 6]))\n",
+      "stdout": "[1, 2, 5, 5, 6, 9]\n"
+    },
+    {
+      "id": "alg-02",
+      "tags": [
+        "insertion",
+        "sort"
+      ],
+      "source": "def insertion(xs):\n    for i in range(1, len(xs)):\n        key = xs[i]\n        j = i - 1\n        while j >= 0 and xs[j] > key:\n            xs[j + 1] = xs[j]\n            j -= 1\n        xs[j + 1] = key\n    return xs\nprint(insertion([4, 3, 2, 10, 12, 1, 5, 6]))\n",
+      "stdout": "[1, 2, 3, 4, 5, 6, 10, 12]\n"
+    },
+    {
+      "id": "alg-03",
+      "tags": [
+        "merge",
+        "sort"
+      ],
+      "source": "def merge_sort(xs):\n    if len(xs) <= 1:\n        return xs\n    mid = len(xs) // 2\n    left = merge_sort(xs[:mid])\n    right = merge_sort(xs[mid:])\n    out = []\n    i = j = 0\n    while i < len(left) and j < len(right):\n        if left[i] <= right[j]:\n            out.append(left[i])\n            i += 1\n        else:\n            out.append(right[j])\n            j += 1\n    return out + left[i:] + right[j:]\nprint(merge_sort([38, 27, 43, 3, 9, 82, 10]))\n",
+      "stdout": "[3, 9, 10, 27, 38, 43, 82]\n"
+    },
+    {
+      "id": "alg-04",
+      "tags": [
+        "quick",
+        "sort"
+      ],
+      "source": "def qs(xs):\n    if len(xs) <= 1:\n        return xs\n    p = xs[0]\n    return qs([x for x in xs[1:] if x < p]) + [p] + qs([x for x in xs[1:] if x >= p])\nprint(qs([3, 6, 1, 8, 2, 9, 2]))\n",
+      "stdout": "[1, 2, 2, 3, 6, 8, 9]\n"
+    },
+    {
+      "id": "alg-05",
+      "tags": [
+        "prefix",
+        "sums"
+      ],
+      "source": "xs = [2, 4, 1, 5, 3]\npre = [0]\nfor x in xs:\n    pre.append(pre[-1] + x)\nprint(pre)\nprint(pre[4] - pre[1])\n",
+      "stdout": "[0, 2, 6, 7, 12, 15]\n10\n"
+    },
+    {
+      "id": "alg-06",
+      "tags": [
+        "sliding",
+        "window",
+        "sum"
+      ],
+      "source": "def best_window(xs, k):\n    s = sum(xs[:k])\n    best = s\n    for i in range(k, len(xs)):\n        s += xs[i] - xs[i - k]\n        best = max(best, s)\n    return best\nprint(best_window([1, 4, 2, 10, 23, 3, 1, 0, 20], 4))\n",
+      "stdout": "39\n"
+    },
+    {
+      "id": "alg-07",
+      "tags": [
+        "two",
+        "pointers",
+        "pair",
+        "sum"
+      ],
+      "source": "def pair_sum(xs, target):\n    i, j = 0, len(xs) - 1\n    while i < j:\n        s = xs[i] + xs[j]\n        if s == target:\n            return (xs[i], xs[j])\n        if s < target:\n            i += 1\n        else:\n            j -= 1\n    return None\nprint(pair_sum([1, 2, 4, 7, 11, 15], 15), pair_sum([1, 2, 3], 10))\n",
+      "stdout": "(4, 11) None\n"
+    },
+    {
+      "id": "alg-09",
+      "tags": [
+        "dp",
+        "lcs"
+      ],
+      "source": "def lcs(a, b):\n    m, n = len(a), len(b)\n    t = [[0] * (n + 1) for _ in range(m + 1)]\n    for i in range(1, m + 1):\n        for j in range(1, n + 1):\n            if a[i - 1] == b[j - 1]:\n                t[i][j] = t[i - 1][j - 1] + 1\n            else:\n                t[i][j] = max(t[i - 1][j], t[i][j - 1])\n    return t[m][n]\nprint(lcs(\"snake\", \"stack\"), lcs(\"abc\", \"abc\"), lcs(\"\", \"x\"))\n",
+      "stdout": "3 3 0\n"
+    },
+    {
+      "id": "alg-10",
+      "tags": [
+        "anagram",
+        "groups"
+      ],
+      "source": "words = [\"eat\", \"tea\", \"tan\", \"ate\", \"nat\", \"bat\"]\ngroups = {}\nfor w in words:\n    key = \"\".join(sorted(w))\n    groups.setdefault(key, []).append(w)\nprint(sorted([sorted(g) for g in groups.values()]))\n",
+      "stdout": "[['ate', 'eat', 'tea'], ['bat'], ['nat', 'tan']]\n"
+    },
+    {
+      "id": "alg-11",
+      "tags": [
+        "run",
+        "length"
+      ],
+      "source": "def rle(s):\n    out = \"\"\n    i = 0\n    while i < len(s):\n        j = i\n        while j < len(s) and s[j] == s[i]:\n            j += 1\n        out += s[i] + str(j - i)\n        i = j\n    return out\nprint(rle(\"aaabccdddd\"), rle(\"\"), rle(\"x\"))\n",
+      "stdout": "a3b1c2d4  x1\n"
+    },
+    {
+      "id": "alg-12",
+      "tags": [
+        "binary",
+        "conversion"
+      ],
+      "source": "def to_bin(n):\n    if n == 0:\n        return \"0\"\n    out = \"\"\n    while n > 0:\n        out = str(n % 2) + out\n        n //= 2\n    return out\nprint([to_bin(n) for n in [0, 1, 5, 10, 255]])\n",
+      "stdout": "['0', '1', '101', '1010', '11111111']\n"
+    }
+  ],
+  "excluded": [
+    {
+      "id": "dict-06",
+      "reasons": [
+        "keyword argument(s) ['key'] to max()"
+      ]
+    },
+    {
+      "id": "pat-06",
+      "reasons": [
+        "IfExp is outside the subset"
+      ]
+    },
+    {
+      "id": "fn-09",
+      "reasons": [
+        "nested def inc inside make_counter"
+      ]
+    },
+    {
+      "id": "alg-08",
+      "reasons": [
+        "IfExp is outside the subset"
+      ]
+    },
+    {
+      "id": "alg-13",
+      "reasons": [
+        "beyond the first 120 programs inside the subset"
+      ]
+    },
+    {
+      "id": "alg-14",
+      "reasons": [
+        "beyond the first 120 programs inside the subset"
+      ]
+    },
+    {
+      "id": "alg-15",
+      "reasons": [
+        "beyond the first 120 programs inside the subset"
+      ]
+    },
+    {
+      "id": "alg-16",
+      "reasons": [
+        "beyond the first 120 programs inside the subset"
+      ]
+    },
+    {
+      "id": "alg-17",
+      "reasons": [
+        "beyond the first 120 programs inside the subset"
+      ]
+    },
+    {
+      "id": "alg-18",
+      "reasons": [
+        "beyond the first 120 programs inside the subset"
+      ]
+    },
+    {
+      "id": "alg-19",
+      "reasons": [
+        "beyond the first 120 programs inside the subset"
+      ]
+    },
+    {
+      "id": "alg-20",
+      "reasons": [
+        "beyond the first 120 programs inside the subset"
+      ]
+    },
+    {
+      "id": "alg-21",
+      "reasons": [
+        "beyond the first 120 programs inside the subset"
+      ]
+    },
+    {
+      "id": "alg-22",
+      "reasons": [
+        "beyond the first 120 programs inside the subset"
+      ]
+    },
+    {
+      "id": "alg-23",
+      "reasons": [
+        "beyond the first 120 programs inside the subset"
+      ]
+    },
+    {
+      "id": "alg-24",
+      "reasons": [
+        "beyond the first 120 programs inside the subset"
+      ]
+    },
+    {
+      "id": "alg-25",
+      "reasons": [
+        "keyword argument(s) ['key'] to max()"
+      ]
+    }
+  ]
+}

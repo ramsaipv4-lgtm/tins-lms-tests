@@ -1,0 +1,53 @@
+{
+  "_about": "AC-209 (games contract Appendix G-F): kind, line and the keyword the one-sentence message must contain. Lines and CPython exception classes are checked by build_fixtures.py.",
+  "cases": [
+    {
+      "id": "syntax",
+      "source": "x = 3\nif x > 1\n    print(x)\n",
+      "phase": "compile",
+      "kind": "SyntaxError",
+      "line": 2,
+      "keyword": ":"
+    },
+    {
+      "id": "name",
+      "source": "total = 5\nprint(totl)\n",
+      "phase": "run",
+      "kind": "NameError",
+      "line": 2,
+      "keyword": "totl"
+    },
+    {
+      "id": "index",
+      "source": "xs = [1, 2, 3]\nprint(xs[3])\n",
+      "phase": "run",
+      "kind": "IndexError",
+      "line": 2,
+      "keyword": "index"
+    },
+    {
+      "id": "indent",
+      "source": "def f():\n    x = 1\n      y = 2\n    return x\n",
+      "phase": "compile",
+      "kind": "IndentationError",
+      "line": 3,
+      "keyword": "indent"
+    },
+    {
+      "id": "type",
+      "source": "age = 7\nprint(\"age: \" + age)\n",
+      "phase": "run",
+      "kind": "TypeError",
+      "line": 2,
+      "keyword": "+"
+    },
+    {
+      "id": "assert",
+      "source": "n = 1\nassert n == 2, \"nope\"\n",
+      "phase": "run",
+      "kind": "AssertionError",
+      "line": 2,
+      "keyword": "nope"
+    }
+  ]
+}

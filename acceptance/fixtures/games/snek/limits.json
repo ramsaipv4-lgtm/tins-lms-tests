@@ -1,0 +1,33 @@
+{
+  "_about": "AC-210: each program must stop with this kind; the message contains the limit number (games contract Appendix G-F).",
+  "cases": [
+    {
+      "id": "ops",
+      "source": "n = 0\nwhile True:\n    n += 1\n",
+      "opts": {
+        "maxOps": 10000
+      },
+      "kind": "TooManySteps",
+      "keyword": "10000"
+    },
+    {
+      "id": "depth",
+      "source": "def down(n):\n    return down(n + 1)\ndown(0)\n",
+      "opts": {
+        "maxDepth": 50
+      },
+      "kind": "TooDeep",
+      "keyword": "50"
+    },
+    {
+      "id": "cells",
+      "source": "xs = []\nwhile True:\n    xs.append(1)\n",
+      "opts": {
+        "maxCells": 5000,
+        "maxOps": 10000000
+      },
+      "kind": "TooBig",
+      "keyword": "5000"
+    }
+  ]
+}

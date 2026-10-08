@@ -1,0 +1,10 @@
+{
+  "_about": "AC-234: each broken story file and the keyword its problem line must contain (games contract Appendix G-F).",
+  "cases": {
+    "unknown-beat.json": "dance",
+    "missing-key.json": "story.x.missing",
+    "unknown-speaker.json": "ghost",
+    "missing-chapter-end.json": "chapter-end",
+    "short-intro.json": "intro"
+  }
+}

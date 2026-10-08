@@ -1,0 +1,161 @@
+{
+  "$comment": "Suite fixture (games contract r3): two bounty levels of 3 bounties (default slack 3 and 2) and a boss level (slack 1) unlocked at Sharpshooter (6 claimed). Outputs are derived by Snek; fixtures/games/packs/outputs.json holds CPython's. Used by AC-207, AC-227, AC-235, AC-240.",
+  "game": "sniper",
+  "id": "sn-basics",
+  "title": "Valley scrolls (suite)",
+  "day": 0,
+  "concepts": [
+    "python.arithmetic",
+    "python.strings"
+  ],
+  "language": "en",
+  "levels": [
+    {
+      "id": "1",
+      "title": "First patrol",
+      "lesson": [
+        {
+          "concept": "python.arithmetic",
+          "text": "* multiplies, ** raises to a power, // divides and drops the remainder."
+        }
+      ],
+      "lang": "snek",
+      "snippets": [
+        {
+          "id": "s-add",
+          "code": "print(2 + 3)",
+          "concept": "python.arithmetic"
+        },
+        {
+          "id": "s-mul",
+          "code": "print(2 * 3)",
+          "concept": "python.arithmetic"
+        },
+        {
+          "id": "s-len",
+          "code": "print(len(\"abcd\"))",
+          "concept": "python.strings"
+        },
+        {
+          "id": "s-pow",
+          "code": "print(2 ** 3)",
+          "concept": "python.arithmetic"
+        }
+      ],
+      "monsters": [
+        "s-add",
+        "s-mul",
+        "s-len",
+        "s-pow"
+      ],
+      "bounties": [
+        {
+          "snippetId": "s-add"
+        },
+        {
+          "snippetId": "s-mul"
+        },
+        {
+          "snippetId": "s-len"
+        }
+      ],
+      "speed": 1
+    },
+    {
+      "id": "2",
+      "title": "Second patrol",
+      "lesson": [
+        {
+          "concept": "python.strings",
+          "text": "\"ab\" * 2 repeats a string; .upper() makes capitals."
+        }
+      ],
+      "lang": "snek",
+      "snippets": [
+        {
+          "id": "s-cat",
+          "code": "print(\"ab\" * 2)",
+          "concept": "python.strings"
+        },
+        {
+          "id": "s-up",
+          "code": "print(\"hi\".upper())",
+          "concept": "python.strings"
+        },
+        {
+          "id": "s-div",
+          "code": "print(7 // 2)",
+          "concept": "python.arithmetic"
+        },
+        {
+          "id": "s-sub",
+          "code": "print(10 - 1)",
+          "concept": "python.arithmetic"
+        }
+      ],
+      "monsters": [
+        "s-cat",
+        "s-up",
+        "s-div",
+        "s-sub"
+      ],
+      "bounties": [
+        {
+          "snippetId": "s-cat"
+        },
+        {
+          "snippetId": "s-up"
+        },
+        {
+          "snippetId": "s-div"
+        }
+      ],
+      "speed": 1.2
+    },
+    {
+      "id": "3",
+      "title": "The Colossus",
+      "lesson": [
+        {
+          "concept": "python.strings",
+          "text": "s[::-1] reverses a string and s[1] is its second character."
+        }
+      ],
+      "lang": "snek",
+      "snippets": [
+        {
+          "id": "s-rev",
+          "code": "print(\"abc\"[::-1])",
+          "concept": "python.strings"
+        },
+        {
+          "id": "s-idx",
+          "code": "print(\"abc\"[1])",
+          "concept": "python.strings"
+        },
+        {
+          "id": "s-nine",
+          "code": "print(3 * 3)",
+          "concept": "python.arithmetic"
+        }
+      ],
+      "monsters": [],
+      "bounties": [],
+      "plates": [
+        {
+          "snippetId": "s-rev"
+        },
+        {
+          "snippetId": "s-idx"
+        },
+        {
+          "snippetId": "s-nine"
+        }
+      ],
+      "callouts": [
+        "s-idx",
+        "s-rev"
+      ]
+    }
+  ]
+}

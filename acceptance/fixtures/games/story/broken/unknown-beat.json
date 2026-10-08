@@ -1,0 +1,31 @@
+{
+  "gameId": "sniper",
+  "front": {
+    "nameKey": "story.sniper.front"
+  },
+  "cast": [
+    {
+      "id": "rook",
+      "nameKey": "story.sniper.cast.rook"
+    }
+  ],
+  "scenes": {
+    "intro": {
+      "beats": [
+        {
+          "t": "dance",
+          "ms": 35000
+        }
+      ]
+    },
+    "chapter-end": {
+      "beats": [
+        {
+          "t": "wait",
+          "ms": 20000
+        }
+      ]
+    }
+  },
+  "$comment": "AC-234 broken: beat type \"dance\" is unknown."
+}

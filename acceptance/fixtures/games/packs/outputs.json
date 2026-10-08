@@ -1,0 +1,17 @@
+{
+  "_about": "stdout (trailing newline removed) of every snippet in the suite's own sniper packs, by CPython.",
+  "oracle": "CPython 3.14.4",
+  "snippets": {
+    "s-add": "5",
+    "s-mul": "6",
+    "s-len": "4",
+    "s-pow": "8",
+    "s-cat": "abab",
+    "s-up": "HI",
+    "s-div": "3",
+    "s-sub": "9",
+    "s-rev": "cba",
+    "s-idx": "b",
+    "s-nine": "9"
+  }
+}

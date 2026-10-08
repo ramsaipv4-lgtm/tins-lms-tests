@@ -1,0 +1,50 @@
+{
+  "$comment": "Suite fixture (games contract r3): one long strike stage of 60 pieces with no decoys, so a perfect run reaches Fever (combo 10) and three power-ups (combo 15, 30, 45). Used by AC-203, AC-239.",
+  "game": "syntax-drop",
+  "id": "sd-rhythm",
+  "title": "Rhythm drill (suite)",
+  "day": 0,
+  "concepts": [
+    "html.headings",
+    "html.text-size"
+  ],
+  "language": "en",
+  "levels": [
+    {
+      "id": "1",
+      "title": "On the beat",
+      "lesson": [
+        {
+          "concept": "html.headings",
+          "text": "Keep to the beat: <h1>, <h2> and <small> each have their own key."
+        }
+      ],
+      "mode": "strike",
+      "renderer": "html",
+      "template": "<h1>A</h1>\n<h2>B</h2>\n<small>c</small>",
+      "slots": [],
+      "pieces": [
+        {
+          "id": "p-h1",
+          "text": "<h1>",
+          "key": "1",
+          "concept": "html.headings"
+        },
+        {
+          "id": "p-h2",
+          "text": "<h2>",
+          "key": "2",
+          "concept": "html.headings"
+        },
+        {
+          "id": "p-small",
+          "text": "<small>",
+          "key": "3",
+          "concept": "html.text-size"
+        }
+      ],
+      "stages": 1,
+      "piecesPerStage": 60
+    }
+  ]
+}

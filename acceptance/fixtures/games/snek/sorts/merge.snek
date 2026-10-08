@@ -1,0 +1,27 @@
+N = {{N}}
+seed = 12345
+data = []
+for i in range(N):
+    seed = (seed * 75 + 74) % 65537
+    data.append(seed % 1000)
+def merge_sort(xs):
+    if len(xs) <= 1:
+        return xs
+    mid = len(xs) // 2
+    left = merge_sort(xs[:mid])
+    right = merge_sort(xs[mid:])
+    merged = []
+    i = 0
+    j = 0
+    while i < len(left) and j < len(right):
+        if left[i] <= right[j]:
+            merged.append(left[i])
+            i += 1
+        else:
+            merged.append(right[j])
+            j += 1
+    merged.extend(left[i:])
+    merged.extend(right[j:])
+    return merged
+out = merge_sort(data)
+print(out[0], out[-1], len(out))

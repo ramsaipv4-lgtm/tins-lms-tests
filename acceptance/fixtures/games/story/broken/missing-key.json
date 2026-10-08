@@ -1,0 +1,36 @@
+{
+  "gameId": "sniper",
+  "front": {
+    "nameKey": "story.sniper.front"
+  },
+  "cast": [
+    {
+      "id": "rook",
+      "nameKey": "story.sniper.cast.rook"
+    }
+  ],
+  "scenes": {
+    "intro": {
+      "beats": [
+        {
+          "t": "say",
+          "who": "rook",
+          "key": "story.x.missing"
+        },
+        {
+          "t": "wait",
+          "ms": 31000
+        }
+      ]
+    },
+    "chapter-end": {
+      "beats": [
+        {
+          "t": "wait",
+          "ms": 20000
+        }
+      ]
+    }
+  },
+  "$comment": "AC-234 broken: the say key story.x.missing is not in en.json."
+}

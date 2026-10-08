@@ -1,0 +1,43 @@
+{
+  "$comment": "Suite fixture: released on class day 2 only (AC-215).",
+  "game": "syntax-drop",
+  "id": "sd-later",
+  "title": "Later headings (suite)",
+  "day": 2,
+  "concepts": [
+    "html.headings"
+  ],
+  "language": "en",
+  "levels": [
+    {
+      "id": "1",
+      "title": "Headings again",
+      "lesson": [
+        {
+          "concept": "html.headings",
+          "text": "Headings go from <h1> (biggest) to <h6> (smallest)."
+        }
+      ],
+      "mode": "strike",
+      "renderer": "html",
+      "template": "<h1>A</h1><h2>B</h2>",
+      "slots": [],
+      "pieces": [
+        {
+          "id": "p-h1",
+          "text": "<h1>",
+          "key": "1",
+          "concept": "html.headings"
+        },
+        {
+          "id": "p-h2",
+          "text": "<h2>",
+          "key": "2",
+          "concept": "html.headings"
+        }
+      ],
+      "stages": 1,
+      "piecesPerStage": 2
+    }
+  ]
+}

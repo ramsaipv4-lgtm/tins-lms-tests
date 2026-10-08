@@ -1,0 +1,535 @@
+{
+  "_about": "AC-212: for each single-line-statement program, the events step() must yield in order: CPython sys.settrace line events (vars = the current scope before the line runs, functions and modules left out; floats with integer value appear as JS integers) and a call event for each host function, right before it runs (games contract §13.T2).",
+  "oracle": "CPython 3.14.4",
+  "programs": [
+    {
+      "id": "assign-loop",
+      "source": "x = 1\ny = 2\ntotal = x + y\nfor i in range(3):\n    total += i\nif total > 5:\n    total = 0\nprint(total)\n",
+      "hosts": [],
+      "stdout": "0\n",
+      "events": [
+        {
+          "kind": "line",
+          "line": 1,
+          "vars": {}
+        },
+        {
+          "kind": "line",
+          "line": 2,
+          "vars": {
+            "x": 1
+          }
+        },
+        {
+          "kind": "line",
+          "line": 3,
+          "vars": {
+            "x": 1,
+            "y": 2
+          }
+        },
+        {
+          "kind": "line",
+          "line": 4,
+          "vars": {
+            "x": 1,
+            "y": 2,
+            "total": 3
+          }
+        },
+        {
+          "kind": "line",
+          "line": 5,
+          "vars": {
+            "x": 1,
+            "y": 2,
+            "total": 3,
+            "i": 0
+          }
+        },
+        {
+          "kind": "line",
+          "line": 4,
+          "vars": {
+            "x": 1,
+            "y": 2,
+            "total": 3,
+            "i": 0
+          }
+        },
+        {
+          "kind": "line",
+          "line": 5,
+          "vars": {
+            "x": 1,
+            "y": 2,
+            "total": 3,
+            "i": 1
+          }
+        },
+        {
+          "kind": "line",
+          "line": 4,
+          "vars": {
+            "x": 1,
+            "y": 2,
+            "total": 4,
+            "i": 1
+          }
+        },
+        {
+          "kind": "line",
+          "line": 5,
+          "vars": {
+            "x": 1,
+            "y": 2,
+            "total": 4,
+            "i": 2
+          }
+        },
+        {
+          "kind": "line",
+          "line": 4,
+          "vars": {
+            "x": 1,
+            "y": 2,
+            "total": 6,
+            "i": 2
+          }
+        },
+        {
+          "kind": "line",
+          "line": 6,
+          "vars": {
+            "x": 1,
+            "y": 2,
+            "total": 6,
+            "i": 2
+          }
+        },
+        {
+          "kind": "line",
+          "line": 7,
+          "vars": {
+            "x": 1,
+            "y": 2,
+            "total": 6,
+            "i": 2
+          }
+        },
+        {
+          "kind": "line",
+          "line": 8,
+          "vars": {
+            "x": 1,
+            "y": 2,
+            "total": 0,
+            "i": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "function",
+      "source": "def double(n):\n    r = n * 2\n    return r\na = double(3)\nb = double(a)\nprint(a, b)\n",
+      "hosts": [],
+      "stdout": "6 12\n",
+      "events": [
+        {
+          "kind": "line",
+          "line": 1,
+          "vars": {}
+        },
+        {
+          "kind": "line",
+          "line": 4,
+          "vars": {}
+        },
+        {
+          "kind": "line",
+          "line": 2,
+          "vars": {
+            "n": 3
+          }
+        },
+        {
+          "kind": "line",
+          "line": 3,
+          "vars": {
+            "n": 3,
+            "r": 6
+          }
+        },
+        {
+          "kind": "line",
+          "line": 5,
+          "vars": {
+            "a": 6
+          }
+        },
+        {
+          "kind": "line",
+          "line": 2,
+          "vars": {
+            "n": 6
+          }
+        },
+        {
+          "kind": "line",
+          "line": 3,
+          "vars": {
+            "n": 6,
+            "r": 12
+          }
+        },
+        {
+          "kind": "line",
+          "line": 6,
+          "vars": {
+            "a": 6,
+            "b": 12
+          }
+        }
+      ]
+    },
+    {
+      "id": "while",
+      "source": "n = 3\ns = 0\nwhile n > 0:\n    s += n\n    n -= 1\nprint(s)\n",
+      "hosts": [],
+      "stdout": "6\n",
+      "events": [
+        {
+          "kind": "line",
+          "line": 1,
+          "vars": {}
+        },
+        {
+          "kind": "line",
+          "line": 2,
+          "vars": {
+            "n": 3
+          }
+        },
+        {
+          "kind": "line",
+          "line": 3,
+          "vars": {
+            "n": 3,
+            "s": 0
+          }
+        },
+        {
+          "kind": "line",
+          "line": 4,
+          "vars": {
+            "n": 3,
+            "s": 0
+          }
+        },
+        {
+          "kind": "line",
+          "line": 5,
+          "vars": {
+            "n": 3,
+            "s": 3
+          }
+        },
+        {
+          "kind": "line",
+          "line": 3,
+          "vars": {
+            "n": 2,
+            "s": 3
+          }
+        },
+        {
+          "kind": "line",
+          "line": 4,
+          "vars": {
+            "n": 2,
+            "s": 3
+          }
+        },
+        {
+          "kind": "line",
+          "line": 5,
+          "vars": {
+            "n": 2,
+            "s": 5
+          }
+        },
+        {
+          "kind": "line",
+          "line": 3,
+          "vars": {
+            "n": 1,
+            "s": 5
+          }
+        },
+        {
+          "kind": "line",
+          "line": 4,
+          "vars": {
+            "n": 1,
+            "s": 5
+          }
+        },
+        {
+          "kind": "line",
+          "line": 5,
+          "vars": {
+            "n": 1,
+            "s": 6
+          }
+        },
+        {
+          "kind": "line",
+          "line": 3,
+          "vars": {
+            "n": 0,
+            "s": 6
+          }
+        },
+        {
+          "kind": "line",
+          "line": 6,
+          "vars": {
+            "n": 0,
+            "s": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": "host",
+      "source": "move()\nfor i in range(2):\n    turn_left()\n    move()\nprint(\"done\")\n",
+      "hosts": [
+        "move",
+        "turn_left"
+      ],
+      "stdout": "done\n",
+      "events": [
+        {
+          "kind": "line",
+          "line": 1,
+          "vars": {}
+        },
+        {
+          "kind": "call",
+          "line": 1,
+          "name": "move",
+          "args": []
+        },
+        {
+          "kind": "line",
+          "line": 2,
+          "vars": {}
+        },
+        {
+          "kind": "line",
+          "line": 3,
+          "vars": {
+            "i": 0
+          }
+        },
+        {
+          "kind": "call",
+          "line": 3,
+          "name": "turn_left",
+          "args": []
+        },
+        {
+          "kind": "line",
+          "line": 4,
+          "vars": {
+            "i": 0
+          }
+        },
+        {
+          "kind": "call",
+          "line": 4,
+          "name": "move",
+          "args": []
+        },
+        {
+          "kind": "line",
+          "line": 2,
+          "vars": {
+            "i": 0
+          }
+        },
+        {
+          "kind": "line",
+          "line": 3,
+          "vars": {
+            "i": 1
+          }
+        },
+        {
+          "kind": "call",
+          "line": 3,
+          "name": "turn_left",
+          "args": []
+        },
+        {
+          "kind": "line",
+          "line": 4,
+          "vars": {
+            "i": 1
+          }
+        },
+        {
+          "kind": "call",
+          "line": 4,
+          "name": "move",
+          "args": []
+        },
+        {
+          "kind": "line",
+          "line": 2,
+          "vars": {
+            "i": 1
+          }
+        },
+        {
+          "kind": "line",
+          "line": 5,
+          "vars": {
+            "i": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "elif-list",
+      "source": "xs = []\nfor v in [3, 8, 5]:\n    if v < 5:\n        xs.append(v)\n    elif v > 5:\n        xs.append(0)\nprint(xs)\n",
+      "hosts": [],
+      "stdout": "[3, 0]\n",
+      "events": [
+        {
+          "kind": "line",
+          "line": 1,
+          "vars": {}
+        },
+        {
+          "kind": "line",
+          "line": 2,
+          "vars": {
+            "xs": []
+          }
+        },
+        {
+          "kind": "line",
+          "line": 3,
+          "vars": {
+            "xs": [],
+            "v": 3
+          }
+        },
+        {
+          "kind": "line",
+          "line": 4,
+          "vars": {
+            "xs": [],
+            "v": 3
+          }
+        },
+        {
+          "kind": "line",
+          "line": 2,
+          "vars": {
+            "xs": [
+              3
+            ],
+            "v": 3
+          }
+        },
+        {
+          "kind": "line",
+          "line": 3,
+          "vars": {
+            "xs": [
+              3
+            ],
+            "v": 8
+          }
+        },
+        {
+          "kind": "line",
+          "line": 5,
+          "vars": {
+            "xs": [
+              3
+            ],
+            "v": 8
+          }
+        },
+        {
+          "kind": "line",
+          "line": 6,
+          "vars": {
+            "xs": [
+              3
+            ],
+            "v": 8
+          }
+        },
+        {
+          "kind": "line",
+          "line": 2,
+          "vars": {
+            "xs": [
+              3,
+              0
+            ],
+            "v": 8
+          }
+        },
+        {
+          "kind": "line",
+          "line": 3,
+          "vars": {
+            "xs": [
+              3,
+              0
+            ],
+            "v": 5
+          }
+        },
+        {
+          "kind": "line",
+          "line": 5,
+          "vars": {
+            "xs": [
+              3,
+              0
+            ],
+            "v": 5
+          }
+        },
+        {
+          "kind": "line",
+          "line": 2,
+          "vars": {
+            "xs": [
+              3,
+              0
+            ],
+            "v": 5
+          }
+        },
+        {
+          "kind": "line",
+          "line": 7,
+          "vars": {
+            "xs": [
+              3,
+              0
+            ],
+            "v": 5
+          }
+        }
+      ]
+    }
+  ]
+}

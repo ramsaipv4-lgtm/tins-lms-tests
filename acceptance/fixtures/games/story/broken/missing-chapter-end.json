@@ -1,0 +1,23 @@
+{
+  "gameId": "sniper",
+  "front": {
+    "nameKey": "story.sniper.front"
+  },
+  "cast": [
+    {
+      "id": "rook",
+      "nameKey": "story.sniper.cast.rook"
+    }
+  ],
+  "scenes": {
+    "intro": {
+      "beats": [
+        {
+          "t": "wait",
+          "ms": 35000
+        }
+      ]
+    }
+  },
+  "$comment": "AC-234 broken: sniper has no chapter-end scene."
+}

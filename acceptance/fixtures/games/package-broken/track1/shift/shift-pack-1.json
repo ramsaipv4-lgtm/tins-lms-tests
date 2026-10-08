@@ -1,0 +1,124 @@
+{
+  "id": "shift-pack-1",
+  "durationMin": 60,
+  "tickets": [
+    {
+      "id": "T1",
+      "title": "Site returns 404",
+      "arrivesAtMin": 0,
+      "slaMin": 15,
+      "priority": "p1",
+      "variants": [
+        "404 on /about",
+        "404 on /pricing",
+        "404 on /blog"
+      ],
+      "check": {
+        "kind": "answer",
+        "expected": "missing build step"
+      }
+    },
+    {
+      "id": "T2",
+      "title": "Build fails on the CI runner",
+      "arrivesAtMin": 5,
+      "slaMin": 15,
+      "priority": "p2",
+      "check": {
+        "kind": "command",
+        "expected": "kettle build --clean"
+      }
+    },
+    {
+      "id": "T3",
+      "title": "Wrong page order in the menu",
+      "arrivesAtMin": 20,
+      "slaMin": 30,
+      "priority": "p3",
+      "variants": [
+        "About is listed before Home",
+        "Blog is listed before Home"
+      ],
+      "check": {
+        "kind": "file",
+        "expected": "pages/home.md"
+      }
+    },
+    {
+      "id": "T4",
+      "title": "Deploy rejected",
+      "arrivesAtMin": 30,
+      "slaMin": 20,
+      "priority": "p2",
+      "check": {
+        "kind": "answer",
+        "expected": "expired token"
+      }
+    }
+  ],
+  "rubric": [
+    {
+      "mode": "live",
+      "rows": [
+        {
+          "id": "T1",
+          "weight": 3
+        },
+        {
+          "id": "T2",
+          "weight": 2
+        },
+        {
+          "id": "T3",
+          "weight": 2
+        },
+        {
+          "id": "T4",
+          "weight": 3
+        }
+      ]
+    },
+    {
+      "mode": "recorded",
+      "rows": [
+        {
+          "id": "T1",
+          "weight": 2
+        },
+        {
+          "id": "T2",
+          "weight": 2
+        },
+        {
+          "id": "T3",
+          "weight": 2
+        },
+        {
+          "id": "T4",
+          "weight": 2
+        }
+      ]
+    },
+    {
+      "mode": "emulated",
+      "rows": [
+        {
+          "id": "T1",
+          "weight": 1
+        },
+        {
+          "id": "T2",
+          "weight": 1
+        },
+        {
+          "id": "T3",
+          "weight": 1
+        },
+        {
+          "id": "T4",
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}

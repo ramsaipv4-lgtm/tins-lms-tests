@@ -1,0 +1,10 @@
+{
+  "_about": "AC-214: each broken pack and the keyword its problem line must contain (games contract Appendix G-F). The maze case joins with the maze contract.",
+  "cases": {
+    "missing-title.json": "title",
+    "bad-concept.json": "HTML Headings",
+    "fails-tests.json": "test",
+    "slot-no-piece.json": "s2",
+    "repeated-level.json": "2"
+  }
+}

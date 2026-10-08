@@ -1,0 +1,28 @@
+{
+  "_about": "AC-219: chartSvg(code) must draw these calls with these data-mark counts (games contract §13.T5 renderers).",
+  "cases": [
+    {
+      "id": "bar",
+      "code": "import matplotlib.pyplot as plt\nplt.bar([\"north\", \"south\", \"east\", \"west\"], [3, 5, 2, 4])\nplt.title(\"Sales by region\")\n",
+      "marks": {
+        "bar": 4,
+        "title": 1
+      },
+      "titleText": "Sales by region"
+    },
+    {
+      "id": "scatter",
+      "code": "import matplotlib.pyplot as plt\nplt.scatter([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], [2, 4, 1, 8, 5, 7, 3, 9, 6, 10])\n",
+      "marks": {
+        "point": 10
+      }
+    },
+    {
+      "id": "hist",
+      "code": "import matplotlib.pyplot as plt\nplt.hist([1, 2, 2, 3, 3, 3, 4, 4, 5, 6, 7, 8, 8, 9, 10], bins=5)\n",
+      "marks": {
+        "bar": 5
+      }
+    }
+  ]
+}

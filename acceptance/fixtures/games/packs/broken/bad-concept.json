@@ -1,0 +1,64 @@
+{
+  "$comment": "AC-214 broken: the concept \"HTML Headings\" does not match the concept format.",
+  "game": "syntax-drop",
+  "id": "broken-bad-concept",
+  "title": "Heading strike (suite)",
+  "day": 0,
+  "concepts": [
+    "HTML Headings",
+    "html.text-size"
+  ],
+  "language": "en",
+  "levels": [
+    {
+      "id": "1",
+      "title": "Big, medium, tiny",
+      "lesson": [
+        {
+          "concept": "HTML Headings",
+          "text": "<h1> is the biggest heading and <h2> the next one down; there is no <h7>."
+        },
+        {
+          "concept": "html.text-size",
+          "text": "<small> makes text smaller than the text around it."
+        }
+      ],
+      "mode": "strike",
+      "renderer": "html",
+      "template": "<h1>Big</h1>\n<h2>Medium</h2>\n<p><small>tiny</small></p>",
+      "slots": [],
+      "pieces": [
+        {
+          "id": "p-h1",
+          "text": "<h1>",
+          "size": "large",
+          "key": "1",
+          "concept": "HTML Headings"
+        },
+        {
+          "id": "p-h2",
+          "text": "<h2>",
+          "size": "medium",
+          "key": "2",
+          "concept": "HTML Headings"
+        },
+        {
+          "id": "p-small",
+          "text": "<small>",
+          "size": "small",
+          "key": "3",
+          "concept": "html.text-size"
+        },
+        {
+          "id": "p-h7",
+          "text": "<h7>",
+          "key": "4",
+          "concept": "HTML Headings",
+          "decoy": true
+        }
+      ],
+      "stages": 3,
+      "piecesPerStage": 4
+    }
+  ]
+}

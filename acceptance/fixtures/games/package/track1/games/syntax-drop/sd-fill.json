@@ -1,0 +1,70 @@
+{
+  "$comment": "Suite fixture (games contract r3): fill mode, html renderer. Level 1 is a three-box flex row like the css-flexbox sample (AC-217); p-block and p-middle are decoys whose wrong drop shows its effect in the preview.",
+  "game": "syntax-drop",
+  "id": "sd-fill",
+  "title": "Flex row (suite)",
+  "day": 0,
+  "concepts": [
+    "css.display",
+    "css.flexbox"
+  ],
+  "language": "en",
+  "levels": [
+    {
+      "id": "1",
+      "title": "Three boxes in a row",
+      "lesson": [
+        {
+          "concept": "css.display",
+          "text": "display: flex puts the children of a box side by side in a row."
+        },
+        {
+          "concept": "css.flexbox",
+          "text": "justify-content: center gathers the row's children in the middle."
+        }
+      ],
+      "mode": "fill",
+      "renderer": "html",
+      "template": "<div style=\"display: {{s1}}; justify-content: {{s2}}\">\n  <div class=\"box\">A</div>\n  <div class=\"box\">B</div>\n  <div class=\"box\">C</div>\n</div>",
+      "slots": [
+        {
+          "id": "s1",
+          "accepts": [
+            "p-flex"
+          ]
+        },
+        {
+          "id": "s2",
+          "accepts": [
+            "p-center"
+          ]
+        }
+      ],
+      "pieces": [
+        {
+          "id": "p-flex",
+          "text": "flex",
+          "concept": "css.display"
+        },
+        {
+          "id": "p-center",
+          "text": "center",
+          "concept": "css.flexbox"
+        },
+        {
+          "id": "p-block",
+          "text": "block",
+          "concept": "css.display",
+          "decoy": true
+        },
+        {
+          "id": "p-middle",
+          "text": "middle",
+          "concept": "css.flexbox",
+          "decoy": true
+        }
+      ],
+      "stages": 1
+    }
+  ]
+}

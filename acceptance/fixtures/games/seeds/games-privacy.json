@@ -1,0 +1,168 @@
+{
+  "_format": "Synthetic journey seed for POST /__test/seed {fixture:'journeys/<file>'} (SPEC §5.9). databases: dbName -> documents to put (SPEC §3 shapes; ids '<type>:<key>'; the personal db of person:<key> is 'person-<key>'). packages: fixture package folders (relative to acceptance/fixtures) to import into classId (running the gate) and publish when publish is true; publishing creates the class's day documents from its schedule. joinCodes: one-time class join codes to create. Seeds are additive: later files only add documents. Seeded attempts with publishedAt and score also get their grade ledger entry (SPEC §4.9).",
+  "_about": "Additive (AC-206): game results and players for l1, l2, l3. l2 scored 98765 (xp 4320), l3 scored 87654 (xp 3000), l1 has xp 1000. team-a (l1, l2) average xp = 2660; team-b (l3) = 3000.",
+  "databases": {
+    "person-l1": [
+      {
+        "type": "gameResult",
+        "id": "gameResult:l1-seed-1",
+        "schema": 1,
+        "updatedAt": 1793586600000,
+        "updatedBy": "hub:seed",
+        "personId": "person:l1",
+        "classId": "class:c1",
+        "gameId": "whack-a-bug",
+        "packId": "wb-loops",
+        "levelId": "1",
+        "score": 1234,
+        "stars": 3,
+        "knowledgeStars": 3,
+        "skill": 1134,
+        "outcome": "won",
+        "xp": 1000,
+        "coins": 15,
+        "claimed": 0,
+        "assisted": 0,
+        "mistakes": [],
+        "assist": false,
+        "durationMs": 60000,
+        "at": 1793592000000,
+        "seed": 7
+      },
+      {
+        "type": "player",
+        "id": "player:l1",
+        "schema": 1,
+        "updatedAt": 1793586600000,
+        "updatedBy": "hub:seed",
+        "xp": 1000,
+        "coins": 15,
+        "cosmetics": [],
+        "gear": [],
+        "purchases": [],
+        "seen": {
+          "prologue": false,
+          "intro": {},
+          "scenes": {}
+        },
+        "avatar": {
+          "look": "block",
+          "color": "teal",
+          "nameTag": "l1"
+        },
+        "timingOffsetMs": 0,
+        "settings": {
+          "autoAdvance": false
+        }
+      }
+    ],
+    "person-l2": [
+      {
+        "type": "gameResult",
+        "id": "gameResult:l2-seed-1",
+        "schema": 1,
+        "updatedAt": 1793586600000,
+        "updatedBy": "hub:seed",
+        "personId": "person:l2",
+        "classId": "class:c1",
+        "gameId": "whack-a-bug",
+        "packId": "wb-loops",
+        "levelId": "1",
+        "score": 98765,
+        "stars": 3,
+        "knowledgeStars": 3,
+        "skill": 98665,
+        "outcome": "won",
+        "xp": 4320,
+        "coins": 15,
+        "claimed": 0,
+        "assisted": 0,
+        "mistakes": [],
+        "assist": false,
+        "durationMs": 60000,
+        "at": 1793592060000,
+        "seed": 7
+      },
+      {
+        "type": "player",
+        "id": "player:l2",
+        "schema": 1,
+        "updatedAt": 1793586600000,
+        "updatedBy": "hub:seed",
+        "xp": 4320,
+        "coins": 15,
+        "cosmetics": [],
+        "gear": [],
+        "purchases": [],
+        "seen": {
+          "prologue": false,
+          "intro": {},
+          "scenes": {}
+        },
+        "avatar": {
+          "look": "block",
+          "color": "teal",
+          "nameTag": "l2"
+        },
+        "timingOffsetMs": 0,
+        "settings": {
+          "autoAdvance": false
+        }
+      }
+    ],
+    "person-l3": [
+      {
+        "type": "gameResult",
+        "id": "gameResult:l3-seed-1",
+        "schema": 1,
+        "updatedAt": 1793586600000,
+        "updatedBy": "hub:seed",
+        "personId": "person:l3",
+        "classId": "class:c1",
+        "gameId": "sniper",
+        "packId": "sn-basics",
+        "levelId": "1",
+        "score": 87654,
+        "stars": 3,
+        "knowledgeStars": 3,
+        "skill": 87354,
+        "outcome": "won",
+        "xp": 3000,
+        "coins": 15,
+        "claimed": 0,
+        "assisted": 0,
+        "mistakes": [],
+        "assist": false,
+        "durationMs": 60000,
+        "at": 1793592120000,
+        "seed": 7
+      },
+      {
+        "type": "player",
+        "id": "player:l3",
+        "schema": 1,
+        "updatedAt": 1793586600000,
+        "updatedBy": "hub:seed",
+        "xp": 3000,
+        "coins": 15,
+        "cosmetics": [],
+        "gear": [],
+        "purchases": [],
+        "seen": {
+          "prologue": false,
+          "intro": {},
+          "scenes": {}
+        },
+        "avatar": {
+          "look": "block",
+          "color": "teal",
+          "nameTag": "l3"
+        },
+        "timingOffsetMs": 0,
+        "settings": {
+          "autoAdvance": false
+        }
+      }
+    ]
+  }
+}

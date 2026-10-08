@@ -1,0 +1,78 @@
+{
+  "$comment": "Suite fixture (games contract r3): the stack must be def area / a = w / b = h / return a * b; the order with b = h first is in altOrders; the decoy 'return a + b' fails the tests. Used by AC-207, AC-229, AC-235, AC-242.",
+  "game": "aftershock",
+  "id": "as-area",
+  "title": "Rectangle area (suite)",
+  "day": 0,
+  "concepts": [
+    "functions.def",
+    "functions.return"
+  ],
+  "language": "en",
+  "levels": [
+    {
+      "id": "1",
+      "title": "Area of a rectangle",
+      "lesson": [
+        {
+          "concept": "functions.return",
+          "text": "return sends a value back to the caller; area(2, 3) should give 6."
+        }
+      ],
+      "lang": "snek",
+      "concept": "functions.def",
+      "entry": "area",
+      "lines": [
+        {
+          "text": "def area(w, h):",
+          "indent": 0
+        },
+        {
+          "text": "a = w",
+          "indent": 1
+        },
+        {
+          "text": "b = h",
+          "indent": 1
+        },
+        {
+          "text": "return a * b",
+          "indent": 1
+        }
+      ],
+      "altOrders": [
+        [
+          0,
+          2,
+          1,
+          3
+        ]
+      ],
+      "decoys": [
+        {
+          "text": "return a + b",
+          "why": "adds the sides instead of multiplying them",
+          "concept": "functions.return"
+        }
+      ],
+      "tests": [
+        {
+          "args": [
+            2,
+            3
+          ],
+          "expect": 6
+        },
+        {
+          "args": [
+            4,
+            5
+          ],
+          "expect": 20
+        }
+      ],
+      "shockSec": 20,
+      "fallSpeed": 1
+    }
+  ]
+}

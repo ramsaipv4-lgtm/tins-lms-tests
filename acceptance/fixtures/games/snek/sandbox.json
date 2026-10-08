@@ -1,0 +1,62 @@
+{
+  "_about": "AC-213: each program is refused (compile or run) with kind NotAllowed (or SyntaxError where listed) and a message naming the refused name; {{CANARY}} is a temp path that must never be created.",
+  "cases": [
+    {
+      "id": "open",
+      "source": "f = open(\"/etc/hostname\")\nprint(f.read())\n",
+      "kinds": [
+        "NotAllowed"
+      ],
+      "keyword": "open"
+    },
+    {
+      "id": "import-os",
+      "source": "import os\nos.system(\"touch {{CANARY}}\")\n",
+      "kinds": [
+        "NotAllowed",
+        "SyntaxError"
+      ],
+      "keyword": "os"
+    },
+    {
+      "id": "dunder-import",
+      "source": "m = __import__(\"os\")\nm.system(\"touch {{CANARY}}\")\n",
+      "kinds": [
+        "NotAllowed"
+      ],
+      "keyword": "__import__"
+    },
+    {
+      "id": "eval",
+      "source": "print(eval(\"1 + 1\"))\n",
+      "kinds": [
+        "NotAllowed"
+      ],
+      "keyword": "eval"
+    },
+    {
+      "id": "exec",
+      "source": "exec(\"x = 1\")\nprint(x)\n",
+      "kinds": [
+        "NotAllowed"
+      ],
+      "keyword": "exec"
+    },
+    {
+      "id": "class-attr",
+      "source": "print((1).__class__)\n",
+      "kinds": [
+        "NotAllowed"
+      ],
+      "keyword": "__class__"
+    },
+    {
+      "id": "globals-attr",
+      "source": "def f():\n    return 1\nprint(f.__globals__)\n",
+      "kinds": [
+        "NotAllowed"
+      ],
+      "keyword": "__globals__"
+    }
+  ]
+}

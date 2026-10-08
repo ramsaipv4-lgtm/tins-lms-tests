@@ -1,12 +1,12 @@
-// AC-216 `games new <gameId> x` writes games/<gameId>/x.json (under --dir) that passes `games check`, for every game
-// id; it refuses to overwrite (games contract §13.T4).
+// AC-216 `games new <gameId> x` writes games/<gameId>/x.json (under --dir) that passes `games check`, for every
+// first-wave game id; it refuses to overwrite (SPEC §13.5).
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { runCli, tempDir, readJson } from '../lib/games.mjs';
 
-const GAME_IDS = ['syntax-drop', 'maze-coder', 'breakout', 'raid', 'sniper', 'whack-a-bug', 'aftershock', 'garage'];
+const GAME_IDS = ['syntax-drop', 'sniper', 'whack-a-bug', 'aftershock']; // first wave (SPEC AC-216)
 
 for (const id of GAME_IDS) {
   test(`AC-216 games new ${id} x writes a pack that passes games check`, { timeout: 60_000 }, async () => {

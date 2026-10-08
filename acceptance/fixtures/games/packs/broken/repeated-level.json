@@ -1,60 +1,114 @@
 {
-  "$comment": "AC-214 broken: level id \"2\" appears twice.",
-  "game": "whack-a-bug",
+  "$comment": "AC-214 broken: level id \"1\" appears twice.",
+  "game": "syntax-drop",
   "id": "broken-repeated-level",
-  "title": "Loop bugs (suite)",
+  "title": "Heading strike (suite)",
   "day": 0,
   "concepts": [
-    "loops.range",
-    "strings.slicing"
+    "html.headings",
+    "html.text-size"
   ],
   "language": "en",
   "levels": [
     {
-      "id": "2",
-      "title": "Sum to four",
+      "id": "1",
+      "title": "Big, medium, tiny",
       "lesson": [
         {
-          "concept": "loops.range",
-          "text": "range(a, b) stops just before b, so range(1, 4) gives 1, 2 and 3."
-        }
-      ],
-      "lang": "snek",
-      "program": "total = 0\nfor i in range(1, 4):\n    total += i\nprint(total)",
-      "bugs": [
+          "concept": "html.headings",
+          "text": "<h1> is the biggest heading and <h2> the next one down; there is no <h7>."
+        },
         {
-          "line": 2,
-          "fix": "for i in range(1, 5):",
-          "concept": "loops.range",
-          "why": "range(1, 4) stops before 4, so 4 is never added."
+          "concept": "html.text-size",
+          "text": "<small> makes text smaller than the text around it."
         }
       ],
-      "upTimeMs": 2500,
-      "hint": "color",
-      "molesAtOnce": 1
+      "mode": "strike",
+      "renderer": "html",
+      "template": "<h1>Big</h1>\n<h2>Medium</h2>\n<p><small>tiny</small></p>",
+      "slots": [],
+      "pieces": [
+        {
+          "id": "p-h1",
+          "text": "<h1>",
+          "size": "large",
+          "key": "1",
+          "concept": "html.headings"
+        },
+        {
+          "id": "p-h2",
+          "text": "<h2>",
+          "size": "medium",
+          "key": "2",
+          "concept": "html.headings"
+        },
+        {
+          "id": "p-small",
+          "text": "<small>",
+          "size": "small",
+          "key": "3",
+          "concept": "html.text-size"
+        },
+        {
+          "id": "p-h7",
+          "text": "<h7>",
+          "key": "4",
+          "concept": "html.headings",
+          "decoy": true
+        }
+      ],
+      "stages": 3,
+      "piecesPerStage": 4
     },
     {
-      "id": "2",
-      "title": "Backwards word",
+      "id": "1",
+      "title": "Again",
       "lesson": [
         {
-          "concept": "strings.slicing",
-          "text": "s[1:] drops the first character of s."
-        }
-      ],
-      "lang": "snek",
-      "program": "word = \"code\"\nout = \"\"\nfor ch in word:\n    out = ch + out\nprint(out[1:])",
-      "bugs": [
+          "concept": "html.headings",
+          "text": "<h1> is the biggest heading and <h2> the next one down; there is no <h7>."
+        },
         {
-          "line": 5,
-          "fix": "print(out)",
-          "concept": "strings.slicing",
-          "why": "out[1:] drops the first letter of the reversed word."
+          "concept": "html.text-size",
+          "text": "<small> makes text smaller than the text around it."
         }
       ],
-      "upTimeMs": 800,
-      "hint": "none",
-      "molesAtOnce": 2
+      "mode": "strike",
+      "renderer": "html",
+      "template": "<h1>Big</h1>\n<h2>Medium</h2>\n<p><small>tiny</small></p>",
+      "slots": [],
+      "pieces": [
+        {
+          "id": "p-h1",
+          "text": "<h1>",
+          "size": "large",
+          "key": "1",
+          "concept": "html.headings"
+        },
+        {
+          "id": "p-h2",
+          "text": "<h2>",
+          "size": "medium",
+          "key": "2",
+          "concept": "html.headings"
+        },
+        {
+          "id": "p-small",
+          "text": "<small>",
+          "size": "small",
+          "key": "3",
+          "concept": "html.text-size"
+        },
+        {
+          "id": "p-h7",
+          "text": "<h7>",
+          "key": "4",
+          "concept": "html.headings",
+          "decoy": true
+        }
+      ],
+      "stages": 3,
+      "piecesPerStage": 4
     }
   ]
 }

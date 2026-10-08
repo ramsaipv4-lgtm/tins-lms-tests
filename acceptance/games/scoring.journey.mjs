@@ -1,7 +1,7 @@
 // AC-235 Two scores (games contract D-G19, §13.T1 stars/scores, §13.T5 sockets vs Skill events): in each first-wave
 // game a round with only action misses gives mistakes: [] and knowledgeStars 3 and creates no card and no error
 // note; the same round with exactly one Knowledge mistake creates exactly one of each; stars = knowledgeStars.
-// Claimed by the last first-wave game to merge (D-G24); each game task runs its own journey here.
+// Parts: 'AC-235 <gameId>: ...' per first-wave game (this row has no shared part); the last first-wave game claims it.
 // Action misses used: syntax-drop a strike with no piece in any window; sniper a shot that hits nothing; whack-a-bug a
 // whack on an empty hole; aftershock a debris hit.
 // Seeds: games-base, games-seen.

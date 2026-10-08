@@ -3,10 +3,10 @@
 // knowledgeStars + floor(skill / common.coinsSkillDivisor) + golden coins), appear in player-xp / player-coins, and are
 // unchanged after a reload, after signing out and in, and in a second browser context; player.xp and player.coins
 // equal the totals over gameResults and purchases.
-// Seed games-player: l1 has results worth xp 200 and coins 65, no purchases.
+// Vehicle: Syntax Drop sd-strike (SPEC §13.10). Seed games-player: l1 has results worth xp 200 and coins 65, no purchases.
 // data-testids used: app-ready*, player-xp, player-coins
 import { assert, step, see, tid, waitText, at, P } from '../journeys/_harness.mjs';
-import { gamesJourney, openGame, controller, playWhack, ownPack, personDocs, idsOf, waitNewResult, arcadeUrl, T } from '../lib/games.mjs';
+import { gamesJourney, openGame, controller, playSyntaxDrop, ownPack, personDocs, idsOf, waitNewResult, arcadeUrl, T } from '../lib/games.mjs';
 
 const num = (t) => Number(String(t).replace(/[^\d-]/g, ''));
 async function shown(page) {
@@ -22,14 +22,14 @@ gamesJourney({
     const page = await j.actor('learner', P.l1, { path: arcadeUrl() });
     assert.deepEqual(await shown(page), { xp: 200, coins: 65 }, 'the seeded totals are shown');
     const before = idsOf(await personDocs(j, page, 'l1', 'gameResult'));
-    await openGame(j, page, { gameId: 'whack-a-bug', packId: 'wb-loops', levelId: '1' });
-    const s = await playWhack(page, controller(page, 'whack-a-bug', 'act'), ownPack('whack-a-bug', 'wb-loops').levels[0]);
+    await openGame(j, page, { gameId: 'syntax-drop', packId: 'sd-strike', levelId: '1' });
+    const s = await playSyntaxDrop(page, controller(page, 'syntax-drop', 'act'), ownPack('syntax-drop', 'sd-strike').levels[0]);
     assert.equal(s.status, 'won');
     const [r] = await waitNewResult(j, page, 'l1', before);
     const xp = Math.round(r.skill / T('common.xpSkillDivisor')) + T('common.xpPerStar') * r.knowledgeStars;
     const golden = r.coins - (T('common.coinsPerStar') * r.knowledgeStars + Math.floor(r.skill / T('common.coinsSkillDivisor')));
     assert.equal(r.xp, xp, 'gameResult.xp follows the formula');
-    assert.ok(golden >= 0 && golden % T('whack.goldenCoins') === 0, `gameResult.coins follows the formula (golden part ${golden})`);
+    assert.equal(golden, 0, 'gameResult.coins follows the formula (Syntax Drop has no golden critters)');
     const want = { xp: 200 + r.xp, coins: 65 + r.coins };
     const results = await personDocs(j, page, 'l1', 'gameResult');
     const player = (await personDocs(j, page, 'l1', 'player'))[0];

@@ -1,10 +1,25 @@
 {
-  "_about": "AC-214: each broken pack and the keyword its problem line must contain (games contract Appendix G-F). The maze case joins with the maze contract.",
+  "_about": "AC-214: each broken pack, the game whose part checks it (\"shared\" = a common pack rule, shown on a Syntax Drop pack) and the keyword its problem line must contain (Appendix G-F). The maze case joins with the maze contract.",
   "cases": {
-    "missing-title.json": "title",
-    "bad-concept.json": "HTML Headings",
-    "fails-tests.json": "test",
-    "slot-no-piece.json": "s2",
-    "repeated-level.json": "2"
+    "missing-title.json": {
+      "part": "shared",
+      "keyword": "title"
+    },
+    "bad-concept.json": {
+      "part": "shared",
+      "keyword": "HTML Headings"
+    },
+    "repeated-level.json": {
+      "part": "shared",
+      "keyword": "1"
+    },
+    "slot-no-piece.json": {
+      "part": "syntax-drop",
+      "keyword": "s2"
+    },
+    "fails-tests.json": {
+      "part": "aftershock",
+      "keyword": "test"
+    }
   }
 }

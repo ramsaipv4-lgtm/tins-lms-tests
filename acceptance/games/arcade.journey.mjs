@@ -4,7 +4,9 @@
 // data-testids used: app-ready*, game-tile-<gameId>, game-pack-<packId>, game-level-<levelId>, game-unavailable,
 //   act-pause, act-quit
 // Accessible names used: nav /^games$/.
-// Seeds: games-base + games-seen (the prologue is already seen); games-one-off (game.whackABug off); games-off.
+// Vehicle: Syntax Drop (SPEC §13.10 vertical slice). Every other first-wave game whose tile is present must open and
+// quit the same way; a missing later game is not a failure here.
+// Seeds: games-base + games-seen (the prologue is already seen); games-one-off (game.syntaxDrop off); games-off.
 import { assert, step, see, notSee, tid, control, at, P } from '../journeys/_harness.mjs';
 import { gamesJourney, gameUrl, G, FIRST_WAVE, arcadeUrl } from '../lib/games.mjs';
 
@@ -12,7 +14,7 @@ const OWN = { 'syntax-drop': ['sd-strike', '1'], 'whack-a-bug': ['wb-loops', '1'
 const NOT_BUILT = ['maze-coder', 'breakout', 'garage', 'raid'];
 
 gamesJourney({
-  name: 'arcade', acs: ['AC-204'], title: 'the Games nav opens the arcade; each first-wave tile opens its game and quit returns to the arcade',
+  name: 'arcade', acs: ['AC-204'], title: 'the Games nav opens the arcade; each present first-wave tile (Syntax Drop at least) opens its game and quit returns to the arcade',
   seeds: ['games-base', 'games-seen'], clock: at(0, '10:00'),
   async run(j) {
     const page = await j.actor('learner', P.l1);
@@ -20,10 +22,12 @@ gamesJourney({
     assert.ok(games, 'a navigation entry named "Games"');
     await games.click();
     await page.waitForURL(/\/learn\/games/, { timeout: 15_000 });
-    for (const g of FIRST_WAVE) await see(tid(page, `game-tile-${g}`), `game-tile-${g}`, 20_000);
+    await see(tid(page, 'game-tile-syntax-drop'), 'game-tile-syntax-drop', 20_000);
+    const present = [];
+    for (const g of FIRST_WAVE) if (await tid(page, `game-tile-${g}`).count()) present.push(g);
     for (const g of NOT_BUILT) assert.equal(await tid(page, `game-tile-${g}`).count(), 0, `no tile for ${g} (no released pack)`);
     await step(page, 'arcade');
-    for (const g of FIRST_WAVE) {
+    for (const g of present) {
       const [packId, levelId] = OWN[g];
       await (await see(tid(page, `game-tile-${g}`), `game-tile-${g}`)).click();
       await (await see(tid(page, `game-pack-${packId}`), `game-pack-${packId} in the ${g} picker`, 15_000)).click();
@@ -44,16 +48,17 @@ gamesJourney({
 });
 
 gamesJourney({
-  name: 'arcade-one-off', acs: ['AC-204'], title: 'a switched-off game has no tile and its deep link answers "not available"',
+  name: 'arcade-one-off', acs: ['AC-204'], title: 'a switched-off game (game.syntaxDrop) has no tile and its deep link answers "not available"',
   seeds: ['games-one-off', 'games-seen'], clock: at(0, '10:00'),
   async run(j) {
     const page = await j.actor('learner', P.l1, { path: arcadeUrl() });
-    await see(tid(page, 'game-tile-syntax-drop'), 'game-tile-syntax-drop', 20_000);
-    await notSee(tid(page, 'game-tile-whack-a-bug'), 'game-tile-whack-a-bug while game.whackABug is off');
-    await j.open(page, gameUrl('whack-a-bug', 'wb-loops', '1'));
+    await see(page.locator('[data-testid="app-ready"]'), 'the arcade route');
+    await notSee(tid(page, 'game-tile-syntax-drop'), 'game-tile-syntax-drop while game.syntaxDrop is off');
+    await j.open(page, gameUrl('syntax-drop', 'sd-strike', '1'));
     const u = await see(tid(page, 'game-unavailable'), 'game-unavailable', 15_000);
     assert.match(await u.innerText(), /not available/i);
-    await step(page, 'whack-a-bug not available');
+    assert.equal(await page.evaluate(() => typeof window.__game), 'undefined', 'no game mounted');
+    await step(page, 'syntax-drop not available');
   },
 });
 

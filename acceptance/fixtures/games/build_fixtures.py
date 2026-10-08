@@ -509,7 +509,8 @@ def build_packs():
         '_about': "stdout (trailing newline removed) of every snippet in the suite's own sniper packs, by CPython.",
         'oracle': ORACLE, 'snippets': outputs})
     idx = load(os.path.join(HERE, 'packs', 'broken', 'index.json'))['cases']
-    for f, kw in idx.items():
+    for f, case in idx.items():
+        kw = case['keyword']
         probs = pack_problems(load(os.path.join(HERE, 'packs', 'broken', f)))
         if not any(kw in x for x in probs):
             problem(f'broken pack {f} does not show the problem with keyword {kw!r}: {probs}')
@@ -576,17 +577,18 @@ def build_seeds():
     variant('games-base', 'As journeys/base.json, but the published package is games/package: the v1 fixture package plus '
             "the suite's own game packs (sd-fill, sd-strike, sd-rhythm, wb-loops, as-area, sn-basics on day 0; sd-later on day 2).")
     variant('games-off', 'As games-base, with class c1 switches { games: false } (AC-204).', {'games': False})
-    variant('games-one-off', "As games-base, with class c1 switches { 'game.whackABug': false } (AC-204).", {'game.whackABug': False})
+    variant('games-one-off', "As games-base, with class c1 switches { 'game.syntaxDrop': false } (AC-204).", {'game.syntaxDrop': False})
 
     def additive(name, about, dbs, **extra):
         dump(os.path.join(out, f'{name}.json'), {'_format': fmt, '_about': about, 'databases': dbs, **extra})
-    additive('games-privacy', 'Additive (AC-206): game results and players for l1, l2, l3. l2 scored 98765 (xp 4320), l3 '
-             'scored 87654 (xp 3000), l1 has xp 1000. team-a (l1, l2) average xp = 2660; team-b (l3) = 3000.', {
-                 'person-l1': [result('l1', 'l1-seed-1', 'whack-a-bug', 'wb-loops', '1', 1234, 1134, 3, 1000, 15, at(0, '09:30')),
+    additive('games-privacy', 'Additive (AC-206): Syntax Drop results and players for l1, l2, l3 (sd-strike level 1). '
+             'l2 scored 98765 (xp 4320), l3 scored 87654 (xp 3000), l1 scored 1234 (xp 1000). team-a (l1, l2) average '
+             'xp = 2660; team-b (l3) = 3000.', {
+                 'person-l1': [result('l1', 'l1-seed-1', 'syntax-drop', 'sd-strike', '1', 1234, 1134, 3, 1000, 15, at(0, '09:30')),
                                player('l1', xp=1000, coins=15)],
-                 'person-l2': [result('l2', 'l2-seed-1', 'whack-a-bug', 'wb-loops', '1', 98765, 98665, 3, 4320, 15, at(0, '09:31')),
+                 'person-l2': [result('l2', 'l2-seed-1', 'syntax-drop', 'sd-strike', '1', 98765, 98665, 3, 4320, 15, at(0, '09:31')),
                                player('l2', xp=4320, coins=15)],
-                 'person-l3': [result('l3', 'l3-seed-1', 'sniper', 'sn-basics', '1', 87654, 87354, 3, 3000, 15, at(0, '09:32')),
+                 'person-l3': [result('l3', 'l3-seed-1', 'syntax-drop', 'sd-strike', '1', 87654, 87354, 3, 3000, 15, at(0, '09:32')),
                                player('l3', xp=3000, coins=15)]})
     additive('games-samples', 'Additive (D-G18): every builder sample pack (packages/games/packs) imported into class c1 '
              'from day 0.', {}, samplePacks=[{'classId': 'class:c1', 'day': 0}])
@@ -595,10 +597,10 @@ def build_seeds():
                  'person-l1': [result('l1', 'l1-rank-1', 'sniper', 'boss-recursion', '1', 300, 200, 3, 80, 15, at(0, '09:40'), claimed=6),
                                result('l1', 'l1-rank-2', 'sniper', 'sn-basics', '1', 300, 200, 3, 80, 15, at(0, '09:41'), claimed=6),
                                player('l1', xp=160, coins=30)]})
-    additive('games-player', 'Additive (AC-236, AC-237): l1 has two results worth xp 120 + 80 = 200 and coins 40 + 25 = 65; '
-             'the player document holds those totals and no purchases.', {
-                 'person-l1': [result('l1', 'l1-p-1', 'whack-a-bug', 'wb-loops', '1', 500, 400, 3, 120, 40, at(0, '09:35')),
-                               result('l1', 'l1-p-2', 'aftershock', 'as-area', '1', 300, 200, 2, 80, 25, at(0, '09:36')),
+    additive('games-player', 'Additive (AC-236, AC-237): l1 has two Syntax Drop results worth xp 120 + 80 = 200 and coins '
+             '40 + 25 = 65; the player document holds those totals and no purchases.', {
+                 'person-l1': [result('l1', 'l1-p-1', 'syntax-drop', 'sd-strike', '1', 500, 400, 3, 120, 40, at(0, '09:35')),
+                               result('l1', 'l1-p-2', 'syntax-drop', 'sd-fill', '1', 300, 200, 2, 80, 25, at(0, '09:36')),
                                player('l1', xp=200, coins=65)]})
     additive('games-gear', 'Additive (AC-238): l1 owns every first-wave gear item (bought for 0 coins in this seed).', {
         'person-l1': [player('l1', gear=GEAR, purchases=[{'itemId': g, 'price': 0, 'at': at(0, '08:30')} for g in GEAR])]})

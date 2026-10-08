@@ -4,6 +4,7 @@
 // (and not three) is requested by the page before the learner opens the arcade (a service worker may precache).
 // Chunks are found by `name` in Vite's manifest packages/web/dist/.vite/manifest.json. A chunk's size is gzip -9 of its
 // file plus the files it statically imports that neither the app entry, games-engine, snek, games-story nor three import.
+// Parts: 'AC-200 shared: ...' (engine, snek, story, three, no early requests) and 'AC-200 <gameId>: ...' per first-wave game.
 // Seeds: games-base (+ games-seen so no prologue). Profile: phone (lib/browser.mjs).
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
@@ -41,31 +42,35 @@ function gzSize(m, key) {
   return bytes;
 }
 
-test('AC-200 gzip sizes of the named game chunks are within budget', { timeout: 200_000 }, () => {
+test('AC-200 shared: games-engine <= 60 KB, snek <= 40 KB, games-story <= 30 KB; three and 3D chunks within budget once they exist', { timeout: 200_000 }, () => {
   prerequisites();
   const m = manifest();
-  const sizes = {};
   for (const name of ['games-engine', 'snek', 'games-story']) {
     const e = byName(m, name);
     assert.ok(e, `manifest has a chunk named "${name}" (D-G16)`);
-    sizes[name] = gzSize(m, e[0]);
-    assert.ok(sizes[name] <= BUDGET[name] * KB, `${name} is ${(sizes[name] / KB).toFixed(1)} KB gzip (budget ${BUDGET[name]} KB)`);
-  }
-  for (const g of FIRST_WAVE) {
-    const e = byName(m, `game-${g}`);
-    assert.ok(e, `manifest has a chunk named "game-${g}" (D-G16)`);
-    sizes[g] = gzSize(m, e[0]);
-    assert.ok(sizes[g] <= 80 * KB, `game-${g} is ${(sizes[g] / KB).toFixed(1)} KB gzip (budget 80 KB for a 2D game)`);
+    const size = gzSize(m, e[0]);
+    assert.ok(size <= BUDGET[name] * KB, `${name} is ${(size / KB).toFixed(1)} KB gzip (budget ${BUDGET[name]} KB)`);
   }
   const three = byName(m, 'three');
-  if (three) { sizes.three = gzSize(m, three[0]); assert.ok(sizes.three <= 180 * KB, `three is ${(sizes.three / KB).toFixed(1)} KB gzip (budget 180 KB)`); }
+  if (three) { const size = gzSize(m, three[0]); assert.ok(size <= 180 * KB, `three is ${(size / KB).toFixed(1)} KB gzip (budget 180 KB)`); }
   for (const g of SECOND_WAVE_3D) {
     const e = byName(m, `game-${g}`);
-    if (e) { const s = gzSize(m, e[0]); assert.ok(s <= 90 * KB, `game-${g} is ${(s / KB).toFixed(1)} KB gzip (budget 90 KB for a 3D game, excluding three)`); }
+    if (e) { const size = gzSize(m, e[0]); assert.ok(size <= 90 * KB, `game-${g} is ${(size / KB).toFixed(1)} KB gzip (budget 90 KB for a 3D game, excluding three)`); }
   }
 });
 
-test('AC-200 no game chunk and not three is requested before the learner opens the arcade [phone]', { timeout: 120_000 }, async (t) => {
+for (const g of FIRST_WAVE) {
+  test(`AC-200 ${g}: the game-${g} chunk is <= 80 KB gzip`, { timeout: 200_000 }, () => {
+    prerequisites();
+    const m = manifest();
+    const e = byName(m, `game-${g}`);
+    assert.ok(e, `manifest has a chunk named "game-${g}" (D-G16)`);
+    const size = gzSize(m, e[0]);
+    assert.ok(size <= 80 * KB, `game-${g} is ${(size / KB).toFixed(1)} KB gzip (budget 80 KB for a 2D game)`);
+  });
+}
+
+test('AC-200 shared: no game chunk and not three is requested before the learner opens the arcade [phone]', { timeout: 120_000 }, async (t) => {
   prerequisites();
   const m = manifest();
   const gameFiles = Object.values(m).filter((v) => v.name && (/^game-|^games-|^snek$|^three$/.test(v.name))).map((v) => v.file.split('/').pop());

@@ -4,6 +4,7 @@
 // Keyboard runs use page.keyboard only; button runs use pointer clicks on act-* buttons only; both use
 // __game.advance with clock=manual to move time (a test hook, not an input).
 // data-testids used: app-ready*, act-<action>, act-<action>-<arg>, game-results
+// Parts: 'AC-207 <gameId>: ...' per first-wave game; 'AC-207 shared: ...' (pause and assist, on Syntax Drop).
 // Seeds: games-base, games-seen.
 import { assert, step, see, tid, wait, at, P } from '../journeys/_harness.mjs';
 import { gamesJourney, openGame, controller, ownPack, level, playSyntaxDrop, playWhack, playSniper, playAftershock, personDocs, idsOf, waitNewResult, T } from '../lib/games.mjs';
@@ -23,7 +24,7 @@ async function finish(page, gameId, packId, lvl, ctl) {
 
 for (const [gameId, levels] of Object.entries(PLAY)) {
   gamesJourney({
-    name: `controls-${gameId}`, acs: ['AC-207'], title: `${gameId} can be finished with the keyboard only and with on-screen buttons only`,
+    name: `controls-${gameId}`, acs: ['AC-207'], title: `${gameId}: can be finished with the keyboard only and with on-screen buttons only`,
     seeds: ['games-base', 'games-seen'], clock: at(0, '10:00'), timeoutMs: 170_000,
     async run(j) {
       const page = await j.actor('learner', P.l1);
@@ -41,11 +42,12 @@ for (const [gameId, levels] of Object.entries(PLAY)) {
 }
 
 gamesJourney({
-  name: 'controls-pause-assist', acs: ['AC-207'], title: 'pause stops the game clock; assist halves it and is recorded on the result',
+  name: 'controls-pause-assist', acs: ['AC-207'], title: 'shared: pause stops the game clock; assist halves it and is recorded on the result (on Syntax Drop)',
   seeds: ['games-base', 'games-seen'], clock: at(0, '10:00'),
   async run(j) {
     const page = await j.actor('learner', P.l1);
-    let g = await openGame(j, page, { gameId: 'whack-a-bug', packId: 'wb-loops', levelId: '1' });
+    const lvl = ownPack('syntax-drop', 'sd-strike').levels[0];
+    let g = await openGame(j, page, { gameId: 'syntax-drop', packId: 'sd-strike', levelId: '1' });
     await page.keyboard.press('Enter');
     await g.advance(500);
     await page.keyboard.press('p');
@@ -59,7 +61,7 @@ gamesJourney({
     await step(page, 'pause checked');
 
     const before = idsOf(await personDocs(j, page, 'l1', 'gameResult'));
-    g = await openGame(j, page, { gameId: 'whack-a-bug', packId: 'wb-loops', levelId: '1' });
+    g = await openGame(j, page, { gameId: 'syntax-drop', packId: 'sd-strike', levelId: '1' });
     await page.keyboard.press('h');
     assert.equal((await g.state()).assist, true, 'H turns assist on at the title screen');
     await page.keyboard.press('Enter');
@@ -67,7 +69,7 @@ gamesJourney({
     s = await g.advance(1000);
     const expected = 1000 * T('common.assistFactor');
     assert.ok(Math.abs(s.clockMs - a0 - expected) <= 20, `with assist, 1000 ms of driver time moves the game clock ${s.clockMs - a0} ms (expected ${expected})`);
-    s = await playWhack(page, controller(page, 'whack-a-bug', 'act'), ownPack('whack-a-bug', 'wb-loops').levels[0]);
+    s = await playSyntaxDrop(page, controller(page, 'syntax-drop', 'act'), lvl);
     assert.equal(s.status, 'won');
     const [r] = await waitNewResult(j, page, 'l1', before);
     assert.equal(r.assist, true, 'the result records assist: true');

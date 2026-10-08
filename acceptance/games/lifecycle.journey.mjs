@@ -3,6 +3,7 @@
 // (CDP Runtime.getHeapUsage().usedSize) after 60 s of play is <= 150 MB; leaving a game (pause, quit) makes
 // window.__game undefined and requestAnimationFrame is called 0 times over the next 2 s.
 // The 3D parts (<= 5 s on desktop; the WebGL context is lost after leaving) join with the 3D contract.
+// Parts: 'AC-203 <gameId>: playable within 3 s' per first-wave game; 'AC-203 shared: ...' (heap and leaving, on Syntax Drop).
 // data-testids used: app-ready*, game-tile-<gameId>, act-pause, act-quit
 // Seeds: games-base, games-seen (no prologue in the arcade).
 import { assert, step, wait, cdpFor, at, P } from '../journeys/_harness.mjs';
@@ -16,12 +17,12 @@ const OWN = [
 ];
 const RAF_COUNTER = () => { const raf = window.requestAnimationFrame.bind(window); window.__rafCalls = 0; window.requestAnimationFrame = (cb) => { window.__rafCalls++; return raf(cb); }; };
 
-gamesJourney({
-  name: 'lifecycle-start', acs: ['AC-203'], title: 'each first-wave game is playable within 3 s of its deep link', profiles: ['phone'],
-  seeds: ['games-base', 'games-seen'], clock: at(0, '10:00'),
-  async run(j) {
-    const page = await j.actor('learner', P.l1);
-    for (const o of OWN) {
+for (const o of OWN) {
+  gamesJourney({
+    name: `lifecycle-start-${o.gameId}`, acs: ['AC-203'], title: `${o.gameId}: playable within 3 s of its deep link`, profiles: ['phone'],
+    seeds: ['games-base', 'games-seen'], clock: at(0, '10:00'),
+    async run(j) {
+      const page = await j.actor('learner', P.l1);
       await page.goto(j.url + gameUrl(o.gameId, o.packId, o.levelId, { manual: false }), { waitUntil: 'commit' });
       const ms = await page.waitForFunction(() => {
         const g = window.__game; if (!g) return false;
@@ -29,12 +30,12 @@ gamesJourney({
       }, null, { polling: 50, timeout: 30_000 }).then((h) => h.jsonValue());
       await step(page, `${o.gameId} playable at ${Math.round(ms)} ms`);
       assert.ok(ms <= 3000, `${o.gameId}: first playable frame ${Math.round(ms)} ms after navigation (budget 3000 ms on the phone profile)`);
-    }
-  },
-});
+    },
+  });
+}
 
 gamesJourney({
-  name: 'lifecycle-memory', acs: ['AC-203'], title: 'heap <= 150 MB after 60 s of play; leaving stops the loop', profiles: ['phone'],
+  name: 'lifecycle-memory', acs: ['AC-203'], title: 'shared: heap <= 150 MB after 60 s of Syntax Drop play; leaving stops the loop', profiles: ['phone'],
   seeds: ['games-base', 'games-seen'], clock: at(0, '10:00'), timeoutMs: 170_000,
   async run(j) {
     const page = await j.actor('learner', P.l1, { initScripts: [RAF_COUNTER] });

@@ -1,12 +1,12 @@
 {
-  "gameId": "sniper",
+  "gameId": "syntax-drop",
   "front": {
-    "nameKey": "story.sniper.front"
+    "nameKey": "story.syntax-drop.front"
   },
   "cast": [
     {
-      "id": "rook",
-      "nameKey": "story.sniper.cast.rook"
+      "id": "guildmaster",
+      "nameKey": "story.syntax-drop.cast.guildmaster"
     }
   ],
   "scenes": {
@@ -19,5 +19,5 @@
       ]
     }
   },
-  "$comment": "AC-234 broken: sniper has no chapter-end scene."
+  "$comment": "AC-234 broken: syntax-drop has no chapter-end scene."
 }

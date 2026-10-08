@@ -22,6 +22,7 @@ import json
 import os
 import platform
 import re
+import resource
 import shutil
 import subprocess
 import sys
@@ -153,11 +154,12 @@ def run_cpython(src, inp=None, timeout=20):
         with open(p, 'w', encoding='utf-8') as f:
             f.write(src)
         r = subprocess.run([sys.executable, '-I', p], input=('\n'.join(inp) + '\n') if inp else '', capture_output=True,
-                           text=True, timeout=timeout, cwd=d)
+                           text=True, timeout=timeout, cwd=d,
+                           preexec_fn=lambda: resource.setrlimit(resource.RLIMIT_AS, (SUBPROCESS_MEMORY, SUBPROCESS_MEMORY)))
         return r.returncode, r.stdout, r.stderr
 
 
-def prints_a_set(src, inp):
+def prints_a_set(src, inp, name='<corpus>'):
     """Executes src in-process with print() watching for sets (Snek iterates sets in insertion order, §13.T3)."""
     found = []
 
@@ -178,13 +180,48 @@ def prints_a_set(src, inp):
     old = sys.stdout
     sys.stdout = io.StringIO()
     try:
-        exec(compile(src, '<corpus>', 'exec'), g)
+        capped_exec(compile(src, '<corpus>', 'exec'), g, name)
     finally:
         sys.stdout = old
     return bool(found)
 
 
 MAX_INT = 2 ** 53 - 1
+
+# Runaway guards. Every program executed in-process (step traces, the corpus set check, errors.json, pack tests, the
+# sort line counts) runs under capped_exec, which stops after LINE_CAP line events (SORT_LINE_CAP for the sort
+# fixtures, whose n = 1000 bubble sort needs about 2 million) and names the program. Programs run with CPython in a
+# subprocess get a timeout and a SUBPROCESS_MEMORY address-space limit.
+LINE_CAP = 100_000
+STEP_LINE_CAP = 1_000  # step traces copy the variables at every line, so they get a much lower cap
+SORT_LINE_CAP = 10_000_000
+SUBPROCESS_MEMORY = 1 << 30
+BUILDER_MEMORY = 2 << 30  # address-space limit of this process: a runaway raises MemoryError instead of exhausting the machine
+
+
+class Runaway(BaseException):
+    """A fixture program exceeded the line-event cap (BaseException, so no `except Exception` in a program hides it)."""
+
+
+def capped_exec(code, g, name, cap=LINE_CAP, on_line=None):
+    """exec(code, g) with a line-event cap; on_line(frame) sees every line event. Returns the number of line events."""
+    n = [0]
+
+    def local(frame, event, arg):
+        if event == 'line':
+            n[0] += 1
+            if n[0] > cap:
+                raise Runaway(f'{name}: more than {cap} line events; stopped as a runaway program (build_fixtures.py cap)')
+            if on_line:
+                on_line(frame)
+        return local
+    prev = sys.gettrace()
+    sys.settrace(lambda frame, event, arg: local)
+    try:
+        exec(code, g)
+    finally:
+        sys.settrace(prev)
+    return n[0]
 
 
 def build_corpus():
@@ -200,7 +237,7 @@ def build_corpus():
                 reasons.append(f'CPython failed: {err.strip()[-200:]}')
             elif any(abs(int(t)) > MAX_INT for t in re.findall(r'(?<![\d.e])-?\d+(?![\d.e])', out) if len(t) > 15):
                 reasons.append('prints an int beyond 53 bits')
-            elif prints_a_set(src, inp):
+            elif prints_a_set(src, inp, f'corpus program {pid}'):
                 reasons.append('prints a set (order differs in Snek)')
         if reasons:
             excluded.append({'id': pid, 'reasons': reasons})
@@ -257,7 +294,7 @@ def snapshot(frame):
     return out
 
 
-def trace_program(src, hosts):
+def trace_program(src, hosts, name='<step>'):
     events = []
     code = compile(src, '<step>', 'exec')
 
@@ -266,23 +303,17 @@ def trace_program(src, hosts):
             events.append({'kind': 'call', 'line': sys._getframe(1).f_lineno, 'name': name, 'args': [to_js(a) for a in args]})
         return fn
 
-    def local(frame, event, arg):
-        if event == 'line' and frame.f_code.co_filename == '<step>':
+    def on_line(frame):
+        if frame.f_code.co_filename == '<step>':
             events.append({'kind': 'line', 'line': frame.f_lineno, 'vars': snapshot(frame)})
-        return local
-
-    def glob(frame, event, arg):
-        return local if frame.f_code.co_filename == '<step>' else None
     g = {'__name__': '__main__'}
     for h in hosts:
         g[h] = host(h)
     old = sys.stdout
     sys.stdout = io.StringIO()
-    sys.settrace(glob)
     try:
-        exec(code, g)
+        capped_exec(code, g, name, STEP_LINE_CAP, on_line=on_line)
     finally:
-        sys.settrace(None)
         out = sys.stdout.getvalue()
         sys.stdout = old
     return events, out
@@ -297,7 +328,7 @@ def build_step():
         for line in src.splitlines():
             if line.rstrip().endswith(('\\', ',', '(', '[', '{')):
                 problem(f'step program {pid} has a statement over several lines')
-        events, out = trace_program(src, hosts)
+        events, out = trace_program(src, hosts, f'step program {pid}')
         progs.append({'id': pid, 'source': src, 'hosts': hosts, 'stdout': out, 'events': events})
     dump(os.path.join(HERE, 'snek', 'step.json'), {
         '_about': 'AC-212: for each single-line-statement program, the events step() must yield in order: CPython '
@@ -317,7 +348,7 @@ def check_errors():
         try:
             code = compile(c['source'], '<e>', 'exec')
             try:
-                exec(code, {'__name__': '__main__', 'print': lambda *a, **k: None})
+                capped_exec(code, {'__name__': '__main__', 'print': lambda *a, **k: None}, f"errors.json {c['id']}")
                 problem(f"errors.json {c['id']}: CPython raised nothing")
                 continue
             except Exception as e:  # noqa: BLE001
@@ -345,21 +376,12 @@ def check_sorts():
             parts = out.split()
             if code != 0 or len(parts) != 3 or parts[2] != str(n) or int(parts[0]) > int(parts[1]):
                 problem(f'sorts/{name}.snek N={n} failed: {out} {err}')
-            lines = [0]
-
-            def tr(frame, event, arg):
-                if event == 'line':
-                    lines[0] += 1
-                return tr
-            sys.settrace(lambda f, e, a: tr)
             old = sys.stdout
             sys.stdout = io.StringIO()
             try:
-                exec(compile(src, '<sort>', 'exec'), {'__name__': '__main__'})
+                counts[n] = capped_exec(compile(src, '<sort>', 'exec'), {'__name__': '__main__'}, f'sorts/{name}.snek N={n}', SORT_LINE_CAP)
             finally:
-                sys.settrace(None)
                 sys.stdout = old
-            counts[n] = lines[0]
         notes[name] = round(counts[1000] / counts[100], 2)
     if notes['bubble'] < 80 or notes['merge'] > 15:
         problem(f'sort fixtures do not separate under a line-count model: {notes}')
@@ -375,7 +397,7 @@ def program_of(lines):
     return '\n'.join('    ' * l['indent'] + l['text'] for l in lines) + '\n'
 
 
-def run_tests(src, entry, tests):
+def run_tests(src, entry, tests, name='pack'):
     """Returns the index of the first failing test, or None."""
     for i, t in enumerate(tests):
         g = {'__name__': '__main__'}
@@ -383,8 +405,9 @@ def run_tests(src, entry, tests):
             old = sys.stdout
             sys.stdout = io.StringIO()
             try:
-                exec(compile(src, '<pack>', 'exec'), g)
-                got = g[entry](*t['args'])
+                g['__args__'] = t['args']
+                capped_exec(compile(f'{src}\n__result__ = {entry}(*__args__)\n', '<pack>', 'exec'), g, f'{name} test {i}')
+                got = g['__result__']
             finally:
                 sys.stdout = old
         except Exception:  # noqa: BLE001
@@ -609,6 +632,15 @@ def build_seeds():
 
 
 def main():
+    resource.setrlimit(resource.RLIMIT_AS, (BUILDER_MEMORY, BUILDER_MEMORY))
+    try:
+        build_all()
+    except (Runaway, MemoryError) as e:
+        problem(f'stopped: {e!r}')
+        sys.exit(1)
+
+
+def build_all():
     n, excluded = build_corpus()
     build_step()
     check_errors()

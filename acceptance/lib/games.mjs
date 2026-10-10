@@ -280,6 +280,29 @@ export const FULLSCREEN_RECORDER = () => {
   }
 };
 
+/**
+ * Writes won gameResults for the given levels into a learner's personal database through the hub's sync endpoint
+ * (/db/person-<key>, SPEC §5.6), as the learner's own device would. D-78: level n+1 opens when level n is won, so rows
+ * that deep-link to a pack's last level (AC-201, AC-203) seed the wins first. xp and coins are 0 so the player caches
+ * do not move.
+ */
+export async function seedWins(j, page, personKey, gameId, packId, levelIds) {
+  if (!levelIds.length) return;
+  const { remoteDb } = await import('./pouch.mjs');
+  const cookies = await page.context().cookies(j.url);
+  const db = remoteDb(`${j.url}/db/person-${personKey}`, cookies.map((c) => `${c.name}=${c.value}`).join('; '));
+  const now = await page.evaluate(() => Date.now());
+  const docs = levelIds.map((levelId, i) => ({
+    _id: `gameResult:${personKey}-win-${gameId}-${packId}-${levelId}`, type: 'gameResult', id: `gameResult:${personKey}-win-${gameId}-${packId}-${levelId}`,
+    schema: 1, updatedAt: now, updatedBy: `person:${personKey}`, personId: `person:${personKey}`, classId: 'class:c1', gameId, packId,
+    levelId: String(levelId), score: 300, stars: 3, knowledgeStars: 3, skill: 0, outcome: 'won', xp: 0, coins: 0, claimed: 0, assisted: 0,
+    mistakes: [], assist: false, durationMs: 60_000, at: now - (levelIds.length - i) * 1000, seed: 7,
+  }));
+  const res = await db.bulkDocs(docs);
+  const bad = res.filter((r) => r.error && r.name !== 'conflict');
+  if (bad.length) throw new Error(`seeding wins for ${gameId}/${packId} failed: ${JSON.stringify(bad).slice(0, 300)} (D-78, §5.6)`);
+}
+
 // ---------- input layer ----------
 
 const DIGIT = (n) => `Digit${n}`;

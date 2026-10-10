@@ -7,12 +7,13 @@ const DEFAULTS = {
   secretScan: true, diskEncryptionCheck: false, planVsActual: false, calendarSync: false, pairProgramming: false,
   explainBackAi: false, googleForms: false, meetLinks: false, storyMode: false, headingStrike: true, teamBadges: true,
   celebrationWall: true, githubPass: true, jira: false, printedQrFallback: true, voiceFollow: false, certificates: true, gradedShifts: true,
-  // games (SPEC-games D-G8, AC-49 as amended by the games contract): all on by default
+  // games (SPEC D-49, AC-49): the nine availability switches on, and games.unlockAll (D-78) off
   games: true, 'game.syntaxDrop': true, 'game.mazeCoder': true, 'game.breakout': true, 'game.raid': true,
   'game.sniper': true, 'game.whackABug': true, 'game.aftershock': true, 'game.garage': true,
+  'games.unlockAll': false,
 };
 
-test('AC-49 switchDefaults returns exactly the SPEC table plus the D-G8 games keys', () => {
+test('AC-49 switchDefaults returns exactly the SPEC table plus the ten games keys (D-49)', () => {
   const switchDefaults = fn('switchDefaults');
   assert.deepEqual(switchDefaults(), DEFAULTS);
 });
@@ -27,6 +28,13 @@ test('AC-49 precedence is class > program > org > default', () => {
   assert.equal(isOn('secretScan', { class: { secretScan: false }, program: { secretScan: true }, org: { secretScan: true } }), false);
   assert.equal(isOn('meetLinks', { class: { jira: true }, program: { meetLinks: true } }), true, 'a layer without the key falls through');
   assert.equal(isOn('headingStrike', { class: {}, program: {}, org: {} }), true);
+  // the games keys follow the same precedence (D-49, D-78)
+  assert.equal(isOn('games.unlockAll', {}), false, 'games.unlockAll is off by default');
+  assert.equal(isOn('games.unlockAll', { org: { 'games.unlockAll': true } }), true);
+  assert.equal(isOn('games.unlockAll', { org: { 'games.unlockAll': true }, program: { 'games.unlockAll': false } }), false);
+  assert.equal(isOn('games.unlockAll', { program: { 'games.unlockAll': false }, class: { 'games.unlockAll': true } }), true, 'a class can open every level');
+  assert.equal(isOn('game.syntaxDrop', { class: { 'game.syntaxDrop': false }, org: { 'game.syntaxDrop': true } }), false);
+  assert.equal(isOn('games', { class: { 'games.unlockAll': true } }), true, 'games.unlockAll does not change games');
 });
 
 test('AC-49 an unknown switch name throws', () => {

@@ -1,0 +1,57 @@
+{
+  "$comment": "Suite fixture for the hub (AC-247 'New this week'): released on class day 8 of the games-hub class.",
+  "game": "syntax-drop",
+  "id": "sd-new",
+  "title": "Fresh headings (suite)",
+  "day": 8,
+  "concepts": [
+    "html.headings",
+    "html.text-size"
+  ],
+  "language": "en",
+  "levels": [
+    {
+      "id": "1",
+      "title": "New level",
+      "lesson": [
+        {
+          "concept": "html.headings",
+          "text": "<h1> is the biggest heading; there is no <h7>."
+        }
+      ],
+      "mode": "strike",
+      "renderer": "html",
+      "template": "<h1>Big</h1>\n<h2>Medium</h2>\n<p><small>tiny</small></p>",
+      "slots": [],
+      "pieces": [
+        {
+          "id": "p-h1",
+          "text": "<h1>",
+          "key": "1",
+          "concept": "html.headings"
+        },
+        {
+          "id": "p-h2",
+          "text": "<h2>",
+          "key": "2",
+          "concept": "html.headings"
+        },
+        {
+          "id": "p-small",
+          "text": "<small>",
+          "key": "3",
+          "concept": "html.text-size"
+        },
+        {
+          "id": "p-h7",
+          "text": "<h7>",
+          "key": "4",
+          "concept": "html.headings",
+          "decoy": true
+        }
+      ],
+      "stages": 1,
+      "piecesPerStage": 4
+    }
+  ]
+}

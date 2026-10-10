@@ -540,6 +540,21 @@ def build_packs():
     return own
 
 
+def build_hub_packs():
+    """Hub-only packs (packs/hub/<gameId>/*.json), validated like the own packs; they go only into package-hub."""
+    hub_dir = os.path.join(HERE, 'packs', 'hub')
+    out = []
+    for g in sorted(os.listdir(hub_dir)):
+        for f in sorted(os.listdir(os.path.join(hub_dir, g))):
+            p = load(os.path.join(hub_dir, g, f))
+            if p['game'] != g or f != p['id'] + '.json':
+                problem(f'hub pack {g}/{f}: game or id does not match its path')
+            for pr in pack_problems(p):
+                problem(f'hub pack {g}/{f}: {pr}')
+            out.append((g, f, p))
+    return out
+
+
 # ---------------------------------------------------------------- package copies and seeds
 def copy_package(dest, extra):
     src = os.path.join(FIX, 'package')
@@ -580,6 +595,41 @@ def player(person, xp=0, coins=0, gear=None, purchases=None, seen=None):
 
 
 GEAR = ['scope-zoom', 'stabilizer', 'suppressor', 'rangefinder', 'wide', 'heavy', 'quick', 'scarecrow', 'double-jump', 'dash', 'boots']
+
+
+def build_hub_seed(base, out):
+    """games-hub (AC-247, AC-249): a 12-day class c1 (2 to 13 Nov 2026) with package games/package-hub and players."""
+    s = copy.deepcopy(base)
+    s['_about'] = ('Hub seed (AC-247, AC-249): as journeys/base.json, but class c1 runs 12 days (2 to 13 Nov 2026, 09:00 to '
+                   '13:00) and its package is games/package-hub (sd-strike, sd-fill, sd-path on day 0; sd-new on day 8). '
+                   'Use the clock on day 9 (11 Nov 2026 10:00 IST): sd-new is new this week, the day-0 packs are older. '
+                   'l1 (avatar name Zara, xp 1000): lost sd-strike level 1 on day 7 and won sd-path level 1 with 2 stars '
+                   '(score 500) on day 8, so Continue shows sd-path then sd-strike. l2 (Arjun, xp 4320, score 98765) and '
+                   'l3 (Kabir, xp 3000, score 87654). team-a (l1, l2) average xp 2660; team-b (l3) 3000. Everyone has '
+                   'seen the prologue; l1 has seen the syntax-drop intro.')
+    s['packages'] = [{'path': 'games/package-hub', 'classId': 'class:c1', 'publish': True}]
+    for d in s['databases']['class-c1']:
+        if d['type'] == 'class':
+            d['schedule'] = [{'date': (dt.date(2026, 11, 2) + dt.timedelta(days=i)).isoformat(), 'start': '09:00', 'end': '13:00'} for i in range(12)]
+    seen = lambda intro: {'prologue': True, 'intro': intro, 'scenes': {}}
+
+    def pl(person, xp, coins, name, intro):
+        d = player(person, xp=xp, coins=coins, seen=seen(intro))
+        d['avatar'] = {'look': 'block', 'color': 'teal', 'nameTag': name}
+        return d
+
+    def res(person, key, packId, score, stars, xp, coins, at_ms, outcome='won'):
+        r = result(person, key, 'syntax-drop', packId, '1', score, score - 100 * stars, stars, xp, coins, at_ms)
+        r['outcome'] = outcome
+        return r
+    s['databases']['person-l1'] = [res('l1', 'l1-hub-1', 'sd-strike', 120, 0, 400, 5, at(7, '10:00'), 'lost'),
+                                   res('l1', 'l1-hub-2', 'sd-path', 500, 2, 600, 10, at(8, '10:00')),
+                                   pl('l1', 1000, 15, 'Zara', {'syntax-drop': True})]
+    s['databases']['person-l2'] = [res('l2', 'l2-hub-1', 'sd-strike', 98765, 3, 4320, 15, at(8, '11:00')),
+                                   pl('l2', 4320, 15, 'Arjun', {})]
+    s['databases']['person-l3'] = [res('l3', 'l3-hub-1', 'sd-strike', 87654, 3, 3000, 15, at(8, '12:00')),
+                                   pl('l3', 3000, 15, 'Kabir', {})]
+    dump(os.path.join(out, 'games-hub.json'), s)
 
 
 def build_seeds():
@@ -627,6 +677,7 @@ def build_seeds():
                                player('l1', xp=200, coins=65)]})
     additive('games-gear', 'Additive (AC-238): l1 owns every first-wave gear item (bought for 0 coins in this seed).', {
         'person-l1': [player('l1', gear=GEAR, purchases=[{'itemId': g, 'price': 0, 'at': at(0, '08:30')} for g in GEAR])]})
+    build_hub_seed(base, out)
     additive('games-seen', 'Additive: l1 has seen the prologue and every first-wave intro (AC-232 second launches).', {
         'person-l1': [player('l1', seen={'prologue': True, 'intro': {g: True for g in ('syntax-drop', 'sniper', 'whack-a-bug', 'aftershock')}, 'scenes': {}})]})
 
@@ -649,6 +700,8 @@ def build_all():
     copy_package(os.path.join(HERE, 'package'), [(f'{g}/{f}', p) for g, f, p in own])
     broken = load(os.path.join(HERE, 'packs', 'broken', 'missing-title.json'))
     copy_package(os.path.join(HERE, 'package-broken'), [(f"syntax-drop/{broken['id']}.json", broken)])
+    hub = [(g, f, p) for g, f, p in own if (g, f) in {('syntax-drop', 'sd-strike.json'), ('syntax-drop', 'sd-fill.json')}]
+    copy_package(os.path.join(HERE, 'package-hub'), [(f'{g}/{f}', p) for g, f, p in hub + build_hub_packs()])
     build_seeds()
     print(f'oracle {ORACLE}; corpus {n} programs ({len(excluded)} excluded); sort line-count ratios {notes}')
     if PROBLEMS:

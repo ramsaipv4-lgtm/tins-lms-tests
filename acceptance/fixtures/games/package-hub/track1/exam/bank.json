@@ -1,0 +1,117 @@
+{
+  "id": "exam-1",
+  "title": "Kettle basics exam",
+  "passMark": 6,
+  "questions": [
+    {
+      "id": "E1",
+      "text": "Which command creates a new site?",
+      "choices": [
+        "kettle new",
+        "kettle init",
+        "kettle make",
+        "kettle start"
+      ],
+      "answer": "B"
+    },
+    {
+      "id": "E2",
+      "text": "Which folder holds build output?",
+      "choices": [
+        "public",
+        "pages",
+        "themes",
+        "dist"
+      ],
+      "answer": "A"
+    },
+    {
+      "id": "E3",
+      "text": "Which template renders one page?",
+      "choices": [
+        "list.html",
+        "base.html",
+        "single.html",
+        "page.html"
+      ],
+      "answer": "C"
+    },
+    {
+      "id": "E4",
+      "text": "Which key hides a draft page?",
+      "choices": [
+        "hidden",
+        "private",
+        "skip",
+        "draft"
+      ],
+      "answer": "D"
+    },
+    {
+      "id": "E5",
+      "text": "Which command serves with live reload?",
+      "choices": [
+        "kettle serve",
+        "kettle watch",
+        "kettle run",
+        "kettle live"
+      ],
+      "answer": "A"
+    },
+    {
+      "id": "E6",
+      "text": "Which flag picks the staging target?",
+      "choices": [
+        "--env staging",
+        "--target staging",
+        "--stage",
+        "--to staging"
+      ],
+      "answer": "B"
+    },
+    {
+      "id": "E7",
+      "text": "Which command restores the previous deploy?",
+      "choices": [
+        "kettle undo",
+        "kettle revert",
+        "kettle rollback",
+        "kettle back"
+      ],
+      "answer": "C"
+    },
+    {
+      "id": "E8",
+      "text": "Where does the deploy token belong?",
+      "choices": [
+        "in kettle.toml",
+        "in a page",
+        "in the README",
+        "in an environment variable"
+      ],
+      "answer": "D"
+    },
+    {
+      "id": "E9",
+      "text": "Which file holds site settings?",
+      "choices": [
+        "kettle.toml",
+        "site.json",
+        "config.yml",
+        "settings.ini"
+      ],
+      "answer": "A"
+    },
+    {
+      "id": "E10",
+      "text": "What do you do with a leaked token?",
+      "choices": [
+        "ignore it",
+        "rotate it",
+        "rename it",
+        "comment it out"
+      ],
+      "answer": "B"
+    }
+  ]
+}

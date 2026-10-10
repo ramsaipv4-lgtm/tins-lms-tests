@@ -42,6 +42,7 @@ gamesJourney({
     const notes = (await personDocs(j, page, 'l1', 'errorNote')).filter((n) => n.subtopic === 'html.headings');
     assert.equal(notes.length, 1, 'one error note with subtopic html.headings');
 
+    await j.open(page, '/'); // the games screens are drawn as part of the game (D-70), so leave them for the LMS pages
     await nav(page, /^(error notebook|mistakes|my mistakes|notebook)$/i, 'error notebook');
     await waitText(await see(tid(page, 'error-notebook'), 'error-notebook'), /html\.headings/i, 'the error notebook lists html.headings');
     await nav(page, /^(mastery|mastery map|progress|my progress)$/i, 'mastery map');

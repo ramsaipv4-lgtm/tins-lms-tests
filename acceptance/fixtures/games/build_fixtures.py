@@ -630,6 +630,12 @@ def build_hub_seed(base, out):
     s['databases']['person-l3'] = [res('l3', 'l3-hub-1', 'sd-strike', 87654, 3, 3000, 15, at(8, '12:00')),
                                    pl('l3', 3000, 15, 'Kabir', {})]
     dump(os.path.join(out, 'games-hub.json'), s)
+    u = copy.deepcopy(s)
+    u['_about'] = 'As games-hub, with class c1 switches { "games.unlockAll": true } (AC-255, D-78).'
+    for d in u['databases']['class-c1']:
+        if d['type'] == 'class':
+            d['switches'] = {'games.unlockAll': True}
+    dump(os.path.join(out, 'games-hub-unlockall.json'), u)
 
 
 def build_seeds():

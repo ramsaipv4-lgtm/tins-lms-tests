@@ -1,5 +1,5 @@
 // AC-253 How to play (SPEC §13.3 "Title and how to play"): the title screen's howto lists one entry per action the
-// learner uses while playing (howto-<n>), each with its keys as key caps (data-keys) and one plain sentence, and a demo
+// learner uses while playing (howto-<n>, including pause with P and Escape), each with its keys as key caps (data-keys) and one plain sentence, and a demo
 // canvas (howto-demo-<n>) that changes frames on its own with no input; the title has act-start, act-back and
 // act-fullscreen. Checked for Syntax Drop in strike mode (sd-strike: strike with a digit key, power-up E) and in fill
 // mode (sd-fill: left ←/A, right →/D, drop ↓/S/Space, power-up E), keys from §13.7.1. Real-time clock (no
@@ -27,18 +27,19 @@ for (const [mode, packId] of [['strike', 'sd-strike'], ['fill', 'sd-fill']]) {
       const entries = howto.locator('[data-testid^="howto-"]:not([data-testid^="howto-demo-"])');
       const n = await entries.count();
       assert.ok(n >= Object.keys(NEEDS[mode]).length, `at least one entry per playing action (${n})`);
-      const all = [];
+      const all = []; const perEntry = [];
       for (let i = 0; i < n; i++) {
         const e = entries.nth(i);
         const id = await e.getAttribute('data-testid');
         const k = keysOf(await e.getAttribute('data-keys'));
         assert.ok(k.length >= 1, `${id} shows its keys (data-keys)`);
-        all.push(...k);
+        all.push(...k); perEntry.push(k);
         assert.equal(await howto.getByTestId(id.replace(/^howto-/, 'howto-demo-')).count(), 1, `${id} has its demo next to it`);
         const text = (await e.innerText()).trim();
         assert.match(text, /[.!?]/, `${id} has a plain sentence saying what it does`);
       }
       for (const [action, re] of Object.entries(NEEDS[mode])) assert.ok(all.some((k) => re.test(k)), `how to play covers ${action} (keys ${all.join(' ')})`);
+      assert.ok(perEntry.some((k) => k.some((x) => /^p$/i.test(x)) && k.some((x) => /^(escape|esc)$/i.test(x))), `how to play has a pause line with keys P and Escape (entries: ${JSON.stringify(perEntry)})`);
       const demos = howto.locator('[data-testid^="howto-demo-"]');
       assert.ok(await demos.count() >= 1, 'demo canvases');
       for (let i = 0; i < await demos.count(); i++) {

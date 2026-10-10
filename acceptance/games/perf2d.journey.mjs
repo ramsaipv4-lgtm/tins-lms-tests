@@ -3,9 +3,10 @@
 // sample pack (games contract Appendix G-D), reports frameP50 <= 20 ms and frameP95 <= 34 ms from __game.stats().
 // Raid joins with its own contract. Claimed by the last first-wave game to merge (D-G24); each game task runs its part.
 // data-testids used: app-ready*, game-canvas
-// Seeds: games-base, games-samples (D-G18 samplePacks), games-sniper-rank (unlocks the boss-recursion boss level).
+// Seeds: games-base, games-samples (D-G18 samplePacks), games-sniper-rank (unlocks the boss-recursion boss level); the
+// wins of every level before the last are written to l1's database first (seedWins), because levels open in order (D-78).
 import { assert, step } from '../journeys/_harness.mjs';
-import { gamesJourney, openGame, keepBusy, samplePack, G, tid, see } from '../lib/games.mjs';
+import { gamesJourney, openGame, keepBusy, samplePack, seedWins, G, tid, see } from '../lib/games.mjs';
 import { at, P } from '../journeys/_harness.mjs';
 
 const RUNS = [
@@ -23,6 +24,7 @@ for (const r of RUNS) {
       const pack = samplePack(r.gameId, r.packId);
       const lvl = pack.levels[pack.levels.length - 1];
       const page = await j.actor('learner', P.l1);
+      await seedWins(j, page, 'l1', r.gameId, r.packId, pack.levels.slice(0, -1).map((l) => l.id)); // D-78: open the last level
       const g = await openGame(j, page, { gameId: r.gameId, packId: r.packId, levelId: lvl.id, manual: false });
       await see(tid(page, 'game-canvas'), 'game-canvas');
       await g.act('start');

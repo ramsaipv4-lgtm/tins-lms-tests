@@ -1,0 +1,143 @@
+{
+  "$comment": "Suite fixture for the hub (AC-247, AC-249): three short strike levels, so the game page shows a level path.",
+  "game": "syntax-drop",
+  "id": "sd-path",
+  "title": "Heading path (suite)",
+  "day": 0,
+  "concepts": [
+    "html.headings",
+    "html.text-size"
+  ],
+  "language": "en",
+  "levels": [
+    {
+      "id": "1",
+      "title": "First steps",
+      "lesson": [
+        {
+          "concept": "html.headings",
+          "text": "<h1> is the biggest heading; there is no <h7>."
+        }
+      ],
+      "mode": "strike",
+      "renderer": "html",
+      "template": "<h1>Big</h1>\n<h2>Medium</h2>\n<p><small>tiny</small></p>",
+      "slots": [],
+      "pieces": [
+        {
+          "id": "p-h1",
+          "text": "<h1>",
+          "key": "1",
+          "concept": "html.headings"
+        },
+        {
+          "id": "p-h2",
+          "text": "<h2>",
+          "key": "2",
+          "concept": "html.headings"
+        },
+        {
+          "id": "p-small",
+          "text": "<small>",
+          "key": "3",
+          "concept": "html.text-size"
+        },
+        {
+          "id": "p-h7",
+          "text": "<h7>",
+          "key": "4",
+          "concept": "html.headings",
+          "decoy": true
+        }
+      ],
+      "stages": 1,
+      "piecesPerStage": 4
+    },
+    {
+      "id": "2",
+      "title": "Faster",
+      "lesson": [
+        {
+          "concept": "html.headings",
+          "text": "<h1> is the biggest heading; there is no <h7>."
+        }
+      ],
+      "mode": "strike",
+      "renderer": "html",
+      "template": "<h1>Big</h1>\n<h2>Medium</h2>\n<p><small>tiny</small></p>",
+      "slots": [],
+      "pieces": [
+        {
+          "id": "p-h1",
+          "text": "<h1>",
+          "key": "1",
+          "concept": "html.headings"
+        },
+        {
+          "id": "p-h2",
+          "text": "<h2>",
+          "key": "2",
+          "concept": "html.headings"
+        },
+        {
+          "id": "p-small",
+          "text": "<small>",
+          "key": "3",
+          "concept": "html.text-size"
+        },
+        {
+          "id": "p-h7",
+          "text": "<h7>",
+          "key": "4",
+          "concept": "html.headings",
+          "decoy": true
+        }
+      ],
+      "stages": 1,
+      "piecesPerStage": 4
+    },
+    {
+      "id": "3",
+      "title": "Fastest",
+      "lesson": [
+        {
+          "concept": "html.headings",
+          "text": "<h1> is the biggest heading; there is no <h7>."
+        }
+      ],
+      "mode": "strike",
+      "renderer": "html",
+      "template": "<h1>Big</h1>\n<h2>Medium</h2>\n<p><small>tiny</small></p>",
+      "slots": [],
+      "pieces": [
+        {
+          "id": "p-h1",
+          "text": "<h1>",
+          "key": "1",
+          "concept": "html.headings"
+        },
+        {
+          "id": "p-h2",
+          "text": "<h2>",
+          "key": "2",
+          "concept": "html.headings"
+        },
+        {
+          "id": "p-small",
+          "text": "<small>",
+          "key": "3",
+          "concept": "html.text-size"
+        },
+        {
+          "id": "p-h7",
+          "text": "<h7>",
+          "key": "4",
+          "concept": "html.headings",
+          "decoy": true
+        }
+      ],
+      "stages": 1,
+      "piecesPerStage": 4
+    }
+  ]
+}

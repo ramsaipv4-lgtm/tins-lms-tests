@@ -259,11 +259,32 @@ export async function keepBusy(j, page, { gameId, packId, levelId, lvl, ms }) {
   return { restarts };
 }
 
+// ---------- hub (SPEC §13.3 "The hub", D-70) ----------
+
+/** IST time on class day d of a class that starts Mon 2 Nov 2026 (any number of days, e.g. the 12-day games-hub class). */
+export const dayAt = (d, hm = '10:00') => Date.parse(`${new Date(Date.UTC(2026, 10, 2 + d)).toISOString().slice(0, 10)}T${hm}:00+05:30`);
+/** Hub pages: nav test id suffix -> route (SPEC §13.3 Routes). */
+export const HUB_PAGES = { home: '/learn/games', avatar: '/learn/games/avatar', inventory: '/learn/games/inventory', team: '/learn/games/team', story: '/learn/games/story', settings: '/learn/games/settings' };
+/** Init script: records Fullscreen API calls (headless Chromium may not enter real full screen). */
+export const FULLSCREEN_RECORDER = () => {
+  window.__fs = { requests: 0, exits: 0, targets: [] };
+  for (const name of ['requestFullscreen', 'webkitRequestFullscreen']) {
+    const orig = Element.prototype[name];
+    if (!orig) continue;
+    Element.prototype[name] = function (...a) { window.__fs.requests++; window.__fs.targets.push(this.getAttribute?.('data-testid') || this.tagName); try { return orig.apply(this, a); } catch (e) { return Promise.resolve(); } };
+  }
+  for (const name of ['exitFullscreen', 'webkitExitFullscreen']) {
+    const orig = Document.prototype[name];
+    if (!orig) continue;
+    Document.prototype[name] = function (...a) { window.__fs.exits++; try { return orig.apply(this, a); } catch (e) { return Promise.resolve(); } };
+  }
+};
+
 // ---------- input layer ----------
 
 const DIGIT = (n) => `Digit${n}`;
 const KEYS = {
-  common: { start: 'Enter', pause: 'p', resume: 'p', continue: 'Enter', quit: 'q', assist: 'h', next: 'n', skip: 'f', replay: 'l' },
+  common: { start: 'Enter', pause: 'p', resume: 'p', continue: 'Enter', quit: 'q', retry: 'r', back: 'Backspace', fullscreen: 'g', assist: 'h', next: 'n', skip: 'f', previous: 'b', autoplay: 'a', replay: 'l' },
   'syntax-drop': { left: 'ArrowLeft', right: 'ArrowRight', drop: 'ArrowDown', strike: (k) => DIGIT(k), power: 'e', calibrate: 'c', tap: 't', offset: (ms) => (ms < 0 ? 'Minus' : 'Equal') },
   sniper: { 'target-prev': 'z', 'target-next': 'c', nudge: ({ dx = 0, dy = 0 }) => (dx < 0 ? 'ArrowLeft' : dx > 0 ? 'ArrowRight' : dy < 0 ? 'ArrowUp' : 'ArrowDown'), breathe: 'Shift', binoculars: 'b', fire: 'Space' },
   'whack-a-bug': { whack: (line) => DIGIT(line), charge: (line) => DIGIT(line), undo: 'u', xray: 'v' },
